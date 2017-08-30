@@ -45,7 +45,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4647222718345740
 Transform:
   m_ObjectHideFlags: 1
@@ -135,6 +135,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459bb7a2b38e90445895c07e247a85a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_BuildingTextAsset: {fileID: 4900000, guid: 6989c7e634e863e49a79af4d3a0dd0d2, type: 3}
+  m_BuidingData:
+    objectId: 
+    objectName: 
+    objectModel: 
+    objectDescription: 
+    objectTypes: []
+    objectLevel: 0
+    currentHealth: 0
+    maxHealth: 0
+    buildingJobs: []
   m_RedrawCollider: {fileID: 114375285807604452}
   m_RedrawSprite: {fileID: 114798708370916106}
   m_DelayTime: 0.1
@@ -172,12 +183,27 @@ MonoBehaviour:
   m_Root: {fileID: 4880872538226388}
   m_ReTexture: {fileID: 0}
   m_ReSprite: {fileID: 0}
-  m_SpritePercent: 1
   OnRedrawed:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114375285807604452}
         m_MethodName: RedrawCollider
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnAllBlank:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114375285807604452}
+        m_MethodName: DisableCollider
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

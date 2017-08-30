@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(PolygonCollider2D))]
 public class RedrawableCollider : MonoBehaviour {
 
 	#region Fields
@@ -26,17 +27,16 @@ public class RedrawableCollider : MonoBehaviour {
 
 	public virtual void OnCollisionEnter2D(Collision2D col) {
 		var contactPoints = col.contacts;
-		for (int i = 0; i < contactPoints.Length; i++) {
-			var pointContact = contactPoints [i];
-			var layer = contactPoints [i].collider.gameObject.layer;
-			if (this.m_LayerTrigger == (this.m_LayerTrigger | (1 << layer))) {
-				// CALL BACK TRIGGER
-				if (this.OnEventColliderEnter != null) {
-					this.OnEventColliderEnter.Invoke();
-				}
-				if (this.OnEventColliderObject != null) {
-					this.OnEventColliderObject (pointContact.point, pointContact.collider.gameObject);
-				}
+        var i = 0;
+		var pointContact = contactPoints [i];
+		var layer = contactPoints [i].collider.gameObject.layer;
+		if (this.m_LayerTrigger == (this.m_LayerTrigger | (1 << layer))) {
+			// CALL BACK TRIGGER
+			if (this.OnEventColliderEnter != null) {
+				this.OnEventColliderEnter.Invoke();
+			}
+			if (this.OnEventColliderObject != null) {
+				this.OnEventColliderObject (pointContact.point, pointContact.collider.gameObject);
 			}
 		}
 	}
@@ -68,7 +68,14 @@ public class RedrawableCollider : MonoBehaviour {
 	public virtual void RedrawCollider() {
 		Destroy(this.m_PolygonCollider);
 		this.m_PolygonCollider = this.gameObject.AddComponent<PolygonCollider2D> ();
-	}
+
+    }
+
+    public virtual void DisableCollider() {
+        if (this.m_PolygonCollider != null) {
+            this.m_PolygonCollider.enabled = false;
+        }
+    }
 
 	#endregion
 

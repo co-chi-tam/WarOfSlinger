@@ -14,17 +14,15 @@ public class RedrawableSprite : MonoBehaviour {
     [Header("Repaint texture")]
     [SerializeField]    protected Texture2D m_ReTexture;
     [SerializeField]    protected Sprite m_ReSprite;
-	[SerializeField]	protected float m_SpritePercent = 1f;
 
 	[Header ("Events")]
 	public UnityEvent OnRedrawed;
+    public UnityEvent OnAllBlank;
 
     protected Sprite m_CurrentSprite;
     protected SpriteRenderer m_SpriteRenderer;
     protected Texture2D m_CurrentTexture;
 	protected Transform m_Transform;
-	// CALCULATE PERCENT CONTAIN
-	protected float m_PixelUpdate = 1f;
 
     #endregion
 
@@ -46,13 +44,12 @@ public class RedrawableSprite : MonoBehaviour {
                                                                     (int)usedRect.height));
         this.m_ReTexture.Apply();
         // LOAD NEW SPRITE
-        this.m_ReSprite         = Sprite.Create (this.m_ReTexture, 
-                                                                    new Rect(0f, 0f, usedRect.width, usedRect.height), 
+        this.m_ReSprite         = Sprite.Create (this.m_ReTexture,  new Rect(0f, 0f, usedRect.width, usedRect.height), 
                                                                     new Vector2(0.5f, 0.5f), 
                                                                     this.m_CurrentSprite.pixelsPerUnit);
         this.m_SpriteRenderer.sprite = this.m_ReSprite;
-		// TRANSFORM
-		this.m_Transform = this.transform;
+       // TRANSFORM
+       this.m_Transform = this.transform;
     }
 
     #endregion
@@ -69,10 +66,8 @@ public class RedrawableSprite : MonoBehaviour {
 		var maxX 		= parentPosition.x + extendRect.x + this.m_Transform.localPosition.x;
 		// Y in world space
 		var minY 		= parentPosition.y - extendRect.y + this.m_Transform.localPosition.y;			
-		var maxY 		= parentPosition.y + extendRect.y + this.m_Transform.localPosition.y;	
+		var maxY 		= parentPosition.y + extendRect.y + this.m_Transform.localPosition.y;
 		// SAMPLE X && Y
-//		wX 				= wX > maxX ? maxX : wX;
-//		wY 				= wY > maxY ? maxY : wY;
 		var worldX 		= maxX - minX;
 		var tmpX 		= wX - minX;
 		var worldY 		= maxY - minY;
@@ -85,51 +80,41 @@ public class RedrawableSprite : MonoBehaviour {
 	// SET ALPHA
 	public virtual void TransparentCircle(Texture2D tex, int cx, int cy, int r)
     {
-		// PARAMS
-        int x, y, px, nx, py, ny, d;
-		// GET PIXELS
-        var tempArray = tex.GetPixels32();
-		// COUNT PIXEL UPDATE
-		var countPixelUpdate = 0;
-		// UPDATE TEXTURE
-        for (x = 0; x <= r; x++)
-        {
-            d = (int)Mathf.Ceil(Mathf.Sqrt(r * r - x * x));
-            for (y = 0; y <= d; y++)
-            {
-                px = cx + x;
-                nx = cx - x;
-                py = cy + y;
-                ny = cy - y;
-				// UPDATE COLOR ARRAY
-				var temp1 = py * tex.width + px;
-				if (temp1 < tempArray.Length && temp1 > 0) {
-					tempArray [py * tex.width + px].a = 0;
-				}
-				var temp2 = py * tex.width + nx;
-				if (temp2 < tempArray.Length && temp2 > 0) {
-					tempArray[py * tex.width + nx].a = 0;
-				}
-				var temp3 = ny * tex.width + px;
-				if (temp3 < tempArray.Length && temp3 > 0) {
-					tempArray[ny * tex.width + px].a = 0;
-				}
-				var temp4 = ny * tex.width + nx;
-				if (temp4 < tempArray.Length && temp4 > 0) {
-					tempArray[ny * tex.width + nx].a = 0;
-				}
+        var width = tex.width;
+        var height = tex.height;
+        var tempArray = tex.GetPixels();
+        var minX = cx - r < 0 ? 0 : cx - r;
+        var maxX = cx + r > width ? width : cx + r;
+        var minY = cy - r < 0 ? 0 : cy - r;
+        var maxY = cy + r > height ? height : cy + r;
+        for (int x = minX; x < maxX; x++) {
+            for (int y = minY; y < maxY; y++) {
+                var dx = x - cx;
+                var dy = y - cy;
+                var dist = Mathf.Sqrt(dx * dx + dy * dy);
+                if (dist < r) {
+                    var color = tex.GetPixel(x, y);
+                    color.a = 0;
+                    tex.SetPixel(x, y, color);
+                }
             }
         }
-		// APPLY TEXTURE
-        tex.SetPixels32(tempArray);
         tex.Apply();
-		// UPDATE PERCENT
-		var currentPixelUpdated = (float)countPixelUpdate / tempArray.Length;
-		this.m_SpritePercent -= currentPixelUpdated;
-		// INVOKE EVENTS
-		if (this.OnRedrawed != null) {
+        // COUNT PIXEL UPDATE
+        var isPlank = false;
+        for (int i = 0; i < tempArray.Length; i++) {
+            isPlank |= tempArray[i].a != 0;
+        }
+        // INVOKE EVENTS
+        if (this.OnRedrawed != null) {
 			this.OnRedrawed.Invoke ();
-		}
+        }
+        // INVOKE EVENTS
+        if (isPlank == false) { 
+            if (this.OnAllBlank != null) {
+                this.OnAllBlank.Invoke();
+            }
+        }
     }
 
     #endregion

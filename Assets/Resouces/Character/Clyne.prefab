@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4082190971121194}
+  - component: {fileID: 114170586571055786}
   m_Layer: 0
   m_Name: Clyne
   m_TagString: Untagged
@@ -65,7 +66,7 @@ Transform:
   m_GameObject: {fileID: 1389793535332910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.117, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4082190971121194}
   m_RootOrder: 0
@@ -87,6 +88,30 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114170586571055786
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1364716700010626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1241e2a1e7dfeed42bdd5572b1d3761d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TextAsset: {fileID: 4900000, guid: bec9d51d85098f545a057161705802cc, type: 3}
+  m_CharacterData:
+    objectId: 3dbaebea-d5d9-4dbf-ba8f-170af2972649
+    objectName: 
+    objectModel: 
+    objectDescription: 
+    objectTypes: []
+    objectLevel: 0
+    currentHealth: 0
+    maxHealth: 0
+    damageCharacter: 0
+    damageConstruction: 0
+    actionSpeed: 0
 --- !u!212 &212858271196767966
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -118,7 +143,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: b59feb75a2deeae4da4f44c779ae65d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
