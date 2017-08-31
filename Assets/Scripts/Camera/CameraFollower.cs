@@ -12,6 +12,11 @@ public class CameraFollower : MonoBehaviour {
 
     protected Transform m_Transform;
 
+	public Transform FollowTransform {
+		get { return this.m_FollowTransform; }
+		set { this.m_FollowTransform = value; }
+	}
+
     public bool IsFollowing {
         get { return this.m_IsFollowing; }
         set { this.m_IsFollowing = value; }

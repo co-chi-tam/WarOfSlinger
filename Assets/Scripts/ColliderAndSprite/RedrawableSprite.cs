@@ -14,6 +14,7 @@ public class RedrawableSprite : MonoBehaviour {
     [Header("Repaint texture")]
     [SerializeField]    protected Texture2D m_ReTexture;
     [SerializeField]    protected Sprite m_ReSprite;
+    [SerializeField]    protected List<Vector2> m_RedrawList;
 
 	[Header ("Events")]
 	public UnityEvent OnRedrawed;
@@ -48,8 +49,10 @@ public class RedrawableSprite : MonoBehaviour {
                                                                     new Vector2(0.5f, 0.5f), 
                                                                     this.m_CurrentSprite.pixelsPerUnit);
         this.m_SpriteRenderer.sprite = this.m_ReSprite;
-       // TRANSFORM
-       this.m_Transform = this.transform;
+        // SAVE LIST
+        this.m_RedrawList = new List<Vector2>();
+        // TRANSFORM
+        this.m_Transform = this.transform;
     }
 
     #endregion
@@ -73,26 +76,31 @@ public class RedrawableSprite : MonoBehaviour {
 		var worldY 		= maxY - minY;
 		var tmpY 		= wY - minY;
 		var texturePointX = (tmpX / worldX) * usedRect.width;
-		var texturePointY = (tmpY / worldY) * usedRect.height; 
-		this.TransparentCircle (this.m_ReTexture, (int)texturePointX, (int)texturePointY, radius);
+		var texturePointY = (tmpY / worldY) * usedRect.height;
+        // SAVE POINT
+        var newPoint = new Vector2(texturePointX, texturePointY);
+        if (this.m_RedrawList.Contains (newPoint) == false) {
+            this.m_RedrawList.Add(newPoint);
+        }
+        this.TransparentCircle (this.m_ReTexture, (int)texturePointX, (int)texturePointY, radius);
 	}
 
 	// SET ALPHA
-	public virtual void TransparentCircle(Texture2D tex, int cx, int cy, int r)
+	public virtual void TransparentCircle(Texture2D tex, int cx, int cy, int rd)
     {
         var width = tex.width;
         var height = tex.height;
         var tempArray = tex.GetPixels();
-        var minX = cx - r < 0 ? 0 : cx - r;
-        var maxX = cx + r > width ? width : cx + r;
-        var minY = cy - r < 0 ? 0 : cy - r;
-        var maxY = cy + r > height ? height : cy + r;
+        var minX = cx - rd < 0 ? 0 : cx - rd;
+        var maxX = cx + rd > width ? width : cx + rd;
+        var minY = cy - rd < 0 ? 0 : cy - rd;
+        var maxY = cy + rd > height ? height : cy + rd;
         for (int x = minX; x < maxX; x++) {
             for (int y = minY; y < maxY; y++) {
                 var dx = x - cx;
                 var dy = y - cy;
                 var dist = Mathf.Sqrt(dx * dx + dy * dy);
-                if (dist < r) {
+                if (dist < rd) {
                     var color = tex.GetPixel(x, y);
                     color.a = 0;
                     tex.SetPixel(x, y, color);
