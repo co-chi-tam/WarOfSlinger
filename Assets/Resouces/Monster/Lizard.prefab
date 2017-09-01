@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212988764789256768}
   - component: {fileID: 95875762045260368}
   - component: {fileID: 60808788468519402}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LizardSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,8 +37,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4850740199654220}
-  - component: {fileID: 70016388657495760}
   - component: {fileID: 50501988044481516}
+  - component: {fileID: 58761527976113084}
   m_Layer: 9
   m_Name: AttackPoint
   m_TagString: Untagged
@@ -55,7 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4942903665805746}
   - component: {fileID: 82694035908463734}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lizard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,6 +123,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 3
+--- !u!58 &58761527976113084
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404982206987394}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.13
 --- !u!60 &60808788468519402
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -156,21 +171,6 @@ PolygonCollider2D:
       - {x: 0.1125, y: -0.0475}
       - {x: 0.1125, y: 0.0525}
       - {x: 0.0775, y: 0.0875}
---- !u!70 &70016388657495760
-CapsuleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1404982206987394}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.3, y: 0.15}
-  m_Direction: 1
 --- !u!82 &82694035908463734
 AudioSource:
   m_ObjectHideFlags: 1

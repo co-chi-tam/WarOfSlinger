@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4668577279545810}
   - component: {fileID: 61146249720299234}
-  m_Layer: 31
+  m_Layer: 28
   m_Name: GroundCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4017060523814162}
   - component: {fileID: 212738816496748520}
   - component: {fileID: 61309341198096232}
-  m_Layer: 31
+  m_Layer: 29
   m_Name: ForestBackgound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1651629087977438}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 7.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4297134273472808}
@@ -219,5 +219,3 @@ SpriteRenderer:
   m_Size: {x: 15, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0

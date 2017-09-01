@@ -13,8 +13,9 @@ TagManager:
   - UI
   - 
   - 
-  - Hourse
+  - Building
   - DamageObject
+  - Resident
   - 
   - 
   - 
@@ -34,8 +35,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Object
   - Obstacle
   m_SortingLayers:
   - name: Default

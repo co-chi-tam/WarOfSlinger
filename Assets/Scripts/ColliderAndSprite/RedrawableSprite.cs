@@ -38,14 +38,14 @@ public class RedrawableSprite : MonoBehaviour {
         this.m_CurrentTexture   = this.m_CurrentSprite.texture;
         // LOAD NEW TEXTURE
         var usedRect            = this.m_CurrentSprite.textureRect;
-        this.m_ReTexture        = new Texture2D((int)usedRect.width, (int)usedRect.height);
-        this.m_ReTexture.SetPixels(this.m_CurrentTexture.GetPixels((int) usedRect.x, 
+		this.m_ReTexture        = new Texture2D((int)usedRect.width, (int)usedRect.height, TextureFormat.ARGB32, false);
+        this.m_ReTexture.SetPixels(this.m_CurrentTexture.GetPixels( (int)usedRect.x, 
                                                                     (int)usedRect.y, 
-                                                                    (int)usedRect.width, 
-                                                                    (int)usedRect.height));
+																	this.m_ReTexture.width, 
+																	this.m_ReTexture.height ));
         this.m_ReTexture.Apply();
         // LOAD NEW SPRITE
-        this.m_ReSprite         = Sprite.Create (this.m_ReTexture,  new Rect(0f, 0f, usedRect.width, usedRect.height), 
+		this.m_ReSprite         = Sprite.Create (this.m_ReTexture,  new Rect(0f, 0f, this.m_ReTexture.width, this.m_ReTexture.height), 
                                                                     new Vector2(0.5f, 0.5f), 
                                                                     this.m_CurrentSprite.pixelsPerUnit);
         this.m_SpriteRenderer.sprite = this.m_ReSprite;

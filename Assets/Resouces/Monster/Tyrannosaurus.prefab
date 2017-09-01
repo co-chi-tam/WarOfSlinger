@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212490525131063226}
   - component: {fileID: 95486183400345618}
   - component: {fileID: 60117253773395942}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TyrannosaurusSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4982084003553998}
   - component: {fileID: 82595327347233892}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tyrannosaurus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1698231108223866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.23, y: 0, z: 0}
+  m_LocalPosition: {x: -0.431, y: -0.067, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4473634598538738}
