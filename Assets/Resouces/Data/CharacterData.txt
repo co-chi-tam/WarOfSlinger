@@ -8,5 +8,6 @@
 	"maxHealth": 100,
 	"damageCharacter": 10,
 	"damageConstruction": 20,
-	"actionSpeed": 1.0
+	"actionSpeed": 1.0,
+	"objectJobs": []
 }

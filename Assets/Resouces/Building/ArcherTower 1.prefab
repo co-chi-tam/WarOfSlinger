@@ -30,6 +30,51 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1141761016510946
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4432954446696908}
+  m_Layer: 8
+  m_Name: NPCPoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1389866869116226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4329557888522574}
+  m_Layer: 0
+  m_Name: UIJobShowPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1618103420362372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4669291337577904}
+  m_Layer: 8
+  m_Name: Points
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1636086872854108
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,6 +91,46 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4329557888522574
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1389866869116226}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4708127810296760}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4432954446696908
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1141761016510946}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.127, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4669291337577904}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4669291337577904
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1618103420362372}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4432954446696908}
+  m_Father: {fileID: 4708127810296760}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4708127810296760
 Transform:
   m_ObjectHideFlags: 1
@@ -57,6 +142,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4780857274381206}
+  - {fileID: 4669291337577904}
+  - {fileID: 4329557888522574}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -194,6 +281,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459bb7a2b38e90445895c07e247a85a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_UIJobPoint: {fileID: 1389866869116226}
+  m_Animator: {fileID: 0}
+  m_RedrawCollider: {fileID: 114380917236371012}
+  m_RedrawSprite: {fileID: 114484643095901648}
+  m_DelayTime: 0.1
+  m_CountDownActiveTime: 1
   m_BuildingTextAsset: {fileID: 4900000, guid: 6989c7e634e863e49a79af4d3a0dd0d2, type: 3}
   m_BuidingData:
     objectId: 
@@ -205,10 +298,8 @@ MonoBehaviour:
     currentHealth: 0
     maxHealth: 0
     buildingJobs: []
-  m_RedrawCollider: {fileID: 114380917236371012}
-  m_RedrawSprite: {fileID: 114484643095901648}
-  m_DelayTime: 0.1
-  m_CountDownActiveTime: 1
+  m_FSMTextAsset: {fileID: 4900000, guid: bbd136d8d9576b2438c7a96bdde3bc48, type: 3}
+  m_FSMStateName: 
 --- !u!212 &212258829874912912
 SpriteRenderer:
   m_ObjectHideFlags: 1

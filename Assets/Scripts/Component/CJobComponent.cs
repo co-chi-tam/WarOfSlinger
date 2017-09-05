@@ -9,35 +9,39 @@ namespace WarOfSlinger {
 
         #region Fields
 
-        protected List<CJobRemain> m_JobRemains;
-        protected Dictionary<string, Action<IJobOwner, string[]>> m_JobMap;
-
-        public Action<CJobRemain> OnJobActive;
-
-        #endregion
-
-        #region Internal class
-
-        public class CJobRemain : CJobObjectData {
-            public float jobUpdateTimer;
-            public IJobOwner jobOwner;
-
-            public CJobRemain(): base() {
-                this.jobUpdateTimer = 0f;
-            }
-        }
+		protected IJobOwner m_Owner;
+		protected List<CRemainJob> m_JobRemains;
+		protected Dictionary<string, Action<IJobOwner, CRemainJob>> m_JobMap;
 
         #endregion
 
         #region Constructor
 
-        public CJobComponent() : base () {
-            this.m_JobRemains   = new List<CJobRemain>();
-            this.m_JobMap       = new Dictionary<string, Action<IJobOwner, string[]>>();
-            this.m_JobMap.Add("GoldPerResident", this.GoldPerResident);
+		public CJobComponent(IJobOwner owner) : base () {
+			this.m_Owner 		= owner;
+			this.m_JobRemains   = new List<CRemainJob>();
+			this.m_JobMap       = new Dictionary<string, Action<IJobOwner, CRemainJob>>();
+			this.m_JobMap.Add("GoldPerResident", 	this.GoldPerResident);
+			this.m_JobMap.Add("Command", 			this.Command);
         }
 
         #endregion
+
+		#region Internal class
+
+		public class CRemainJob: CJobObjectData {
+
+			public Action OnJobCompleted;
+			public Action<float> OnJobProcessing;
+
+			public CRemainJob ()
+			{
+				
+			}
+
+		}
+
+		#endregion
 
         #region Implementation Component
 
@@ -57,16 +61,21 @@ namespace WarOfSlinger {
         #region Job Main methods
 
         // REGISTER NEW JOB
-        public virtual void RegisterJobs(IJobOwner owner, CJobObjectData value) {
+		public virtual void RegisterJobs(IJobOwner owner, CJobObjectData value, Action onCompleted, Action<float> onProcessing) {
             // NEW JOB
-            var newJob              = new CJobRemain();
-            newJob.jobName          = value.jobName;
+			var newJob              = new CRemainJob();
+            newJob.jobDisplayName	= value.jobDisplayName;
+			newJob.jobAvatar 		= value.jobAvatar;
+			newJob.jobExcute 		= value.jobExcute;
             newJob.jobDescription   = value.jobDescription;
             newJob.jobValues        = new string[value.jobValues.Length];
             Array.Copy(value.jobValues, newJob.jobValues, value.jobValues.Length);
             newJob.jobTimer         = value.jobTimer;
-            newJob.jobUpdateTimer   = value.jobTimer;
+			newJob.jobCountdownTimer = value.jobTimer;
+			newJob.jobType 			= value.jobType;
             newJob.jobOwner         = owner;
+			newJob.OnJobCompleted 	= onCompleted;
+			newJob.OnJobProcessing 	= onProcessing;
             // ADD JOB
             this.m_JobRemains.Add(newJob);
         }
@@ -77,15 +86,17 @@ namespace WarOfSlinger {
                 // CURRENT JOB
                 var currentJob = this.m_JobRemains[i];
                 // COUNT DOWN TIMER
-                if (currentJob.jobUpdateTimer > 0f) {
-                    currentJob.jobUpdateTimer -= dt;
+                if (currentJob.jobCountdownTimer > 0f) {
+                    currentJob.jobCountdownTimer -= dt;
+					if (currentJob.OnJobProcessing != null) {
+						currentJob.OnJobProcessing (currentJob.jobCountdownTimer / currentJob.jobTimer);
+					}
                 }
-                // EXCUTE JOB DATA
                 else {
-                    // EXCUTE JOB
-                    this.ExcuteJob(currentJob);
-                    // UPDATE JOB TIMER
-                    currentJob.jobUpdateTimer = currentJob.jobTimer;
+					if (currentJob.jobType == (int)CJobObjectData.EJobType.PassiveJob) {
+						// EXCUTE JOB
+						this.ExcuteActiveJob(currentJob);
+					} 
                 }
             }
         }
@@ -94,7 +105,7 @@ namespace WarOfSlinger {
         public virtual void UnregisterJobs(CJobObjectData value) {
             for (int i = 0; i < this.m_JobRemains.Count; i++) {
                 var currentJob = this.m_JobRemains[i];
-                if (currentJob.jobName == value.jobName) {
+				if (currentJob.jobExcute == value.jobExcute) {
                     this.m_JobRemains.Remove(currentJob);
                     i--;
                 }
@@ -102,23 +113,67 @@ namespace WarOfSlinger {
         }
 
         // EXCUTE JOB
-        public virtual void ExcuteJob(CJobRemain value) {
-            if (this.m_JobMap.ContainsKey(value.jobName) == false)
+		public virtual void ExcuteActiveJob(CRemainJob currentJob) {
+			if (this.m_JobMap.ContainsKey(currentJob.jobExcute) == false)
                 return;
+			if (currentJob.jobCountdownTimer > 0f)
+				return;
+			// UPDATE JOB TIMER
+			currentJob.jobCountdownTimer = currentJob.jobTimer;
             // CALLBACK JOB
-            this.m_JobMap[value.jobName](value.jobOwner, value.jobValues);
-            // CALLBACK EVENT
-            if (this.OnJobActive != null) {
-                this.OnJobActive(value);
-            }
+			this.m_JobMap[currentJob.jobExcute](currentJob.jobOwner, currentJob);
         }
 
+		// EXCUTE JOB
+		public virtual void ExcuteActiveJob(IJobOwner owner, string jobName) {
+			CRemainJob currentJob = null;
+			for (int i = 0; i < this.m_JobRemains.Count; i++) {
+				if (this.m_JobRemains[i].jobExcute == jobName 
+					&& this.m_JobRemains[i].jobType == (int) CJobObjectData.EJobType.ActiveJob) {
+					currentJob = this.m_JobRemains[i];
+					break;
+				}
+			}
+			if (currentJob == null)
+				return;
+			if (this.m_JobMap.ContainsKey(currentJob.jobExcute) == false)
+				return;
+			if (currentJob.jobCountdownTimer > 0f)
+				return;
+			// UPDATE JOB TIMER
+			currentJob.jobCountdownTimer = currentJob.jobTimer;
+			// CALLBACK JOB
+			this.m_JobMap[currentJob.jobExcute](owner, currentJob);
+		}
+
         // GOLD PER RESIDENT JOB
-        protected virtual void GoldPerResident(IJobOwner owner, string[] values) {
-            var claimedGold = int.Parse (values[0]);
-            var perResident = int.Parse (values[1]);
-            var buildingOwner = owner as IBuildingJobOwner;
+		protected virtual void GoldPerResident(IJobOwner owner, CRemainJob currentJob) {
+			var buildingOwner 	= owner as IBuildingJobOwner;
+			var values 			= currentJob.jobValues;
+            var claimedGold 	= int.Parse (values[0]);
+            var perResident 	= int.Parse (values[1]);
+			if (currentJob.OnJobCompleted != null) {
+				currentJob.OnJobCompleted ();
+			}
+			Debug.Log (claimedGold + " / " + perResident);
         }
+
+		// MOVE TO
+		protected virtual void Command(IJobOwner owner, CRemainJob currentJob) {
+			var values 			= currentJob.jobValues;
+			var targetMethod	= values [0].ToString ();
+			var controlMethod	= values [1].ToString ();
+			var value01Method	= values [2].ToString ();
+			switch (controlMethod) {
+			case "moveTo":
+				var targetController = GameObject.Find ("Character 1").GetComponent<CCharacterController>();
+				var position = value01Method == "thisPosition" ? owner.GetPosition() : Vector3.zero;
+				targetController.targetPosition = position;
+				break;
+			default:
+				break;
+			}
+		}
 
         #endregion
 

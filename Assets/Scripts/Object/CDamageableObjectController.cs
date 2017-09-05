@@ -15,7 +15,7 @@ namespace WarOfSlinger {
 
 		protected float m_Delay = 0.1f;
 		protected float m_CountDownActive = 1f;
-		protected bool m_BuildingActive = false;
+		protected bool m_DamageActive = true;
 
 		protected override void Awake() {
 			base.Awake();
@@ -35,15 +35,17 @@ namespace WarOfSlinger {
 				this.m_CountDownActive -= Time.deltaTime;
 			}
 			// UPDATE BUILDING ACTIVE
-			this.m_BuildingActive = this.m_Delay < 0f && this.m_CountDownActive < 0f;
+			this.m_DamageActive = this.m_Delay < 0f && this.m_CountDownActive < 0f;
 		}
 
 		protected virtual void OnBuildingCollider(Vector2 point, GameObject obj) {
 			// BUILDING ACTIVED
-			if (this.m_BuildingActive == false)
+			if (this.m_DamageActive == false)
 				return;
-			// TEST
-			this.m_RedrawSprite.Draw(point.x, point.y, 30);
+			// CIRCLE COLLIDER
+			var circleCollider = obj.GetComponent<Collider2D> () as CircleCollider2D;
+			var radius = circleCollider != null ? (int)(circleCollider.radius * 100) : 30;
+			this.m_RedrawSprite.Draw(point.x, point.y, Mathf.Clamp (radius, 20, 100));
 			this.m_CountDownActive = this.m_CountDownActiveTime;
 
 		}

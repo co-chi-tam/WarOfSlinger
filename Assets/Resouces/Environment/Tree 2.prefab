@@ -11,6 +11,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1902885189864028}
   m_IsPrefabParent: 1
+--- !u!1 &1734770782114720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4468208151205246}
+  m_Layer: 30
+  m_Name: UIJobPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1902885189864028
 GameObject:
   m_ObjectHideFlags: 0
@@ -19,8 +34,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4302328193053642}
-  - component: {fileID: 114621972764318198}
-  m_Layer: 0
+  - component: {fileID: 114855662613457688}
+  m_Layer: 30
   m_Name: Tree 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +54,7 @@ GameObject:
   - component: {fileID: 60781225910569448}
   - component: {fileID: 114153592783220872}
   - component: {fileID: 114263878473531860}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: TreeSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,8 +72,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4705138095539906}
+  - {fileID: 4468208151205246}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4468208151205246
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1734770782114720}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4302328193053642}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4705138095539906
 Transform:
@@ -240,7 +269,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
---- !u!114 &114621972764318198
+--- !u!114 &114855662613457688
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -248,13 +277,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1902885189864028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48298998e0a2e5343b14a91dabacec49, type: 3}
+  m_Script: {fileID: 11500000, guid: c59d49af4e976d34fa1876a27c6519d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_UIJobPoint: {fileID: 1734770782114720}
+  m_Animator: {fileID: 0}
   m_RedrawCollider: {fileID: 114153592783220872}
   m_RedrawSprite: {fileID: 114263878473531860}
   m_DelayTime: 0.1
   m_CountDownActiveTime: 1
+  m_ObjectTextAsset: {fileID: 4900000, guid: f430a757d2dddce4893ef4c1d66654fc, type: 3}
+  m_ObjectData:
+    objectId: 22af3b46-fc42-44ed-b4da-f58e4d9de246
+    objectName: 
+    objectModel: 
+    objectDescription: 
+    objectTypes: []
+    objectLevel: 0
+    objectJobs: []
+    currentHealth: 0
+    maxHealth: 0
+  m_FSMTextAsset: {fileID: 4900000, guid: 5f4521c3e7ece704b8245c27eda6bc11, type: 3}
+  m_FSMStateName: 
 --- !u!212 &212153569109277102
 SpriteRenderer:
   m_ObjectHideFlags: 1

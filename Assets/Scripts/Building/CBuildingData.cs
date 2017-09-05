@@ -7,8 +7,6 @@ namespace WarOfSlinger {
     [Serializable]
     public class CBuildingData : CDamageableObjectData {
 
-        public CJobObjectData[] buildingJobs;
-
         public CBuildingData() : base () {
             // buildingJobs
         }

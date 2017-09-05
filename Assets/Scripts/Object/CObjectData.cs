@@ -10,7 +10,8 @@ namespace WarOfSlinger {
         public string objectModel;
         public string objectDescription;
         public string[] objectTypes;
-        public int objectLevel;
+		public int objectLevel;
+		public CJobObjectData[] objectJobs;
 
         public CObjectData() {
             this.objectId       = Guid.NewGuid().ToString();

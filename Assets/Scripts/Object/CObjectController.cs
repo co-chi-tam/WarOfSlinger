@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SimpleComponent;
@@ -8,9 +9,17 @@ namespace WarOfSlinger {
 
         #region Fields
 
+		[Header("UI")]
+		[SerializeField]	protected GameObject m_UIJobPoint;
+
+		[Header("Animator")]
+		[SerializeField]	protected Animator m_Animator;
+
         protected List<CComponent> m_Components = new List<CComponent>();
 
+		protected bool m_Active;
         protected CEventComponent m_EventComponent;
+		protected Transform m_Transform;
 
         #endregion
 
@@ -22,7 +31,8 @@ namespace WarOfSlinger {
         }
 
         protected virtual void Awake() {
-           
+			this.m_Active = true;  
+			this.m_Transform = this.transform;
         }
 
         protected virtual void Start() {
@@ -44,6 +54,14 @@ namespace WarOfSlinger {
         //}
 
         #endregion
+
+		#region Main methods
+
+		public virtual void ExcuteJob(string jobName) {
+		
+		}
+
+		#endregion
 
         #region Components
 
@@ -80,7 +98,54 @@ namespace WarOfSlinger {
 
         #endregion
 
+		#region Properties
+
+		public virtual bool IsObjectActive {
+			get { return this.m_Active; }
+			set { this.m_Active = value; }
+		}
+
+		public virtual Vector3 objectPosition {
+			get { return this.m_Transform.position; }
+			set { 
+				value.y = 0;
+				value.z = 0;
+				this.m_Transform.position = value; 
+			}
+		}
+
+		public float objectSide {
+			get { return this.m_Transform.localScale.x; }
+			set { this.m_Transform.localScale = new Vector3(value, 1f, 1f); }
+		}
+
+		public virtual Vector3 targetPosition {
+			get { return Vector3.zero; }
+			set {  }
+		}
+
+		public virtual Transform uiJobPoint{
+			get { return this.m_UIJobPoint.transform; }
+		}
+
+		#endregion
+
         #region Getter && Setter
+
+		public virtual void SetAnimation (string name, object param = null)
+		{
+			if (this.m_Animator == null)
+				return;
+			if (param is int) {
+				this.m_Animator.SetInteger (name, (int)param);
+			} else if (param is bool) {
+				this.m_Animator.SetBool (name, (bool)param);
+			} else if (param is float) {
+				this.m_Animator.SetFloat (name, (float)param);
+			} else if (param == null) {
+				this.m_Animator.SetTrigger (name);
+			}
+		}
 
         public virtual void SetData(CObjectData value) {
 
@@ -89,6 +154,22 @@ namespace WarOfSlinger {
         public virtual CObjectData GetData() {
             return null;
         }
+
+		public virtual void SetActive(bool value) {
+			this.m_Active = value;
+		}
+
+		public virtual bool GetActive() {
+			return this.m_Active;
+		}
+
+		public virtual void SetPosition(Vector3 value) {
+			this.m_Transform.position = value;	
+		}
+
+		public virtual Vector3 GetPosition() {
+			return this.m_Transform.position;
+		}
 
         #endregion
 

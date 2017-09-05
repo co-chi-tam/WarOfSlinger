@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 049ce941df3d97f418abb2f57107c551
-timeCreated: 1504257025
+timeCreated: 1504580287
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -28,8 +28,8 @@ TextureImporter:
     21300042: tileset-1_23
     21300044: tileset-1_24
     21300046: Stone-9
-    21300048: Barrack-1
-    21300050: Store-1
+    21300048: BlacksmithHouse-1
+    21300050: Storage-1
     21300052: ArcherTower-1
     21300054: Hatching-1
     21300056: Rock-1
@@ -321,7 +321,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Barrack-1
+      name: BlacksmithHouse-1
       rect:
         serializedVersion: 2
         x: 0
@@ -334,7 +334,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Store-1
+      name: Storage-1
       rect:
         serializedVersion: 2
         x: 208

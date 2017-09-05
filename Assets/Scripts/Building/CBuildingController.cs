@@ -1,18 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FSM;
 
 namespace WarOfSlinger {
-	public class CBuildingController : CDamageableObjectController, IBuildingJobOwner {
+	public class CBuildingController : CDamageableObjectController, IBuildingJobOwner, IContext {
 
         #region Fields
 
         [Header("Building Data")]
         [SerializeField]    protected TextAsset m_BuildingTextAsset;
-        [SerializeField]    protected CBuildingData m_BuidingData;
+		[SerializeField]    protected CBuildingData m_BuidingData;
+
+		[Header("FSM")]
+		[SerializeField]	protected TextAsset m_FSMTextAsset;
+		[SerializeField]	protected string m_FSMStateName;
 
         // COMPONENTS
-        protected CJobComponent m_JobComponent;
+		protected CJobComponent m_JobComponent;
+		// FSMManager
+		protected FSMManager m_FSMManager;
 
         #endregion
 
@@ -22,14 +30,23 @@ namespace WarOfSlinger {
             base.Init();
             // DATA
             this.m_BuidingData = TinyJSON.JSON.Load(this.m_BuildingTextAsset.text).Make<CBuildingData>();
-            // JOB COMPONENT
-            this.m_JobComponent = new CJobComponent();
-            var buildingJobs = this.m_BuidingData.buildingJobs;
-            for (int i = 0; i < buildingJobs.Length; i++) {
-                this.m_JobComponent.RegisterJobs(this, buildingJobs[i]);
-            } 
-            // REGISTER COMPONENT
+			// REGISTER COMPONENT
+			this.m_JobComponent = new CJobComponent(this);
+			for (int i = 0; i < this.m_BuidingData.objectJobs.Length; i++) {
+				var currentJob = this.m_BuidingData.objectJobs [i];
+				this.m_JobComponent.RegisterJobs (this, currentJob, null, null);
+			}
             this.RegisterComponent(this.m_JobComponent);
+			// FSM
+			this.m_FSMManager = new FSMManager ();
+			this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
+			// STATE
+			this.m_FSMManager.RegisterState ("BuildingIdleState", 		new FSMBuildingIdleState(this));
+			this.m_FSMManager.RegisterState ("BuildingActionState", 	new FSMBuildingActionState(this));
+			this.m_FSMManager.RegisterState ("BuildingInactionState", 	new FSMBuildingInactionState(this));
+			// CONDITION
+			this.m_FSMManager.RegisterCondition("HaveAction", 			this.HaveAction);
+			this.m_FSMManager.RegisterCondition("IsActive", 			this.IsActive);
         }
 
         protected override void Awake() {
@@ -42,11 +59,36 @@ namespace WarOfSlinger {
             base.Start();
         }
 
+		protected override void Update () {
+			base.Update ();
+			this.m_FSMManager.UpdateState (Time.deltaTime);
+			this.m_FSMStateName = this.m_FSMManager.currentStateName;
+		}
+
         #endregion
 
-        #region Main methods
+		#region Main methods
 
-        #endregion
+		public override void ExcuteJob(string jobName) {
+			base.ExcuteJob (jobName);
+			this.m_JobComponent.ExcuteActiveJob (this, jobName);
+		}
+
+		#endregion
+
+		#region FSM
+
+		public virtual bool HaveAction ()
+		{
+			return false;
+		}
+
+		public virtual bool IsActive ()
+		{
+			return this.IsObjectActive;
+		}
+
+		#endregion
 
         #region Getter && Setter
 
@@ -61,7 +103,7 @@ namespace WarOfSlinger {
         }
 
         public virtual void SetCurrentResident(int value) {
-
+			
         }
 
         public virtual int GetCurrentResident() {

@@ -1,6 +1,6 @@
 ﻿{
 	"objectName": "Residence Building",
-	"objectModel": "House",
+	"objectModel": "House 1",
 	"objectDescription": "Residence for rent.",
 	"objectTypes": ["building", "residence"],
 	"objectLevel": 1,
@@ -8,12 +8,23 @@
 	"maxHealth": 100,
 	"currentResident": 0,
 	"maxResident": 4,
-	"buildingJobs": [
+	"objectJobs": [
 		{
-			"jobName": "GoldPerResident",
+			"jobDisplayName": "Claim Gold",
+			"jobAvatar": "GoldPerResident",
+			"jobExcute": "GoldPerResident",
 			"jobDescription": "Claim 100 gold per resident each 100 second ",
 			"jobValues": ["100", "1"],
-			"jobTimer": 10.0
+			"jobTimer": 10.0,
+			"jobType": 0
+		},{
+			"jobDisplayName": "Walk.",
+			"jobAvatar": "MoveTo",
+			"jobExcute": "Command",
+			"jobDescription": "Command to object.",
+			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
+			"jobTimer": 1.0,
+			"jobType": 1
 		}
 	]
 }

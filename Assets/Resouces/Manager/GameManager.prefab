@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4277345713919882}
   - component: {fileID: 114629649834758934}
-  - component: {fileID: 114998102436605124}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -185,16 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3de5ef8f1e25e4383165185986d112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114998102436605124
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1599083735912558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 768166192f065bb45be52df9325c6021, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  power: 4
-  angle: 45
+  m_Camera: {fileID: 0}
+  m_TouchDetectLayerMask:
+    serializedVersion: 2
+    m_Bits: 1280
+  m_UIJob: {fileID: 0}
