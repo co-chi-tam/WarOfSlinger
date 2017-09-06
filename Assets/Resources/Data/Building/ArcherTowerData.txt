@@ -1,0 +1,23 @@
+﻿{
+	"objectName": "Archer Tower Building",
+	"objectModel": "ArcherTower 1",
+	"objectDescription": "Archer Tower Building.",
+	"objectTypes": ["building", "archer-tower"],
+	"objectElements": ["rock", "rock", "wood", "wood", "wood"],
+	"objectLevel": 1,
+	"currentHealth": 100,
+	"maxHealth": 100,
+	"currentResident": 0,
+	"maxResident": 0,
+	"objectJobs": [
+		{
+			"jobDisplayName": "Walk.",
+			"jobAvatar": "MoveTo",
+			"jobExcute": "WalkCommand",
+			"jobDescription": "Walk to object.",
+			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
+			"jobTimer": 1.0,
+			"jobType": 1
+		}
+	]
+}

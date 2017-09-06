@@ -10,6 +10,7 @@ namespace WarOfSlinger {
         public string objectModel;
         public string objectDescription;
         public string[] objectTypes;
+		public string[] objectElements;
 		public int objectLevel;
 		public CJobObjectData[] objectJobs;
 
@@ -18,7 +19,6 @@ namespace WarOfSlinger {
             this.objectName     = string.Empty;
             this.objectModel    = string.Empty;
             this.objectDescription = string.Empty;
-            // objectTypes
             this.objectLevel    = 0;
         }
 

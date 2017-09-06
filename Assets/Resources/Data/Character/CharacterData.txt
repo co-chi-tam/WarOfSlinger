@@ -1,0 +1,24 @@
+﻿{
+	"objectName": "Clyne",
+	"objectModel": "Clyne",
+	"objectDescription": "Character data.",
+	"objectTypes": ["character"],
+	"objectElements": [],
+	"objectLevel": 1,
+	"currentHealth": 100,
+	"maxHealth": 100,
+	"damageCharacter": 10,
+	"damageConstruction": 20,
+	"actionSpeed": 1.0,
+	"objectJobs": [
+		{
+			"jobDisplayName": "Love",
+			"jobAvatar": "Love",
+			"jobExcute": "LoveCommand",
+			"jobDescription": "Love resident",
+			"jobValues": ["loveEmotion"],
+			"jobTimer": 1.0,
+			"jobType": 1
+		}
+	]
+}

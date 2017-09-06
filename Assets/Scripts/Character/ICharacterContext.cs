@@ -7,7 +7,7 @@ namespace WarOfSlinger {
 	public interface ICharacterContext : IContext {
 
 		bool DidMoveToTarget();
-		bool HaveAction();
+		bool HaveTargetObject();
 		bool IsActive();
 
 	}

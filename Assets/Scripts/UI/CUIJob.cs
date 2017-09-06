@@ -44,14 +44,22 @@ namespace WarOfSlinger {
 			var numberSegments = 6;
 			var sequence = (Mathf.PI * 2f) / numberSegments;
 			var theta = 0f;
-			for (int i = 0; i < numberSegments; i ++) {
+			for (int i = 0; i < numberSegments; i++) {
 				var x = Mathf.Sin (theta) * this.m_Radius;
 				var y = Mathf.Cos (theta) * this.m_Radius;
-				theta += sequence;
 				if (i > jobs.Length - 1)
 					break;
+				var data = jobs [i];
+				if (data.jobType == (int)CJobObjectData.EJobType.PassiveJob)
+					continue;
 				var tmpJob = this.m_JobItems [i];
-				tmpJob.SetupItem (new Vector2 (x, y), jobs[i], jobSelected);
+				tmpJob.SetupItem (new Vector2 (x, y), data, (jobData) => {
+					if (jobSelected != null) {
+						jobSelected (jobData);
+					}
+					this.m_Root.SetActive (false);
+				});
+				theta += sequence;
 			}
 			this.m_Root.SetActive (true);
 			this.m_OwnerTransform = owner;

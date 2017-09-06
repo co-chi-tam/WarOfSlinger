@@ -8,6 +8,9 @@ namespace WarOfSlinger  {
 
         #region Fields
 
+		[Header("Character collider")]
+		[SerializeField]	protected Collider2D m_CharacterCollider;
+
         [Header("Character Data")]
         [SerializeField]    protected TextAsset m_TextAsset;
         [SerializeField]    protected CCharacterData m_CharacterData;
@@ -19,6 +22,8 @@ namespace WarOfSlinger  {
 		[SerializeField]	protected CObjectController m_TargetObject;
 
 		protected FSMManager m_FSMManager;
+		// COMPONENTS
+		protected CJobComponent m_JobComponent;
 
         #endregion
 
@@ -28,6 +33,13 @@ namespace WarOfSlinger  {
             base.Init();
             // DATA
             this.m_CharacterData = TinyJSON.JSON.Load(this.m_TextAsset.text).Make<CCharacterData>();
+			// REGISTER COMPONENT
+			this.m_JobComponent = new CJobComponent(this);
+			for (int i = 0; i < this.m_CharacterData.objectJobs.Length; i++) {
+				var currentJob = this.m_CharacterData.objectJobs [i];
+				this.m_JobComponent.RegisterJobs (this, currentJob, null, null);
+			}
+			this.RegisterComponent(this.m_JobComponent);
 			// FSM
 			this.m_FSMManager = new FSMManager ();
 			this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
@@ -38,10 +50,12 @@ namespace WarOfSlinger  {
 			this.m_FSMManager.RegisterState ("CharacterDeathState", 	new FSMCharacterDeathState(this));
 			// CONDITION
 			this.m_FSMManager.RegisterCondition("DidMoveToTarget", 		this.DidMoveToTarget);
-			this.m_FSMManager.RegisterCondition("HaveAction", 			this.HaveAction);
+			this.m_FSMManager.RegisterCondition("HaveTargetObject", 	this.HaveTargetObject);
 			this.m_FSMManager.RegisterCondition("IsActive", 			this.IsActive);
 			// GAME OBJECT
 			this.m_TargetPosition = this.m_Transform.position;
+			// SET IS FREE LABOR
+			CJobManager.ReturnFreeLabor (this);
         }
 
         protected override void Awake() {
@@ -76,6 +90,15 @@ namespace WarOfSlinger  {
 
 		#endregion
 
+		#region Main methods
+
+		public override void ExcuteJob(string jobName) {
+			base.ExcuteJob (jobName);
+			this.m_JobComponent.ExcuteActiveJob (this, jobName);
+		}
+
+		#endregion
+
 		#region FSM
 
 		public virtual bool DidMoveToTarget ()
@@ -84,9 +107,8 @@ namespace WarOfSlinger  {
 			return direction.sqrMagnitude <= 0.001f;
 		}
 
-		public virtual bool HaveAction ()
-		{
-			return false;
+		public virtual bool HaveTargetObject() {
+			return this.m_TargetObject != null && this.m_TargetObject.GetCollider().enabled == true;
 		}
 
 		public virtual bool IsActive ()
@@ -108,6 +130,30 @@ namespace WarOfSlinger  {
 		{
 			base.GetData ();
 			return this.m_CharacterData as CCharacterData;
+		}
+
+		public override void SetTargetPosition (Vector3 value)
+		{
+			base.SetTargetPosition (value);
+			value.y = 0f;
+			value.z = 0f;
+			this.m_TargetPosition = value;
+		}
+
+		public override Vector3 GetTargetPosition ()
+		{
+			return this.m_TargetPosition;
+		}
+
+		public override void SetTargetController (CObjectController value)
+		{
+			base.SetTargetController (value);
+			this.m_TargetObject = value;
+		}
+
+		public override CObjectController GetTargetController ()
+		{
+			return this.m_TargetObject;
 		}
 
 		#endregion

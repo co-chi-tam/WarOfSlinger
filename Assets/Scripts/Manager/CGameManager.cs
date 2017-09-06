@@ -19,10 +19,12 @@ namespace WarOfSlinger {
 					var parentRoot = detectedGo.transform.root;
 					var objController = parentRoot.GetComponent<CObjectController> ();
 					var objData = objController.GetData ();
-					var uiPos = objController.uiJobPoint;
-					this.m_UIJob.ShowJobs (uiPos, (currentJob) => {
-						objController.ExcuteJob(currentJob.jobExcute);
-					}, objData.objectJobs);
+					if (objData != null) {
+						var uiPos = objController.uiJobPoint;
+						this.m_UIJob.ShowJobs (uiPos, (currentJob) => {
+							objController.ExcuteJob (currentJob.jobExcute);
+						}, objData.objectJobs);
+					}
 				}
 			}
 		}
@@ -31,7 +33,6 @@ namespace WarOfSlinger {
 			var mouseWorldPoint = this.m_Camera.ScreenToWorldPoint (Input.mousePosition);
 			var rayHit2Ds = Physics2D.RaycastAll (mouseWorldPoint, Vector2.zero, Mathf.Infinity);
 			if (rayHit2Ds.Length > 0) {
-				var isCollide = true;
 				for (int i = 0; i < rayHit2Ds.Length; i++) {
 					var isDetected = this.m_TouchDetectLayerMask == (this.m_TouchDetectLayerMask | (1 << rayHit2Ds [i].collider.gameObject.layer));
 					if (isDetected == true) {

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 049ce941df3d97f418abb2f57107c551
-timeCreated: 1504580287
+timeCreated: 1504688039
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -1069,19 +1069,6 @@ TextureImporter:
         y: 336
         width: 47
         height: 27
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: tileset-1_3
-      rect:
-        serializedVersion: 2
-        x: 775
-        y: 302
-        width: 30
-        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

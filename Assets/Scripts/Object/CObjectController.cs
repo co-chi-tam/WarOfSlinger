@@ -5,7 +5,7 @@ using UnityEngine;
 using SimpleComponent;
 
 namespace WarOfSlinger {
-    public class CObjectController : MonoBehaviour {
+	public class CObjectController : MonoBehaviour, IJobOwner {
 
         #region Fields
 
@@ -15,11 +15,20 @@ namespace WarOfSlinger {
 		[Header("Animator")]
 		[SerializeField]	protected Animator m_Animator;
 
+		[Header("Collider")]
+		[SerializeField]	protected RedrawableCollider m_Collider2D;
+
         protected List<CComponent> m_Components = new List<CComponent>();
 
 		protected bool m_Active;
         protected CEventComponent m_EventComponent;
 		protected Transform m_Transform;
+
+		protected Vector2 m_ColliderPoint;
+		public Vector2 colliderPoint {
+			get { return this.m_ColliderPoint; }
+			protected set { this.m_ColliderPoint = value; }
+		}
 
         #endregion
 
@@ -58,7 +67,7 @@ namespace WarOfSlinger {
 		#region Main methods
 
 		public virtual void ExcuteJob(string jobName) {
-		
+			
 		}
 
 		#endregion
@@ -95,6 +104,10 @@ namespace WarOfSlinger {
         public virtual void AddAction(string name, System.Action<object[]> callbacks) {
             this.m_EventComponent.AddCallback(name, callbacks);
         }
+
+		public virtual void OnDamageObject(Vector2 point, int radius) {
+
+		}
 
         #endregion
 
@@ -164,11 +177,43 @@ namespace WarOfSlinger {
 		}
 
 		public virtual void SetPosition(Vector3 value) {
+			value.y = 0f;
+			value.z = 0f;
 			this.m_Transform.position = value;	
 		}
 
 		public virtual Vector3 GetPosition() {
 			return this.m_Transform.position;
+		}
+
+		public virtual void SetTargetPosition(Vector3 value) {
+			
+		}
+
+		public virtual Vector3 GetTargetPosition() {
+			return this.m_Transform.position;
+		}
+
+		public virtual CObjectController GetTargetController() {
+			return null;
+		}
+
+		public virtual void SetTargetController(CObjectController value) {
+		
+		}
+
+		public virtual Collider2D GetCollider() {
+			return this.m_Collider2D.collider;
+		}
+
+		public virtual Vector3 GetClosestPoint(Vector3 point) {
+			if (this.m_Collider2D.collider == null)
+				return this.m_Transform.position;
+			return this.m_Collider2D.GetClosestPoint (point);
+		}
+
+		public virtual CObjectController GetController() {
+			return this;
 		}
 
         #endregion
