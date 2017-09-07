@@ -17,6 +17,7 @@ namespace WarOfSlinger {
 
 		[Header("Collider")]
 		[SerializeField]	protected RedrawableCollider m_Collider2D;
+		[SerializeField]	protected Collider2D m_CharacterCollider;
 
         protected List<CComponent> m_Components = new List<CComponent>();
 
@@ -216,9 +217,11 @@ namespace WarOfSlinger {
 		}
 
 		public virtual Vector3 GetClosestPoint(Vector3 point) {
-			if (this.m_Collider2D.collider == null)
-				return this.m_Transform.position;
-			return this.m_Collider2D.GetClosestPoint (point);
+			if (this.m_Collider2D != null) {
+				return this.m_Collider2D.GetClosestPoint (point);
+			} else {
+				return this.m_CharacterCollider.bounds.ClosestPoint (point);
+			}
 		}
 
 		public virtual Vector3 GetUIPointPosition() {

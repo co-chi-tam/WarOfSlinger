@@ -10,7 +10,6 @@ namespace WarOfSlinger {
         public string objectModel;
         public string objectDescription;
         public string[] objectTypes;
-		public string[] objectElements;
 		public int objectLevel;
 		public CJobObjectData[] objectJobs;
 

@@ -1,0 +1,33 @@
+﻿{
+	"objectName": "Hatching House Building",
+	"objectModel": "HatchingHouse 1",
+	"objectDescription": "Hatching House Building.",
+	"objectTypes": ["building", "hatching-house"],
+	"objectElements": ["rock", "rock", "wood", "wood", "wood"],
+	"objectLevel": 1,
+	"currentHealth": 100,
+	"maxHealth": 100,
+	"currentResident": 0,
+	"maxResident": 0,
+	"objectJobs": [
+		{
+			"jobDisplayName": "Walk.",
+			"jobAvatar": "MoveTo",
+			"jobExcute": "WalkCommand",
+			"jobDescription": "Walk to object.",
+			"jobLaborRequire": 1,
+			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
+			"jobTimer": 1.0,
+			"jobType": 1
+		},{
+			"jobDisplayName": "Hatch egg.",
+			"jobAvatar": "HatchEgg",
+			"jobExcute": "HatchEggCommand",
+			"jobDescription": "Hatch an egg.",
+			"jobLaborRequire": 2,
+			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
+			"jobTimer": 10.0,
+			"jobType": 1
+		}
+	]
+}

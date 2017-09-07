@@ -22,9 +22,8 @@ namespace WarOfSlinger {
 		}
 
 		public void OnMouseDetectStandalone() {
-			if (Input.GetMouseButtonDown (0)) {
+			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject()) {
 				GameObject detectedGo = null;
-//				var isPointerOverGO = EventSystem.current.IsPointerOverGameObject ();
 				if (this.OnDectedGameObject (ref detectedGo)) {
 					var parentRoot = detectedGo.transform.root;
 					var objController = parentRoot.GetComponent<CObjectController> ();

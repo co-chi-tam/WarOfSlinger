@@ -29,6 +29,7 @@ namespace WarOfSlinger {
 			this.m_JobMap.Add("LoveCommand",		this.LoveCommand);
 			this.m_JobMap.Add("MakeToolCommand",	this.MakeToolCommand);
 			this.m_JobMap.Add("HatchEggCommand",	this.HatchEggCommand);
+			this.m_JobMap.Add("OpenShopCommand",	this.OpenShopCommand);
 
 			this.m_JobCommandElement = new Dictionary <string, object> ();
         }
@@ -213,6 +214,7 @@ namespace WarOfSlinger {
 		// LOVE LABOR
 		protected virtual void LoveCommand(IJobOwner owner, CRemainJob currentJob) {
 			owner.SetAnimation ("IsHit");
+			owner.GetController ().Talk ("Love u too.");
 		}
 
 		// MAKE TOOL
@@ -223,6 +225,13 @@ namespace WarOfSlinger {
 		// HATCH EGG
 		protected virtual void HatchEggCommand(IJobOwner owner, CRemainJob currentJob) {
 			this.WalkCommand (owner, currentJob);
+		}
+
+		// OPEN SHOP
+		protected virtual void OpenShopCommand (IJobOwner owner, CRemainJob currentJob) {
+			this.WalkCommand (owner, currentJob);
+			currentJob.OnJobCompleted -= HandleOpenShop;
+			currentJob.OnJobCompleted += HandleOpenShop;
 		}
 
         #endregion
@@ -237,6 +246,10 @@ namespace WarOfSlinger {
 			var newLabor 	= GameObject.Instantiate (characters[random]);
 			newLabor.SetTargetPosition (ownerPosition);
 			newLabor.SetPosition (ownerPosition);
+		}
+
+		protected virtual void HandleOpenShop(IJobOwner owner, CJobObjectData data) {
+			CUIGameManager.Instance.OpenShop ("");
 		}
 
 		#endregion

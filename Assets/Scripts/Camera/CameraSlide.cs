@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraSlide : MonoBehaviour {
 
@@ -82,7 +83,7 @@ public class CameraSlide : MonoBehaviour {
 			for (int i = 0; i < rayHit2Ds.Length; i++) {
 				isCollide &= this.m_DetectLayerMask == (this.m_DetectLayerMask | (1 << rayHit2Ds[i].collider.gameObject.layer));
 			}
-			this.m_IsSlide = isCollide;
+			this.m_IsSlide = isCollide && !EventSystem.current.IsPointerOverGameObject();
 		}
     }
 

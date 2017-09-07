@@ -8,9 +8,6 @@ namespace WarOfSlinger  {
 
         #region Fields
 
-		[Header("Character collider")]
-		[SerializeField]	protected Collider2D m_CharacterCollider;
-
         [Header("Character Data")]
         [SerializeField]    protected TextAsset m_TextAsset;
         [SerializeField]    protected CCharacterData m_CharacterData;

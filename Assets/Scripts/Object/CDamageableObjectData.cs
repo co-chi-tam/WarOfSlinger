@@ -5,6 +5,7 @@ namespace WarOfSlinger {
     [Serializable]
     public class CDamageableObjectData : CObjectData {
 
+		public string[] objectElements;
         public int currentHealth;
         public int maxHealth;
 

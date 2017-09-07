@@ -20,6 +20,7 @@ namespace WarOfSlinger {
 			this.m_JobCompleteCondition = new Dictionary<string, Func<IJobLabor, bool>> ();
 			this.m_JobCompleteCondition.Add("LoveCommand",			this.AutoCompleteCommand);
 			this.m_JobCompleteCondition.Add("TalkCommand",			this.AutoCompleteCommand);
+			this.m_JobCompleteCondition.Add("OpenShopCommand",		this.WalkCompleteCommand);
 			this.m_JobCompleteCondition.Add("WalkCommand",			this.WalkCompleteCommand);
 			this.m_JobCompleteCondition.Add("GatheringCommand",		this.GatheringCompleteCommand);
 			this.m_JobCompleteCondition.Add("CreateLaborCommand",	this.CreateLaborCompleteCommand);
