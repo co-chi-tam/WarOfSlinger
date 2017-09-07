@@ -53,13 +53,17 @@ namespace WarOfSlinger {
         #region Job Main methods
 
         // REGISTER NEW JOB
-		public virtual void RegisterJobs(IJobOwner owner, CJobObjectData value, Action onCompleted, Action<float> onProcessing) {
+		public virtual void RegisterJobs(IJobOwner owner, CJobObjectData value, 
+											Action<IJobOwner, CJobObjectData> onCompleted, 
+											Action<float> onProcessing, 
+											Action<string> onFailed) {
             // NEW JOB
 			var newJob              = new CRemainJob();
             newJob.jobDisplayName	= value.jobDisplayName;
 			newJob.jobAvatar 		= value.jobAvatar;
 			newJob.jobExcute 		= value.jobExcute;
             newJob.jobDescription   = value.jobDescription;
+			newJob.jobLaborRequire	= value.jobLaborRequire;
             newJob.jobValues        = new string[value.jobValues.Length];
             Array.Copy(value.jobValues, newJob.jobValues, value.jobValues.Length);
             newJob.jobTimer         = value.jobTimer;
@@ -68,6 +72,7 @@ namespace WarOfSlinger {
             newJob.jobOwner         = owner;
 			newJob.OnJobCompleted 	= onCompleted;
 			newJob.OnJobProcessing 	= onProcessing;
+			newJob.OnJobFailed 		= onFailed;
             // ADD JOB
             this.m_JobRemains.Add(newJob);
         }
@@ -77,6 +82,7 @@ namespace WarOfSlinger {
             for (int i = 0; i < this.m_JobRemains.Count; i++) {
                 // CURRENT JOB
                 var currentJob = this.m_JobRemains[i];
+				currentJob.UpdateRemainJob (dt);
                 // COUNT DOWN TIMER
                 if (currentJob.jobCountdownTimer > 0f) {
                     currentJob.jobCountdownTimer -= dt;
@@ -87,14 +93,14 @@ namespace WarOfSlinger {
                 else {
 					if (currentJob.jobType == (int)CJobObjectData.EJobType.PassiveJob) {
 						// EXCUTE JOB
-						this.ExcuteActiveJob(currentJob);
+						this.ExcutePassiveJob(currentJob);
 					} 
                 }
             }
         }
 
         // UNREGISTER JOB
-        public virtual void UnregisterJobs(CJobObjectData value) {
+        public virtual void UnregisterJob(CJobObjectData value) {
             for (int i = 0; i < this.m_JobRemains.Count; i++) {
                 var currentJob = this.m_JobRemains[i];
 				if (currentJob.jobExcute == value.jobExcute) {
@@ -105,7 +111,7 @@ namespace WarOfSlinger {
         }
 
         // EXCUTE JOB
-		public virtual void ExcuteActiveJob(CRemainJob currentJob) {
+		public virtual void ExcutePassiveJob(CRemainJob currentJob) {
 			if (this.m_JobMap.ContainsKey(currentJob.jobExcute) == false)
                 return;
 			if (currentJob.jobCountdownTimer > 0f)
@@ -138,6 +144,28 @@ namespace WarOfSlinger {
 			this.m_JobMap[currentJob.jobExcute](owner, currentJob);
 		}
 
+		// CLEAR JOB
+		public virtual void ClearJob(IJobOwner owner, string jobName) {
+			CRemainJob currentJob = null;
+			for (int i = 0; i < this.m_JobRemains.Count; i++) {
+				if (this.m_JobRemains[i].jobExcute == jobName 
+					&& this.m_JobRemains[i].jobType == (int) CJobObjectData.EJobType.ActiveJob) {
+					currentJob = this.m_JobRemains[i];
+					break;
+				}
+			}
+			if (currentJob == null)
+				return;
+			// UPDATE JOB TIMER
+			currentJob.jobCountdownTimer = currentJob.jobTimer;
+			// CLEAR JOB
+			currentJob.ClearJobLabor ();
+		}
+
+		#endregion
+
+		#region Passive job
+
         // GOLD PER RESIDENT JOB
 		protected virtual void GoldPerResident(IJobOwner owner, CRemainJob currentJob) {
 			var buildingOwner 	= owner as IBuildingJobOwner;
@@ -145,55 +173,41 @@ namespace WarOfSlinger {
             var claimedGold 	= int.Parse (values[0]);
             var perResident 	= int.Parse (values[1]);
 			if (currentJob.OnJobCompleted != null) {
-				currentJob.OnJobCompleted ();
+				currentJob.OnJobCompleted (owner, currentJob);
 			}
 			Debug.Log (claimedGold + " / " + perResident);
         }
 
+		#endregion
+
+		#region Active job
+
 		// WALK TO
 		protected virtual void WalkCommand(IJobOwner owner, CRemainJob currentJob) {
-			var values 			= currentJob.jobValues;
-			var targetMethod	= values [0].ToString ();
-			var controlMethod	= values [1].ToString ();
-			var value01Method	= values [2].ToString ();
 			var freeLabor = CJobManager.GetFreeLabor ();
 			if (freeLabor != null) {
-				var position = value01Method == "thisPosition" ? owner.GetClosestPoint (freeLabor.GetPosition ()) : owner.GetPosition ();
-				freeLabor.SetTargetPosition (position);
-				freeLabor.SetTargetController (null);
+				freeLabor.SetTargetPosition (owner.GetClosestPoint (freeLabor.GetPosition ()));
+				currentJob.RegisterJobLabor (freeLabor);
 			}
 		}
 
 		// GATHERING TO
 		protected virtual void GatheringCommand(IJobOwner owner, CRemainJob currentJob) {
-			var values 			= currentJob.jobValues;
-			var targetMethod	= values [0].ToString ();
-			var controlMethod	= values [1].ToString ();
-			var value01Method	= values [2].ToString ();
 			var freeLabor = CJobManager.GetFreeLabor ();
 			if (freeLabor != null) {
 				freeLabor.SetTargetPosition (owner.GetClosestPoint(freeLabor.GetPosition()));
 				freeLabor.SetTargetController (owner.GetController ());
+				currentJob.RegisterJobLabor (freeLabor);
+			} else {
+				owner.GetController ().Talk ("NOT FREE LABOR.");
 			}
 		}
 
 		// CREATE LABOR
 		protected virtual void CreateLaborCommand(IJobOwner owner, CRemainJob currentJob) {
-			var values 			= currentJob.jobValues;
-			var targetMethod	= values [0].ToString ();
-			var controlMethod	= values [1].ToString ();
-			var needLabor 		= values [2].ToString ();
-			var laborType		= values [3].ToString ();
-			var value01Method	= values [4].ToString ();
-			var value02Method	= values [5].ToString ();
-			var value03Method	= values [6].ToString ();
-			var ownerPosition = owner.GetPosition ();
-			var characters = Resources.LoadAll<CCharacterController> ("Character");
-			// TEST
-			var random 		= (int)Time.time % characters.Length;
-			var newLabor 	= GameObject.Instantiate (characters[random]);
-			newLabor.SetTargetPosition (ownerPosition);
-			newLabor.SetPosition (ownerPosition);
+			this.WalkCommand (owner, currentJob);
+			currentJob.OnJobCompleted -= HandleCreateLabor;
+			currentJob.OnJobCompleted += HandleCreateLabor;
 		}
 
 		// LOVE LABOR
@@ -212,6 +226,20 @@ namespace WarOfSlinger {
 		}
 
         #endregion
+
+		#region Job methods
+
+		protected virtual void HandleCreateLabor(IJobOwner owner, CJobObjectData data) {
+			var ownerPosition = owner.GetPosition ();
+			var characters = Resources.LoadAll<CCharacterController> ("Character");
+			// TEST
+			var random 		= (int)Time.time % characters.Length;
+			var newLabor 	= GameObject.Instantiate (characters[random]);
+			newLabor.SetTargetPosition (ownerPosition);
+			newLabor.SetPosition (ownerPosition);
+		}
+
+		#endregion
 
     }
     

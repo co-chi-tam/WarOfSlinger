@@ -33,7 +33,7 @@ namespace WarOfSlinger {
 			this.m_JobComponent = new CJobComponent(this);
 			for (int i = 0; i < this.m_ObjectData.objectJobs.Length; i++) {
 				var currentJob = this.m_ObjectData.objectJobs [i];
-				this.m_JobComponent.RegisterJobs (this, currentJob, null, null);
+				this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
 			}
 			this.RegisterComponent(this.m_JobComponent);
 			// FSM
@@ -66,9 +66,15 @@ namespace WarOfSlinger {
 
 		#region Main methods
 
-		public override void ExcuteJob(string jobName) {
-			base.ExcuteJob (jobName);
+		public override void ExcuteJobOwner(string jobName) {
+			base.ExcuteJobOwner (jobName);
 			this.m_JobComponent.ExcuteActiveJob (this, jobName);
+		}
+
+		public override void ClearJobOwner (string name)
+		{
+			base.ClearJobOwner (name);
+			this.m_JobComponent.ClearJob (this, name);
 		}
 
 		#endregion
@@ -83,6 +89,19 @@ namespace WarOfSlinger {
 		#endregion
 
 		#region Getter && Setter
+
+		public override bool GetActive ()
+		{
+			return this.m_RedrawSprite.IsSpriteVisible && base.GetActive();
+		}
+
+		public override void SetActive (bool value)
+		{
+			base.SetActive (value);
+			if (value) {
+				this.m_RedrawSprite.SetupSprite ();
+			}
+		}
 
 		public override void SetData(CObjectData value) {
 			base.SetData(value);

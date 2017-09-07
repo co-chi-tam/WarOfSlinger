@@ -4,7 +4,7 @@ using UnityEngine;
 using FSM;
 
 namespace WarOfSlinger  {
-	public class CCharacterController : CObjectController, ICharacterContext {
+	public class CCharacterController : CObjectController, ICharacterContext, IJobLabor {
 
         #region Fields
 
@@ -25,7 +25,25 @@ namespace WarOfSlinger  {
 		// COMPONENTS
 		protected CJobComponent m_JobComponent;
 
-        #endregion
+		#endregion
+
+		#region Properties
+
+		public override Vector3 targetPosition {
+			get { return this.m_TargetPosition; }
+			set { 
+				value.y = 0;
+				value.z = 0;
+				this.m_TargetPosition = value; 
+			}
+		}
+
+		public virtual CObjectController targetObject {
+			get { return this.m_TargetObject; }
+			set { this.m_TargetObject = value; }
+		}
+
+		#endregion
 
         #region Implementation Moonobehaviour
 
@@ -37,7 +55,7 @@ namespace WarOfSlinger  {
 			this.m_JobComponent = new CJobComponent(this);
 			for (int i = 0; i < this.m_CharacterData.objectJobs.Length; i++) {
 				var currentJob = this.m_CharacterData.objectJobs [i];
-				this.m_JobComponent.RegisterJobs (this, currentJob, null, null);
+				this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
 			}
 			this.RegisterComponent(this.m_JobComponent);
 			// FSM
@@ -63,6 +81,11 @@ namespace WarOfSlinger  {
 			this.Init();
         }
 
+		protected virtual void Start() {
+			// REGISTER UI
+			this.Talk ("Hello world !!!");
+		}
+
 		protected override void Update ()
 		{
 			base.Update ();
@@ -70,31 +93,24 @@ namespace WarOfSlinger  {
 			this.m_FSMStateName = this.m_FSMManager.currentStateName;
 		}
 
-        #endregion
-
-		#region Properties
-
-		public override Vector3 targetPosition {
-			get { return this.m_TargetPosition; }
-			set { 
-				value.y = 0;
-				value.z = 0;
-				this.m_TargetPosition = value; 
-			}
-		}
-
-		public virtual CObjectController targetObject {
-			get { return this.m_TargetObject; }
-			set { this.m_TargetObject = value; }
-		}
-
-		#endregion
+         #endregion
 
 		#region Main methods
 
-		public override void ExcuteJob(string jobName) {
-			base.ExcuteJob (jobName);
+		public override void ExcuteJobOwner(string jobName) {
+			base.ExcuteJobOwner (jobName);
 			this.m_JobComponent.ExcuteActiveJob (this, jobName);
+		}
+
+		public override void ClearJobOwner (string name)
+		{
+			base.ClearJobOwner (name);
+			this.m_JobComponent.ClearJob (this, name);
+		}
+
+		public virtual void ClearJobLabor() {
+			this.targetPosition = this.transform.position;
+			this.targetObject = null;
 		}
 
 		#endregion

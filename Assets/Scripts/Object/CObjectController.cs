@@ -32,6 +32,38 @@ namespace WarOfSlinger {
 
         #endregion
 
+		#region Properties
+
+		public virtual bool IsObjectActive {
+			get { return this.m_Active; }
+			set { this.m_Active = value; }
+		}
+
+		public virtual Vector3 objectPosition {
+			get { return this.m_Transform.position; }
+			set { 
+				value.y = 0;
+				value.z = 0;
+				this.m_Transform.position = value; 
+			}
+		}
+
+		public float objectSide {
+			get { return this.m_Transform.localScale.x; }
+			set { this.m_Transform.localScale = new Vector3(value, 1f, 1f); }
+		}
+
+		public virtual Vector3 targetPosition {
+			get { return Vector3.zero; }
+			set {  }
+		}
+
+		public virtual Transform uiJobPoint{
+			get { return this.m_UIJobPoint.transform; }
+		}
+
+		#endregion
+
         #region Implementation Moonobehaviour
 
         public virtual void Init() {
@@ -64,9 +96,13 @@ namespace WarOfSlinger {
 
         #endregion
 
-		#region Main methods
+		#region JobOwner
 
-		public virtual void ExcuteJob(string jobName) {
+		public virtual void ExcuteJobOwner(string jobName) {
+			
+		}
+
+		public virtual void ClearJobOwner(string name) {
 			
 		}
 
@@ -109,39 +145,12 @@ namespace WarOfSlinger {
 
 		}
 
+		public virtual void Talk(string value) {
+			// REGISTER UI
+			CGameManager.Instance.ShowTalk (this.m_UIJobPoint.transform, value);
+		}
+
         #endregion
-
-		#region Properties
-
-		public virtual bool IsObjectActive {
-			get { return this.m_Active; }
-			set { this.m_Active = value; }
-		}
-
-		public virtual Vector3 objectPosition {
-			get { return this.m_Transform.position; }
-			set { 
-				value.y = 0;
-				value.z = 0;
-				this.m_Transform.position = value; 
-			}
-		}
-
-		public float objectSide {
-			get { return this.m_Transform.localScale.x; }
-			set { this.m_Transform.localScale = new Vector3(value, 1f, 1f); }
-		}
-
-		public virtual Vector3 targetPosition {
-			get { return Vector3.zero; }
-			set {  }
-		}
-
-		public virtual Transform uiJobPoint{
-			get { return this.m_UIJobPoint.transform; }
-		}
-
-		#endregion
 
         #region Getter && Setter
 
@@ -210,6 +219,10 @@ namespace WarOfSlinger {
 			if (this.m_Collider2D.collider == null)
 				return this.m_Transform.position;
 			return this.m_Collider2D.GetClosestPoint (point);
+		}
+
+		public virtual Vector3 GetUIPointPosition() {
+			return this.m_UIJobPoint.transform.position;
 		}
 
 		public virtual CObjectController GetController() {

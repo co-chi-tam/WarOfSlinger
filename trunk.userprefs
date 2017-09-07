@@ -1,9 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Manager\CGameManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Component\JobComponent\CJobComponent.cs">
     <Files>
-      <File FileName="Assets\Scripts\Object\CDamageableObjectController.cs" Line="71" Column="21" />
-      <File FileName="Assets\Scripts\Manager\CGameManager.cs" Line="33" Column="31" />
+      <File FileName="Assets\Scripts\Component\JobComponent\CJobComponent.cs" Line="214" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

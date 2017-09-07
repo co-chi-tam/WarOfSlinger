@@ -15,6 +15,7 @@ public class RedrawableSprite : MonoBehaviour {
     [SerializeField]    protected Texture2D m_ReTexture;
     [SerializeField]    protected Sprite m_ReSprite;
     [SerializeField]    protected List<Vector2> m_RedrawList;
+	[SerializeField]	protected bool m_DrawOnAwake = true;
 
 	[Header ("Events")]
 	public UnityEvent OnRedrawed;
@@ -24,40 +25,54 @@ public class RedrawableSprite : MonoBehaviour {
     protected SpriteRenderer m_SpriteRenderer;
     protected Texture2D m_CurrentTexture;
 	protected Transform m_Transform;
+	protected bool m_IsSpriteVisible = true;
+	public bool IsSpriteVisible {
+		get { return this.m_IsSpriteVisible; }
+		set { this.m_IsSpriteVisible = value; }
+	}
 
     #endregion
 
     #region Implementation Monobehaviour
 
     protected virtual void Awake() {
-        // CURRENT SPRITE RENDERER
-        this.m_SpriteRenderer   = this.GetComponent<SpriteRenderer>();
-        // SAVE SPRITE
-        this.m_CurrentSprite    = this.m_SpriteRenderer.sprite;
-        // SAVE TEXTURE
-        this.m_CurrentTexture   = this.m_CurrentSprite.texture;
-        // LOAD NEW TEXTURE
-        var usedRect            = this.m_CurrentSprite.textureRect;
-		this.m_ReTexture        = new Texture2D((int)usedRect.width, (int)usedRect.height, TextureFormat.ARGB32, false);
-        this.m_ReTexture.SetPixels(this.m_CurrentTexture.GetPixels( (int)usedRect.x, 
-                                                                    (int)usedRect.y, 
-																	this.m_ReTexture.width, 
-																	this.m_ReTexture.height ));
-        this.m_ReTexture.Apply();
-        // LOAD NEW SPRITE
-		this.m_ReSprite         = Sprite.Create (this.m_ReTexture,  new Rect(0f, 0f, this.m_ReTexture.width, this.m_ReTexture.height), 
-                                                                    new Vector2(0.5f, 0.5f), 
-                                                                    this.m_CurrentSprite.pixelsPerUnit);
-        this.m_SpriteRenderer.sprite = this.m_ReSprite;
+		if (this.m_DrawOnAwake) {
+			// SETUP SPRITE
+			this.SetupSprite ();
+		}
         // SAVE LIST
         this.m_RedrawList = new List<Vector2>();
         // TRANSFORM
         this.m_Transform = this.transform;
+		// VISIBLE SPRITE
+		this.m_IsSpriteVisible = true;
     }
 
     #endregion
 
     #region Main methods
+
+	public virtual void SetupSprite() {
+		// CURRENT SPRITE RENDERER
+		this.m_SpriteRenderer   = this.GetComponent<SpriteRenderer>();
+		// SAVE SPRITE
+		this.m_CurrentSprite    = this.m_SpriteRenderer.sprite;
+		// SAVE TEXTURE
+		this.m_CurrentTexture   = this.m_CurrentSprite.texture;
+		// LOAD NEW TEXTURE
+		var usedRect            = this.m_CurrentSprite.textureRect;
+		this.m_ReTexture        = new Texture2D((int)usedRect.width, (int)usedRect.height, TextureFormat.ARGB32, false);
+		this.m_ReTexture.SetPixels(this.m_CurrentTexture.GetPixels( (int)usedRect.x, 
+																	(int)usedRect.y, 
+																	this.m_ReTexture.width, 
+																	this.m_ReTexture.height ));
+		this.m_ReTexture.Apply();
+		// LOAD NEW SPRITE
+		this.m_ReSprite         = Sprite.Create (this.m_ReTexture,  new Rect(0f, 0f, this.m_ReTexture.width, this.m_ReTexture.height), 
+																	new Vector2(0.5f, 0.5f), 
+																	this.m_CurrentSprite.pixelsPerUnit);
+		this.m_SpriteRenderer.sprite = this.m_ReSprite;
+	}
 
 	// CONVERT WORLD POINT TO TEXTURE COORDINATES
 	public virtual void Draw(float wX, float wY, int radius) {
@@ -109,16 +124,16 @@ public class RedrawableSprite : MonoBehaviour {
         }
         tex.Apply();
         // COUNT PIXEL UPDATE
-        var isPlank = false;
+		this.m_IsSpriteVisible = false;
         for (int i = 0; i < tempArray.Length; i++) {
-            isPlank |= tempArray[i].a != 0;
+			this.m_IsSpriteVisible |= tempArray[i].a != 0;
         }
         // INVOKE EVENTS
         if (this.OnRedrawed != null) {
 			this.OnRedrawed.Invoke ();
         }
         // INVOKE EVENTS
-        if (isPlank == false) { 
+		if (this.m_IsSpriteVisible == false) { 
             if (this.OnAllBlank != null) {
                 this.OnAllBlank.Invoke();
             }

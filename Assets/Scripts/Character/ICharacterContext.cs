@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using FSM;
 
@@ -9,6 +8,11 @@ namespace WarOfSlinger {
 		bool DidMoveToTarget();
 		bool HaveTargetObject();
 		bool IsActive();
+
+		void InvokeAction (string name);
+		void InvokeAction (string name, params object[] prams);
+		void AddAction (string name, Action callback);
+		void AddAction (string name, Action<object[]> callbacks);
 
 	}
 }

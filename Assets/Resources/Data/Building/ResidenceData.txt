@@ -14,6 +14,7 @@
 			"jobDisplayName": "Claim Gold",
 			"jobAvatar": "GoldPerResident",
 			"jobExcute": "GoldPerResident",
+			"jobLaborRequire": 1,
 			"jobDescription": "Claim 100 gold per resident each 100 second ",
 			"jobValues": ["100", "1"],
 			"jobTimer": 10.0,
@@ -23,6 +24,7 @@
 			"jobAvatar": "MoveTo",
 			"jobExcute": "WalkCommand",
 			"jobDescription": "Walk to object.",
+			"jobLaborRequire": 1,
 			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
 			"jobTimer": 1.0,
 			"jobType": 1
@@ -31,6 +33,7 @@
 			"jobAvatar": "CreateLabor",
 			"jobExcute": "CreateLaborCommand",
 			"jobDescription": "Create a labor to object.",
+			"jobLaborRequire": 2,
 			"jobValues": ["createLabor", "getResource", "2", "basic", "meat", "bone", "bone"],
 			"jobTimer": 1.0,
 			"jobType": 1

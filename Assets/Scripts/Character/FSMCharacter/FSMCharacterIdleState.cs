@@ -7,7 +7,6 @@ namespace WarOfSlinger {
 	public class FSMCharacterIdleState : FSMBaseState {
 
 		protected CCharacterController m_Controller;
-		protected float m_JobReleaseDelay = 1f;
 
 		public FSMCharacterIdleState (IContext context): base(context)
 		{
@@ -18,21 +17,11 @@ namespace WarOfSlinger {
 		{
 			base.StartState ();
 			this.m_Controller.SetAnimation ("AnimParam", (int) 0);
-			this.m_JobReleaseDelay = 1f;
 		}
 
 		public override void UpdateState (float dt)
 		{
 			base.UpdateState (dt);
-			if (this.m_JobReleaseDelay > 0f) {
-				this.m_JobReleaseDelay -= dt;
-			} else {
-				// FREE LABOR
-				if (this.m_Controller.DidMoveToTarget () == true && this.m_Controller.HaveTargetObject () == false) {
-					CJobManager.ReturnFreeLabor (this.m_Controller);
-				}
-				this.m_JobReleaseDelay = 1f;
-			}
 		}
 
 		public override void ExitState ()

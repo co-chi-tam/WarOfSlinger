@@ -15,6 +15,7 @@
 			"jobAvatar": "MoveTo",
 			"jobExcute": "WalkCommand",
 			"jobDescription": "Walk to object.",
+			"jobLaborRequire": 1,
 			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
 			"jobTimer": 1.0,
 			"jobType": 1
@@ -23,6 +24,7 @@
 			"jobAvatar": "HatchEgg",
 			"jobExcute": "HatchEggCommand",
 			"jobDescription": "Hatch an egg.",
+			"jobLaborRequire": 2,
 			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
 			"jobTimer": 10.0,
 			"jobType": 1
