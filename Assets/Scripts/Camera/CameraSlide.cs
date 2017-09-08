@@ -17,6 +17,7 @@ public class CameraSlide : MonoBehaviour {
     protected Vector3 m_LastMousePos;
     protected Vector3 m_LastTransfromPos;
 	protected bool m_IsSlide = false;
+	protected bool m_IsUITouched = false;
 
 	#endregion
 
@@ -44,7 +45,9 @@ public class CameraSlide : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0))
         {
-            this.SavePoint ();
+			if (!EventSystem.current.IsPointerOverGameObject()) {
+            	this.SavePoint ();
+			}
         }
         if (Input.GetMouseButton(0))
         {
@@ -61,7 +64,7 @@ public class CameraSlide : MonoBehaviour {
 		var touchPhase = Input.GetTouch (0);
 		switch (touchPhase.phase) {
 		case TouchPhase.Began:
-			this.SavePoint ();
+			this.m_IsUITouched = EventSystem.current.IsPointerOverGameObject (touchPhase.fingerId);
 			break;
 		case TouchPhase.Moved:
 			this.MovedPoint ();
@@ -70,6 +73,9 @@ public class CameraSlide : MonoBehaviour {
 		case TouchPhase.Ended:
 			this.EndPoint ();
 			break;
+		}
+		if (this.m_IsUITouched == false) {
+			this.SavePoint ();
 		}
 	}
 
@@ -83,7 +89,7 @@ public class CameraSlide : MonoBehaviour {
 			for (int i = 0; i < rayHit2Ds.Length; i++) {
 				isCollide &= this.m_DetectLayerMask == (this.m_DetectLayerMask | (1 << rayHit2Ds[i].collider.gameObject.layer));
 			}
-			this.m_IsSlide = isCollide && !EventSystem.current.IsPointerOverGameObject();
+			this.m_IsSlide = isCollide;
 		}
     }
 

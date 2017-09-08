@@ -25,6 +25,7 @@ namespace WarOfSlinger {
 			this.m_JobMap.Add("GoldPerResident", 	this.GoldPerResident);
 			this.m_JobMap.Add("WalkCommand",		this.WalkCommand);
 			this.m_JobMap.Add("GatheringCommand",	this.GatheringCommand);
+			this.m_JobMap.Add("DemolitionCommand",	this.DemolitionCommand);
 			this.m_JobMap.Add("CreateLaborCommand",	this.CreateLaborCommand);
 			this.m_JobMap.Add("LoveCommand",		this.LoveCommand);
 			this.m_JobMap.Add("MakeToolCommand",	this.MakeToolCommand);
@@ -196,7 +197,21 @@ namespace WarOfSlinger {
 		protected virtual void GatheringCommand(IJobOwner owner, CRemainJob currentJob) {
 			var freeLabor = CJobManager.GetFreeLabor ();
 			if (freeLabor != null) {
-				freeLabor.SetTargetPosition (owner.GetClosestPoint(freeLabor.GetPosition()));
+				freeLabor.SetTargetPosition (owner.GetClosestPoint (freeLabor.GetPosition ()));
+				freeLabor.SetTargetController (owner.GetController ());
+				currentJob.RegisterJobLabor (freeLabor);
+				currentJob.OnJobCompleted -= HandleGatheringObject;
+				currentJob.OnJobCompleted += HandleGatheringObject;
+			} else {
+				owner.GetController ().Talk ("NOT FREE LABOR.");
+			}
+		}
+
+		// DEMOLITION 
+		protected virtual void DemolitionCommand(IJobOwner owner, CRemainJob currentJob) {
+			var freeLabor = CJobManager.GetFreeLabor ();
+			if (freeLabor != null) {
+				freeLabor.SetTargetPosition (owner.GetClosestPoint (freeLabor.GetPosition ()));
 				freeLabor.SetTargetController (owner.GetController ());
 				currentJob.RegisterJobLabor (freeLabor);
 			} else {
@@ -206,15 +221,28 @@ namespace WarOfSlinger {
 
 		// CREATE LABOR
 		protected virtual void CreateLaborCommand(IJobOwner owner, CRemainJob currentJob) {
-			this.WalkCommand (owner, currentJob);
-			currentJob.OnJobCompleted -= HandleCreateLabor;
-			currentJob.OnJobCompleted += HandleCreateLabor;
+			var currentPopulation = CVillageManager.GetCurrentPopulation ();
+			var maxPopulation = CVillageManager.GetMaxPopulation ();
+			if (currentPopulation + 1 > maxPopulation) {
+				if (currentJob.OnJobFailed != null) {
+					currentJob.OnJobFailed ("MAX POPULATION");
+				}
+				owner.GetController ().Talk ("MAX POPULATION.");
+			} else {
+				this.WalkCommand (owner, currentJob);
+				if (currentJob.IsFullLabor () == false) {
+					owner.GetController ().Talk ("NEED MORE LABOR.");
+					currentJob.OnJobCompleted -= HandleCreateLabor;
+					currentJob.OnJobCompleted += HandleCreateLabor;
+				}
+			}
 		}
 
 		// LOVE LABOR
 		protected virtual void LoveCommand(IJobOwner owner, CRemainJob currentJob) {
+			var values = currentJob.jobValues;
 			owner.SetAnimation ("IsHit");
-			owner.GetController ().Talk ("Love u too.");
+			owner.GetController ().Talk (values[UnityEngine.Random.Range (0, values.Length)]);
 		}
 
 		// MAKE TOOL
@@ -238,18 +266,38 @@ namespace WarOfSlinger {
 
 		#region Job methods
 
+		protected virtual void HandleGatheringObject (IJobOwner owner, CJobObjectData data) {
+			var gatherValues = data.jobValues;
+			for (int i = 0; i < gatherValues.Length; i++) {
+				var resourceName 	= gatherValues [i];
+				var resourceData 	= CVillageManager.GetResource (resourceName);
+				var totalAmount 	= resourceData.currentAmount + 1;
+				CVillageManager.SetResource (resourceName, totalAmount);
+			}
+			CGameManager.Instance.UpdateVillageData ();
+		}
+
 		protected virtual void HandleCreateLabor(IJobOwner owner, CJobObjectData data) {
-			var ownerPosition = owner.GetPosition ();
-			var characters = Resources.LoadAll<CCharacterController> ("Character");
-			// TEST
+			var ownerPosition 	= owner.GetPosition ();
+			var characters 		= Resources.LoadAll<CCharacterController> ("Character/Prefabs");
+			var characterDatas 	= Resources.LoadAll<TextAsset>("Character/Data");
+			// TEST RANDOM
 			var random 		= (int)Time.time % characters.Length;
 			var newLabor 	= GameObject.Instantiate (characters[random]);
+			var newData 	= TinyJSON.JSON.Load (characterDatas[0].text).Make<CCharacterData>();
 			newLabor.SetTargetPosition (ownerPosition);
 			newLabor.SetPosition (ownerPosition);
+			newLabor.SetData (newData);
+			newLabor.Init ();
+			var currentPopulation = CVillageManager.GetCurrentPopulation ();
+			CVillageManager.SetCurrentPopulation (currentPopulation + 1);
 		}
 
 		protected virtual void HandleOpenShop(IJobOwner owner, CJobObjectData data) {
-			CUIGameManager.Instance.OpenShop ("");
+			var jobValues = data.jobValues;
+			for (int i = 0; i < jobValues.Length; i++) {
+				CGameManager.Instance.OpenShop (jobValues[i]);
+			}
 		}
 
 		#endregion

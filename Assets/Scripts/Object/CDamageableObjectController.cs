@@ -30,6 +30,8 @@ namespace WarOfSlinger {
 
 		protected override void Update() {
 			base.Update();
+			if (this.m_Inited == false)
+				return;
 			// COUNTDOWN TIMER
 			if (this.m_CountDownActive > 0f) {
 				this.m_CountDownActive -= Time.deltaTime;

@@ -43,5 +43,9 @@ namespace WarOfSlinger {
 			return null;
 		}
 
+		public static bool HaveFreeLabor() {
+			return jobLaborFree.Count > 0;
+		}
+
 	}
 }

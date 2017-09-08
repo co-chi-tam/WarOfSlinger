@@ -1,6 +1,6 @@
 ﻿{
 	"objectName": "Bush object",
-	"objectModel": "Bush 1",
+	"objectModel": "Environment/Prefabs/Bush 1",
 	"objectDescription": "Bush object.",
 	"objectTypes": ["object", "environment"],
 	"objectElements": ["leaf", "leaf", "wood"],

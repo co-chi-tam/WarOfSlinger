@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace WarOfSlinger {
     [Serializable]
-    public class CObjectData {
+	public class CObjectData: CSaveObjectData {
 
         public string objectId;
         public string objectName;
@@ -13,7 +13,7 @@ namespace WarOfSlinger {
 		public int objectLevel;
 		public CJobObjectData[] objectJobs;
 
-        public CObjectData() {
+		public CObjectData(): base() {
             this.objectId       = Guid.NewGuid().ToString();
             this.objectName     = string.Empty;
             this.objectModel    = string.Empty;

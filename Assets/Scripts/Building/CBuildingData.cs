@@ -6,9 +6,13 @@ using UnityEngine;
 namespace WarOfSlinger {
     [Serializable]
     public class CBuildingData : CDamageableObjectData {
+		
+		public int currentResident;
+		public int maxResident;
 
         public CBuildingData() : base () {
-            // buildingJobs
+			this.currentResident    = 0;
+			this.maxResident        = 0;
         }
 
     }

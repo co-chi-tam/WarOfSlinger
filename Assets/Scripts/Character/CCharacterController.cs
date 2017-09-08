@@ -9,7 +9,6 @@ namespace WarOfSlinger  {
         #region Fields
 
         [Header("Character Data")]
-        [SerializeField]    protected TextAsset m_TextAsset;
         [SerializeField]    protected CCharacterData m_CharacterData;
 
 		[Header("FSM")]
@@ -19,8 +18,6 @@ namespace WarOfSlinger  {
 		[SerializeField]	protected CObjectController m_TargetObject;
 
 		protected FSMManager m_FSMManager;
-		// COMPONENTS
-		protected CJobComponent m_JobComponent;
 
 		#endregion
 
@@ -47,14 +44,11 @@ namespace WarOfSlinger  {
         public override void Init() {
             base.Init();
             // DATA
-            this.m_CharacterData = TinyJSON.JSON.Load(this.m_TextAsset.text).Make<CCharacterData>();
-			// REGISTER COMPONENT
-			this.m_JobComponent = new CJobComponent(this);
+//            this.m_CharacterData = TinyJSON.JSON.Load(this.m_TextAsset.text).Make<CCharacterData>();
 			for (int i = 0; i < this.m_CharacterData.objectJobs.Length; i++) {
 				var currentJob = this.m_CharacterData.objectJobs [i];
 				this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
 			}
-			this.RegisterComponent(this.m_JobComponent);
 			// FSM
 			this.m_FSMManager = new FSMManager ();
 			this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
@@ -75,7 +69,6 @@ namespace WarOfSlinger  {
 
         protected override void Awake() {
 			base.Awake();
-			this.Init();
         }
 
 		protected virtual void Start() {
@@ -86,6 +79,8 @@ namespace WarOfSlinger  {
 		protected override void Update ()
 		{
 			base.Update ();
+			if (this.m_Inited == false)
+				return;
 			this.m_FSMManager.UpdateState (Time.deltaTime);
 			this.m_FSMStateName = this.m_FSMManager.currentStateName;
 		}
@@ -94,18 +89,8 @@ namespace WarOfSlinger  {
 
 		#region Main methods
 
-		public override void ExcuteJobOwner(string jobName) {
-			base.ExcuteJobOwner (jobName);
-			this.m_JobComponent.ExcuteActiveJob (this, jobName);
-		}
-
-		public override void ClearJobOwner (string name)
-		{
-			base.ClearJobOwner (name);
-			this.m_JobComponent.ClearJob (this, name);
-		}
-
-		public virtual void ClearJobLabor() {
+		public override void ClearJobLabor() {
+			base.ClearJobLabor ();
 			this.targetPosition = this.transform.position;
 			this.targetObject = null;
 		}
@@ -122,11 +107,6 @@ namespace WarOfSlinger  {
 
 		public virtual bool HaveTargetObject() {
 			return this.m_TargetObject != null && this.m_TargetObject.GetCollider().enabled == true;
-		}
-
-		public virtual bool IsActive ()
-		{
-			return this.IsObjectActive;
 		}
 
 		#endregion
@@ -167,6 +147,12 @@ namespace WarOfSlinger  {
 		public override CObjectController GetTargetController ()
 		{
 			return this.m_TargetObject;
+		}
+
+		public override void SetPosition (Vector3 value)
+		{
+			base.SetPosition (value);
+			this.m_CharacterData.objectV3Position = value;
 		}
 
 		#endregion

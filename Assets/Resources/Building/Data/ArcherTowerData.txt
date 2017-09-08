@@ -1,6 +1,6 @@
 ﻿{
 	"objectName": "Archer Tower Building",
-	"objectModel": "ArcherTower 1",
+	"objectModel": "Building/Prefabs/ArcherTower 1",
 	"objectDescription": "Archer Tower Building.",
 	"objectTypes": ["building", "archer-tower"],
 	"objectElements": ["rock", "rock", "wood", "wood", "wood"],
@@ -17,6 +17,15 @@
 			"jobDescription": "Walk to object.",
 			"jobLaborRequire": 1,
 			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
+			"jobTimer": 1.0,
+			"jobType": 1
+		},{
+			"jobDisplayName": "Demolition.",
+			"jobAvatar": "Demolition",
+			"jobExcute": "DemolitionCommand",
+			"jobDescription": "Demolition object.",
+			"jobLaborRequire": 1,
+			"jobValues": ["freeLaborator"],
 			"jobTimer": 1.0,
 			"jobType": 1
 		}

@@ -1,0 +1,19 @@
+﻿{
+	"objectName": "Resident",
+	"objectModel": "NPC/Prefabs/Resident 1",
+	"objectDescription": "Resident data.",
+	"objectTypes": ["NPC"],
+	"objectLevel": 1,
+	"objectJobs": [
+		{
+			"jobDisplayName": "Open shop",
+			"jobAvatar": "Shop",
+			"jobExcute": "OpenShopCommand",
+			"jobDescription": "Open shop",
+			"jobLaborRequire": 1,
+			"jobValues": ["building-shop"],
+			"jobTimer": 1.0,
+			"jobType": 1
+		}
+	]
+}

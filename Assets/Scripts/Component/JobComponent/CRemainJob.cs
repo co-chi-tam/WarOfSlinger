@@ -23,6 +23,7 @@ namespace WarOfSlinger {
 			this.m_JobCompleteCondition.Add("OpenShopCommand",		this.WalkCompleteCommand);
 			this.m_JobCompleteCondition.Add("WalkCommand",			this.WalkCompleteCommand);
 			this.m_JobCompleteCondition.Add("GatheringCommand",		this.GatheringCompleteCommand);
+			this.m_JobCompleteCondition.Add("DemolitionCommand",	this.DemolitionCompleteCommand);
 			this.m_JobCompleteCondition.Add("CreateLaborCommand",	this.CreateLaborCompleteCommand);
 			this.m_JobCompleteCondition.Add("MakeToolCommand",		this.MakeToolCompleteCommand);
 			this.m_JobCompleteCondition.Add("HatchEggCommand",		this.HatchEggCompleteCommand);
@@ -44,6 +45,10 @@ namespace WarOfSlinger {
 					this.ClearJobLabor ();
 				} 
 			}
+		}
+
+		public virtual bool IsFullLabor() {
+			return this.jobLaborList.Count >= this.jobLaborRequire;
 		}
 
 		// REGISTER JOB LABOR
@@ -84,6 +89,10 @@ namespace WarOfSlinger {
 		}
 
 		protected virtual bool GatheringCompleteCommand(IJobLabor labor) {
+			return this.jobOwner.GetActive() == false;
+		}
+
+		protected virtual bool DemolitionCompleteCommand(IJobLabor labor) {
 			return this.jobOwner.GetActive() == false;
 		}
 

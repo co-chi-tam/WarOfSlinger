@@ -1,6 +1,6 @@
 ﻿{
 	"objectName": "Clyne",
-	"objectModel": "Clyne",
+	"objectModel": "Character/Prefabs/Character 1",
 	"objectDescription": "Character data.",
 	"objectTypes": ["character"],
 	"objectElements": [],
@@ -17,7 +17,7 @@
 			"jobExcute": "LoveCommand",
 			"jobDescription": "Love resident",
 			"jobLaborRequire": 1,
-			"jobValues": ["loveEmotion"],
+			"jobValues": ["Love u too!!", "Can i have a Dinosaur ??", "Something new.", "Errr..."],
 			"jobTimer": 1.0,
 			"jobType": 1
 		}

@@ -9,15 +9,12 @@ namespace WarOfSlinger {
 		#region Fields
 
 		[Header("Object Data")]
-		[SerializeField]    protected TextAsset m_ObjectTextAsset;
 		[SerializeField]    protected CDamageableObjectData m_ObjectData;
 
 		[Header("FSM")]
 		[SerializeField]	protected TextAsset m_FSMTextAsset;
 		[SerializeField]	protected string m_FSMStateName;
 
-		// COMPONENTS
-		protected CJobComponent m_JobComponent;
 		// FSMManager
 		protected FSMManager m_FSMManager;
 
@@ -28,14 +25,11 @@ namespace WarOfSlinger {
 		public override void Init() {
 			base.Init();
 			// DATA
-			this.m_ObjectData = TinyJSON.JSON.Load(this.m_ObjectTextAsset.text).Make<CDamageableObjectData>();
-			// REGISTER COMPONENT
-			this.m_JobComponent = new CJobComponent(this);
+//			this.m_ObjectData = TinyJSON.JSON.Load(this.m_ObjectTextAsset.text).Make<CDamageableObjectData>();
 			for (int i = 0; i < this.m_ObjectData.objectJobs.Length; i++) {
 				var currentJob = this.m_ObjectData.objectJobs [i];
 				this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
 			}
-			this.RegisterComponent(this.m_JobComponent);
 			// FSM
 			this.m_FSMManager = new FSMManager ();
 			this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
@@ -47,8 +41,6 @@ namespace WarOfSlinger {
 		}
 
 		protected override void Awake() {
-			// TEST
-			this.Init();
 			base.Awake();
 		}
 
@@ -58,6 +50,8 @@ namespace WarOfSlinger {
 
 		protected override void Update () {
 			base.Update ();
+			if (this.m_Inited == false)
+				return;
 			this.m_FSMManager.UpdateState (Time.deltaTime);
 			this.m_FSMStateName = this.m_FSMManager.currentStateName;
 		}
@@ -65,26 +59,6 @@ namespace WarOfSlinger {
 		#endregion
 
 		#region Main methods
-
-		public override void ExcuteJobOwner(string jobName) {
-			base.ExcuteJobOwner (jobName);
-			this.m_JobComponent.ExcuteActiveJob (this, jobName);
-		}
-
-		public override void ClearJobOwner (string name)
-		{
-			base.ClearJobOwner (name);
-			this.m_JobComponent.ClearJob (this, name);
-		}
-
-		#endregion
-
-		#region FSM
-
-		public virtual bool IsActive ()
-		{
-			return this.IsObjectActive;
-		}
 
 		#endregion
 
@@ -111,6 +85,12 @@ namespace WarOfSlinger {
 		public override CObjectData GetData() {
 			base.GetData();
 			return this.m_ObjectData;
+		}
+
+		public override void SetPosition (Vector3 value)
+		{
+			base.SetPosition (value);
+			this.m_ObjectData.objectV3Position = value;
 		}
 
 		#endregion

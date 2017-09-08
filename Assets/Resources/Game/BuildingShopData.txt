@@ -1,0 +1,167 @@
+﻿{
+	"shopDisplayName": "Building shop",
+	"shopName": "building-shop",
+	"shopItems": [
+		{
+			"itemName": "Residence",
+			"itemAvatar": "Residence-1",
+			"itemCommand": "CreateResident",
+			"itemCost": [
+				{
+					"resouceName": "wood",
+					"resouceAvatar": "wood-avatar",
+					"currentAmount": 10,
+					"maxAmount": 999999
+				},{
+					"resouceName": "rock",
+					"resouceAvatar": "rock-avatar",
+					"currentAmount": 10,
+					"maxAmount": 999999
+				},{
+					"resouceName": "leaf",
+					"resouceAvatar": "leaf-avatar",
+					"currentAmount": 10,
+					"maxAmount": 999999
+				},{
+					"resouceName": "food",
+					"resouceAvatar": "food-avatar",
+					"currentAmount": 0,
+					"maxAmount": 999999
+				},{
+					"resouceName": "tool",
+					"resouceAvatar": "tool-avatar",
+					"currentAmount": 1,
+					"maxAmount": 999999
+				}
+			]
+		},{
+			"itemName": "Storage",
+			"itemAvatar": "Storage-1",
+			"itemCommand": "CreateStorage",
+			"itemCost": [
+				{
+					"resouceName": "wood",
+					"resouceAvatar": "wood-avatar",
+					"currentAmount": 10,
+					"maxAmount": 999999
+				},{
+					"resouceName": "rock",
+					"resouceAvatar": "rock-avatar",
+					"currentAmount": 10,
+					"maxAmount": 999999
+				},{
+					"resouceName": "leaf",
+					"resouceAvatar": "leaf-avatar",
+					"currentAmount": 10,
+					"maxAmount": 999999
+				},{
+					"resouceName": "food",
+					"resouceAvatar": "food-avatar",
+					"currentAmount": 10,
+					"maxAmount": 999999
+				},{
+					"resouceName": "tool",
+					"resouceAvatar": "tool-avatar",
+					"currentAmount": 2,
+					"maxAmount": 999999
+				}
+			]
+		},{
+			"itemName": "Blacksmith House",
+			"itemAvatar": "BlacksmithHouse-1",
+			"itemCommand": "CreateBlacksmithHouse",
+			"itemCost": [
+				{
+					"resouceName": "wood",
+					"resouceAvatar": "wood-avatar",
+					"currentAmount": 10,
+					"maxAmount": 999999
+				},{
+					"resouceName": "rock",
+					"resouceAvatar": "rock-avatar",
+					"currentAmount": 20,
+					"maxAmount": 999999
+				},{
+					"resouceName": "leaf",
+					"resouceAvatar": "leaf-avatar",
+					"currentAmount": 0,
+					"maxAmount": 999999
+				},{
+					"resouceName": "food",
+					"resouceAvatar": "food-avatar",
+					"currentAmount": 5,
+					"maxAmount": 999999
+				},{
+					"resouceName": "tool",
+					"resouceAvatar": "tool-avatar",
+					"currentAmount": 2,
+					"maxAmount": 999999
+				}
+			]
+		},{
+			"itemName": "Archer Tower",
+			"itemAvatar": "ArcherTower-1",
+			"itemCommand": "CreateArcherTower",
+			"itemCost": [
+				{
+					"resouceName": "wood",
+					"resouceAvatar": "wood-avatar",
+					"currentAmount": 10,
+					"maxAmount": 999999
+				},{
+					"resouceName": "rock",
+					"resouceAvatar": "rock-avatar",
+					"currentAmount": 10,
+					"maxAmount": 999999
+				},{
+					"resouceName": "leaf",
+					"resouceAvatar": "leaf-avatar",
+					"currentAmount": 0,
+					"maxAmount": 999999
+				},{
+					"resouceName": "food",
+					"resouceAvatar": "food-avatar",
+					"currentAmount": 0,
+					"maxAmount": 999999
+				},{
+					"resouceName": "tool",
+					"resouceAvatar": "tool-avatar",
+					"currentAmount": 2,
+					"maxAmount": 999999
+				}
+			]
+		},{
+			"itemName": "Hatching",
+			"itemAvatar": "Hatching-1",
+			"itemCommand": "CreateHatchingHouse",
+			"itemCost": [
+				{
+					"resouceName": "wood",
+					"resouceAvatar": "wood-avatar",
+					"currentAmount": 10,
+					"maxAmount": 999999
+				},{
+					"resouceName": "rock",
+					"resouceAvatar": "rock-avatar",
+					"currentAmount": 10,
+					"maxAmount": 999999
+				},{
+					"resouceName": "leaf",
+					"resouceAvatar": "leaf-avatar",
+					"currentAmount": 20,
+					"maxAmount": 999999
+				},{
+					"resouceName": "food",
+					"resouceAvatar": "food-avatar",
+					"currentAmount": 10,
+					"maxAmount": 999999
+				},{
+					"resouceName": "tool",
+					"resouceAvatar": "tool-avatar",
+					"currentAmount": 2,
+					"maxAmount": 999999
+				}
+			]
+		}
+	]
+}

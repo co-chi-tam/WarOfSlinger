@@ -1,6 +1,6 @@
 ﻿{
 	"objectName": "Rock object",
-	"objectModel": "Rock 1",
+	"objectModel": "Environment/Prefabs/Rock 1",
 	"objectDescription": "Rock object.",
 	"objectTypes": ["object", "environment"],
 	"objectElements": ["rock", "rock"],

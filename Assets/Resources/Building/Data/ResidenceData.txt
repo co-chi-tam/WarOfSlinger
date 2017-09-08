@@ -1,6 +1,6 @@
 ﻿{
 	"objectName": "Residence Building",
-	"objectModel": "House 1",
+	"objectModel": "Building/Prefabs/Residence 1",
 	"objectDescription": "Residence for rent.",
 	"objectTypes": ["building", "residence"],
 	"objectElements": ["rock", "rock", "wood", "wood"],
@@ -34,7 +34,16 @@
 			"jobExcute": "CreateLaborCommand",
 			"jobDescription": "Create a labor to object.",
 			"jobLaborRequire": 2,
-			"jobValues": ["createLabor", "getResource", "2", "basic", "meat", "bone", "bone"],
+			"jobValues": ["food", "food", "food", "food", "food"],
+			"jobTimer": 1.0,
+			"jobType": 1
+		},{
+			"jobDisplayName": "Demolition.",
+			"jobAvatar": "Demolition",
+			"jobExcute": "DemolitionCommand",
+			"jobDescription": "Demolition object.",
+			"jobLaborRequire": 1,
+			"jobValues": ["freeLaborator"],
 			"jobTimer": 1.0,
 			"jobType": 1
 		}

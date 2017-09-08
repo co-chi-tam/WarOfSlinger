@@ -22,8 +22,11 @@ namespace WarOfSlinger {
         protected List<CComponent> m_Components = new List<CComponent>();
 
 		protected bool m_Active;
-        protected CEventComponent m_EventComponent;
+		protected bool m_Inited;
 		protected Transform m_Transform;
+		// COMPONENTS
+		protected CEventComponent m_EventComponent;
+		protected CJobComponent m_JobComponent;
 
 		protected Vector2 m_ColliderPoint;
 		public Vector2 colliderPoint {
@@ -34,11 +37,6 @@ namespace WarOfSlinger {
         #endregion
 
 		#region Properties
-
-		public virtual bool IsObjectActive {
-			get { return this.m_Active; }
-			set { this.m_Active = value; }
-		}
 
 		public virtual Vector3 objectPosition {
 			get { return this.m_Transform.position; }
@@ -68,12 +66,17 @@ namespace WarOfSlinger {
         #region Implementation Moonobehaviour
 
         public virtual void Init() {
-            this.m_EventComponent = new CEventComponent();
-            this.RegisterComponent(this.m_EventComponent);
+			// INITED
+			this.m_Inited = true;
+			this.m_Active = true; 
+			// REGISTER COMPONENT
+			this.m_EventComponent = new CEventComponent();
+			this.m_JobComponent = new CJobComponent(this);
+			this.RegisterComponent(this.m_EventComponent);
+			this.RegisterComponent(this.m_JobComponent);
         }
 
         protected virtual void Awake() {
-			this.m_Active = true;  
 			this.m_Transform = this.transform;
         }
 
@@ -83,7 +86,9 @@ namespace WarOfSlinger {
             }
         }
 
-        protected virtual void Update() {
+		protected virtual void Update() {
+			if (this.m_Inited == false || this.m_Active == false)
+				return;
             for (int i = 0; i < this.m_Components.Count; i++) {
                 this.m_Components[i].UpdateComponent(Time.deltaTime);
             }
@@ -97,13 +102,26 @@ namespace WarOfSlinger {
 
         #endregion
 
+		#region FSM
+
+		public virtual bool IsActive ()
+		{
+			return this.GetActive();
+		}
+
+		#endregion
+
 		#region JobOwner
 
 		public virtual void ExcuteJobOwner(string jobName) {
-			
+			this.m_JobComponent.ExcuteActiveJob (this, jobName);
 		}
 
 		public virtual void ClearJobOwner(string name) {
+			this.m_JobComponent.ClearJob (this, name);
+		}
+
+		public virtual void ClearJobLabor() {
 			
 		}
 

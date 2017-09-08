@@ -1,0 +1,291 @@
+﻿{
+	"villageName": "Village-1",
+	"currentPopulation": 0,
+	"maxPopulation": 0,
+	"villageResources": [
+		{
+			"resouceName": "wood",
+			"resouceAvatar": "wood-avatar",
+			"currentAmount": 100,
+			"maxAmount": 999999
+		},{
+			"resouceName": "rock",
+			"resouceAvatar": "rock-avatar",
+			"currentAmount": 100,
+			"maxAmount": 999999
+		},{
+			"resouceName": "leaf",
+			"resouceAvatar": "leaf-avatar",
+			"currentAmount": 100,
+			"maxAmount": 999999
+		},{
+			"resouceName": "food",
+			"resouceAvatar": "food-avatar",
+			"currentAmount": 100,
+			"maxAmount": 999999
+		},{
+			"resouceName": "tool",
+			"resouceAvatar": "tool-avatar",
+			"currentAmount": 100,
+			"maxAmount": 999999
+		}
+	],
+	"villageBuildings": [
+		{
+			"objectPosition": "(6.6,0,0)",
+			"objectName": "Residence Building",
+			"objectModel": "Building/Prefabs/Residence 1",
+			"objectDescription": "Residence for rent.",
+			"objectTypes": ["building"],
+			"objectElements": ["rock", "rock", "wood", "wood"],
+			"objectLevel": 1,
+			"currentHealth": 100,
+			"maxHealth": 100,
+			"currentResident": 0,
+			"maxResident": 4,
+			"objectJobs": [
+				{
+					"jobDisplayName": "Claim Gold",
+					"jobAvatar": "GoldPerResident",
+					"jobExcute": "GoldPerResident",
+					"jobLaborRequire": 1,
+					"jobDescription": "Claim 60 gold per resident each 100 second ",
+					"jobValues": ["100", "1"],
+					"jobTimer": 60.0,
+					"jobType": 0
+				},{
+					"jobDisplayName": "Walk.",
+					"jobAvatar": "MoveTo",
+					"jobExcute": "WalkCommand",
+					"jobDescription": "Walk to object.",
+					"jobLaborRequire": 1,
+					"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				},{
+					"jobDisplayName": "Labor.",
+					"jobAvatar": "CreateLabor",
+					"jobExcute": "CreateLaborCommand",
+					"jobDescription": "Create a labor to object.",
+					"jobLaborRequire": 2,
+					"jobValues": ["createLabor", "getResource", "2", "basic", "meat", "bone", "bone"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				},{
+					"jobDisplayName": "Demolition.",
+					"jobAvatar": "Demolition",
+					"jobExcute": "DemolitionCommand",
+					"jobDescription": "Demolition object.",
+					"jobLaborRequire": 1,
+					"jobValues": ["freeLaborator"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				}
+			]
+		},{
+			"objectPosition": "(7.7,0,0)",
+			"objectName": "Storage Building",
+			"objectModel": "Building/Prefabs/Storage 1",
+			"objectDescription": "Storage house.",
+			"objectTypes": ["building"],
+			"objectElements": ["rock", "rock", "wood", "wood", "wood"],
+			"objectLevel": 1,
+			"currentHealth": 100,
+			"maxHealth": 100,
+			"currentResident": 0,
+			"maxResident": 0,
+			"objectJobs": [
+				{
+					"jobDisplayName": "Walk.",
+					"jobAvatar": "MoveTo",
+					"jobExcute": "WalkCommand",
+					"jobDescription": "Walk to object.",
+					"jobLaborRequire": 1,
+					"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				},{
+					"jobDisplayName": "Inventory.",
+					"jobAvatar": "MoveTo",
+					"jobExcute": "WalkCommand",
+					"jobDescription": "Walk to object.",
+					"jobLaborRequire": 1,
+					"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				}
+			]
+		}
+	],
+	"villageCharacters": [
+		{
+			"objectPosition": "(8.8,0,0)",
+			"objectName": "Clyne",
+			"objectModel": "Character/Prefabs/Character 1",
+			"objectDescription": "Character data.",
+			"objectTypes": ["character"],
+			"objectElements": [],
+			"objectLevel": 1,
+			"currentHealth": 100,
+			"maxHealth": 100,
+			"damageCharacter": 10,
+			"damageConstruction": 20,
+			"actionSpeed": 1.0,
+			"objectJobs": [
+				{
+					"jobDisplayName": "Love",
+					"jobAvatar": "Love",
+					"jobExcute": "LoveCommand",
+					"jobDescription": "Love resident",
+					"jobLaborRequire": 1,
+					"jobValues": ["Love u too!!", "Can i have a Dinosaur ??", "Something new.", "Errr..."],
+					"jobTimer": 1.0,
+					"jobType": 1
+				}
+			]
+		},{
+			"objectPosition": "(8.3,0,0)",
+			"objectName": "Sansa",
+			"objectModel": "Character/Prefabs/Character 5",
+			"objectDescription": "Character data.",
+			"objectTypes": ["character"],
+			"objectElements": [],
+			"objectLevel": 1,
+			"currentHealth": 100,
+			"maxHealth": 100,
+			"damageCharacter": 10,
+			"damageConstruction": 20,
+			"actionSpeed": 1.0,
+			"objectJobs": [
+				{
+					"jobDisplayName": "Love",
+					"jobAvatar": "Love",
+					"jobExcute": "LoveCommand",
+					"jobDescription": "Love resident",
+					"jobLaborRequire": 1,
+					"jobValues": ["Love u too!!", "Can i have a Dinosaur ??", "Something new.", "Errr..."],
+					"jobTimer": 1.0,
+					"jobType": 1
+				}
+			]
+		}
+	],
+	"villageNPCs": [
+		{
+			"objectPosition": "(9.3,0,0)",
+			"objectName": "Resident",
+			"objectModel": "NPC/Prefabs/Resident 1",
+			"objectDescription": "Resident data.",
+			"objectTypes": ["NPC"],
+			"objectLevel": 1,
+			"objectJobs": [
+				{
+					"jobDisplayName": "Open shop",
+					"jobAvatar": "Shop",
+					"jobExcute": "OpenShopCommand",
+					"jobDescription": "Open shop",
+					"jobLaborRequire": 1,
+					"jobValues": ["building-shop"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				}
+			]
+		}
+	]
+	"villageObjects": [
+		{
+			"objectPosition": "(10,0,0)",
+			"objectName": "Bush object",
+			"objectModel": "Environment/Prefabs/Bush 1",
+			"objectDescription": "Bush object.",
+			"objectTypes": ["object", "environment"],
+			"objectElements": ["leaf", "leaf", "wood"],
+			"objectLevel": 1,
+			"currentHealth": 100,
+			"maxHealth": 100,
+			"objectJobs": [
+				{
+					"jobDisplayName": "Walk.",
+					"jobAvatar": "MoveTo",
+					"jobExcute": "WalkCommand",
+					"jobDescription": "Walk to object.",
+					"jobLaborRequire": 1,
+					"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				},{
+					"jobDisplayName": "Gathering.",
+					"jobAvatar": "Gathering",
+					"jobExcute": "GatheringCommand",
+					"jobDescription": "Gathering to object.",
+					"jobLaborRequire": 1,
+					"jobValues": ["leaf", "leaf", "wood"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				}
+			]
+		},{
+			"objectPosition": "(11,0,0)",
+			"objectName": "Rock object",
+			"objectModel": "Environment/Prefabs/Rock 1",
+			"objectDescription": "Rock object.",
+			"objectTypes": ["object", "environment"],
+			"objectElements": ["rock", "rock"],
+			"objectLevel": 1,
+			"currentHealth": 100,
+			"maxHealth": 100,
+			"objectJobs": [
+				{
+					"jobDisplayName": "Walk.",
+					"jobAvatar": "MoveTo",
+					"jobExcute": "WalkCommand",
+					"jobDescription": "Walk to object.",
+					"jobLaborRequire": 1,
+					"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				},{
+					"jobDisplayName": "Gathering.",
+					"jobAvatar": "Gathering",
+					"jobExcute": "GatheringCommand",
+					"jobDescription": "Gathering to object.",
+					"jobLaborRequire": 1,
+					"jobValues": ["rock", "rock"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				}
+			]
+		},{
+			"objectPosition": "(5,0,0)",
+			"objectName": "Tree object",
+			"objectModel": "Environment/Prefabs/Tree 1",
+			"objectDescription": "Tree object.",
+			"objectTypes": ["object", "environment"],
+			"objectElements": ["leaf", "wood", "wood", "wood"],
+			"objectLevel": 1,
+			"currentHealth": 100,
+			"maxHealth": 100,
+			"objectJobs": [
+				{
+					"jobDisplayName": "Walk.",
+					"jobAvatar": "MoveTo",
+					"jobExcute": "WalkCommand",
+					"jobDescription": "Walk to object.",
+					"jobLaborRequire": 1,
+					"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				},{
+					"jobDisplayName": "Gathering.",
+					"jobAvatar": "Gathering",
+					"jobExcute": "GatheringCommand",
+					"jobDescription": "Gathering to object.",
+					"jobLaborRequire": 1,
+					"jobValues": ["leaf", "wood", "wood", "wood"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				}
+			]
+		}
+	]
+}

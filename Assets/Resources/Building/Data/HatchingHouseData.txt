@@ -1,6 +1,6 @@
 ﻿{
 	"objectName": "Hatching House Building",
-	"objectModel": "HatchingHouse 1",
+	"objectModel": "Building/Prefabs/HatchingHouse 1",
 	"objectDescription": "Hatching House Building.",
 	"objectTypes": ["building", "hatching-house"],
 	"objectElements": ["rock", "rock", "wood", "wood", "wood"],
@@ -20,12 +20,21 @@
 			"jobTimer": 1.0,
 			"jobType": 1
 		},{
+			"jobDisplayName": "Demolition.",
+			"jobAvatar": "Demolition",
+			"jobExcute": "DemolitionCommand",
+			"jobDescription": "Demolition object.",
+			"jobLaborRequire": 1,
+			"jobValues": ["freeLaborator"],
+			"jobTimer": 1.0,
+			"jobType": 1
+		},{
 			"jobDisplayName": "Hatch egg.",
 			"jobAvatar": "HatchEgg",
 			"jobExcute": "HatchEggCommand",
 			"jobDescription": "Hatch an egg.",
-			"jobLaborRequire": 2,
-			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
+			"jobLaborRequire": 3,
+			"jobValues": ["freeLaborator", "eggs", "dinosaur"],
 			"jobTimer": 10.0,
 			"jobType": 1
 		}

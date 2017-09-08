@@ -1,0 +1,70 @@
+{
+  "fsm": [
+    {
+      "condition_name": "IsRoot",
+      "state_name": "GameFreeModeState",
+      "states": [
+        {
+          "condition_name": "IsLoadingMode",
+          "state_name": "GameLoadingModeState",
+          "states": [
+            {
+              "condition_name": "!IsLoadingMode",
+              "state_name": "GameFreeModeState",
+              "states": []
+            }
+          ]
+        },
+        {
+          "condition_name": "IsPlayingMode",
+          "state_name": "GamePlayingModeState",
+          "states": [
+            {
+              "condition_name": "!IsPlayingMode",
+              "state_name": "GameFreeModeState",
+              "states": []
+            }
+          ]
+        },
+        {
+          "condition_name": "IsBuildingMode",
+          "state_name": "GameBuildingModeState",
+          "states": [
+            {
+              "condition_name": "!IsBuildingMode",
+              "state_name": "GameFreeModeState",
+              "states": []
+            }
+          ]
+        },
+        {
+          "condition_name": "IsPVPMode",
+          "state_name": "GamePVPModeState",
+          "states": [
+            {
+              "condition_name": "!IsPVPMode",
+              "state_name": "GameFreeModeState",
+              "states": []
+            }
+          ]
+        },
+        {
+          "condition_name": "IsPVEMode",
+          "state_name": "GamePVEModeState",
+          "states": [
+            {
+              "condition_name": "!IsPVEMode",
+              "state_name": "GameFreeModeState",
+              "states": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "condition_name": "IsAnyState",
+      "state_name": "AnyState",
+      "states": []
+    }
+  ]
+}

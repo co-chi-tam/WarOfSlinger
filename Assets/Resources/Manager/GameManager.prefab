@@ -184,9 +184,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3de5ef8f1e25e4383165185986d112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_VillageTextAsset: {fileID: 4900000, guid: 7c5b79dc432d0cd409e3d76c710c1591, type: 3}
+  m_VillageData:
+    villageName: 
+    currentPopulation: 0
+    maxPopulation: 99
+    villageResources: []
+    villageBuildings: []
+    villageCharacters: []
+    villageNPCs: []
+    villageObjects: []
   m_UITalk: {fileID: 0}
   m_Camera: {fileID: 0}
   m_TouchDetectLayerMask:
     serializedVersion: 2
     m_Bits: 1073743104
   m_UIJob: {fileID: 0}
+  m_GameMode: 0
+  m_GameModeTextAsset: {fileID: 4900000, guid: ad6b709bb673efc4fbfe367f6b358e8f, type: 3}
