@@ -1,8 +1,9 @@
 ﻿{
+	"objectPosition": "(6.6,0,0)",
 	"objectName": "Bush object",
 	"objectModel": "Environment/Prefabs/Bush 1",
 	"objectDescription": "Bush object.",
-	"objectTypes": ["object", "environment"],
+	"objectType": "environment",
 	"objectElements": ["leaf", "leaf", "wood"],
 	"objectLevel": 1,
 	"currentHealth": 100,

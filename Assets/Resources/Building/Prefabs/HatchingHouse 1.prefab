@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114577044113048064}
   - component: {fileID: 114396984656355048}
   - component: {fileID: 50538992629562672}
+  - component: {fileID: 114690164516267240}
   m_Layer: 8
   m_Name: HatchingHouseSprite
   m_TagString: Untagged
@@ -254,22 +255,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UIJobPoint: {fileID: 1579667679734422}
   m_Animator: {fileID: 0}
+  m_SpriteRender: {fileID: 212320671309772972}
   m_Collider2D: {fileID: 114396984656355048}
+  m_CharacterCollider: {fileID: 60472194631597258}
+  m_Rigidbody2D: {fileID: 50538992629562672}
+  m_IsObjectWorking: 1
   m_RedrawCollider: {fileID: 114396984656355048}
   m_RedrawSprite: {fileID: 114577044113048064}
   m_ActiveDamageAfterTime: 0.1
-  m_BuildingTextAsset: {fileID: 4900000, guid: 53256618eab06564f8b9989b70790bde, type: 3}
+  m_DetectLayerMask:
+    serializedVersion: 2
+    m_Bits: 3221225728
+  m_DetectRadius: 0.7
+  m_ExceptCollider:
+  - {fileID: 60472194631597258}
+  m_TriggerWithOther: 0
+  m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_AlertColor: {r: 1, g: 0.30147058, b: 0.30147058, a: 1}
   m_BuidingData:
+    objectPosition: (0,0,0)
     objectId: 
     objectName: 
     objectModel: 
     objectDescription: 
-    objectTypes: []
-    objectElements: []
+    objectType: 
     objectLevel: 0
     objectJobs: []
+    objectElements: []
     currentHealth: 0
     maxHealth: 0
+    currentResident: 0
+    maxResident: 0
   m_FSMTextAsset: {fileID: 4900000, guid: bbd136d8d9576b2438c7a96bdde3bc48, type: 3}
   m_FSMStateName: 
 --- !u!114 &114577044113048064
@@ -331,6 +347,19 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+--- !u!114 &114690164516267240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1565000926117446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787c3325f279d474c8ddfe43b7830c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DragObject: {fileID: 1595897231494148}
+  m_DragOffsetPosition: {x: 0, y: -0.2}
 --- !u!212 &212320671309772972
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -7,14 +7,14 @@ namespace WarOfSlinger {
 
 		public string itemName;
 		public string itemAvatar;
-		public string itemCommand;
+		public string itemSource;
 		public CResourceData[] itemCost;
 
 		public CShopItemData ()
 		{
 			this.itemName 		= string.Empty;
 			this.itemAvatar 	= string.Empty;
-			this.itemCommand 	= string.Empty;
+			this.itemSource 	= string.Empty;
 		}
 
 	}

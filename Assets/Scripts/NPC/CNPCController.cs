@@ -24,9 +24,6 @@ namespace WarOfSlinger {
 				var currentJob = this.m_ObjectData.objectJobs [i];
 				this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
 			}
-			// RANDOM NPC
-			this.SetAnimation ("AnimParam", UnityEngine.Random.Range (1, 7));
-			this.objectSide = (int) Time.time % 2 == 0 ? 1 : -1;
 		}
 
 		protected override void Awake() {

@@ -24,8 +24,8 @@ namespace WarOfSlinger {
 		protected override void Awake() {
 			base.Awake();
 			// REGISTER EVENT
-			this.m_RedrawCollider.OnEventColliderObject -= OnObjectColliderWith;
-			this.m_RedrawCollider.OnEventColliderObject += OnObjectColliderWith;
+			this.m_RedrawCollider.OnEventEnterColliderObject -= OnObjectColliderWith;
+			this.m_RedrawCollider.OnEventEnterColliderObject += OnObjectColliderWith;
 		}
 
 		protected override void Update() {

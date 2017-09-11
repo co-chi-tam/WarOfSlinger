@@ -1,8 +1,9 @@
 ﻿{
+	"objectPosition": "(6.6,0,0)",
 	"objectName": "Black Smith Building",
 	"objectModel": "Building/Prefabs/BlacksmithHouse 1",
 	"objectDescription": "Black Smith Building.",
-	"objectTypes": ["building", "blacksmith-house"],
+	"objectType": "building",
 	"objectElements": ["rock", "rock", "wood", "wood", "wood"],
 	"objectLevel": 1,
 	"currentHealth": 100,

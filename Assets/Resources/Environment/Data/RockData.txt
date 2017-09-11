@@ -1,8 +1,9 @@
 ﻿{
+	"objectPosition": "(6.6,0,0)",
 	"objectName": "Rock object",
 	"objectModel": "Environment/Prefabs/Rock 1",
 	"objectDescription": "Rock object.",
-	"objectTypes": ["object", "environment"],
+	"objectType": "environment",
 	"objectElements": ["rock", "rock"],
 	"objectLevel": 1,
 	"currentHealth": 100,

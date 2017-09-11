@@ -1,8 +1,9 @@
 ﻿{
+	"objectPosition": "(6.6,0,0)",
 	"objectName": "Storage Building",
 	"objectModel": "Building/Prefabs/Storage 1",
 	"objectDescription": "Storage house.",
-	"objectTypes": ["building", "storage"],
+	"objectType": "building",
 	"objectElements": ["rock", "rock", "wood", "wood", "wood"],
 	"objectLevel": 1,
 	"currentHealth": 100,

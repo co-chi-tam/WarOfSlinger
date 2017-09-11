@@ -11,6 +11,7 @@ public class CameraFollower : MonoBehaviour {
     [SerializeField]    protected bool m_IsFollowing = false;
 
     protected Transform m_Transform;
+	protected float m_FollowTimer = -1f;
 
 	public Transform FollowTransform {
 		get { return this.m_FollowTransform; }
@@ -31,14 +32,31 @@ public class CameraFollower : MonoBehaviour {
     }
 
     protected virtual void Update() {
-        if (this.m_IsFollowing == false)
+		if (this.m_IsFollowing == false || this.m_FollowTransform == null)
             return;
         var targetPosition  = this.m_FollowTransform.position;
         var newPosition     = Vector3.Lerp (this.m_Transform.position, targetPosition, this.m_Damping);
         newPosition.z       = this.m_Transform.position.z;
         this.m_Transform.position = newPosition;
+		if (this.m_FollowTimer > 0f) {
+			this.m_FollowTimer -= Time.deltaTime;
+			if (this.m_FollowTimer <= 0f) {
+				this.m_IsFollowing = false;
+				this.m_FollowTransform = null;
+			}
+		}
     }
 
     #endregion
+
+	#region Main methods
+
+	public void FollowUntil (Transform value, float time) {
+		this.m_FollowTransform = value;
+		this.m_FollowTimer = time;
+		this.IsFollowing = true;
+	}
+
+	#endregion
 
 }

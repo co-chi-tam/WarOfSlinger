@@ -35,7 +35,7 @@ namespace WarOfSlinger {
 			this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
 			// STATE
 			this.m_FSMManager.RegisterState ("ObjectIdleState", 		new FSMObjectIdleState(this));
-			this.m_FSMManager.RegisterState ("ObjectInactionState", 	new FSMObjectInactiveState(this));
+			this.m_FSMManager.RegisterState ("ObjectInactiveState", 	new FSMObjectInactiveState(this));
 			// CONDITION
 			this.m_FSMManager.RegisterCondition("IsActive", 			this.IsActive);
 		}

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FSM;
@@ -7,6 +8,7 @@ namespace WarOfSlinger {
 	public class FSMGamePlayingModeState : FSMBaseState {
 
 		protected CGameManager m_GameManager;
+		protected string[] m_ApplyObjectType;
 
 		public FSMGamePlayingModeState (IContext context): base(context)
 		{
@@ -16,13 +18,8 @@ namespace WarOfSlinger {
 		public override void StartState ()
 		{
 			base.StartState ();
-			var villageObjects = this.m_GameManager.villageObjects;
-			foreach (var item in villageObjects) {
-				var listObjs = item.Value;
-				for (int i = 0; i < listObjs.Count; i++) {
-					listObjs [i].gameObject.SetActive (true);
-				}
-			}
+			this.m_GameManager.OnEventTouchedGameObject = null;
+			this.m_GameManager.OnEventTouchedGameObject += this.OnOpenUIJobPanel;
 		}
 
 		public override void UpdateState (float dt)
@@ -38,6 +35,10 @@ namespace WarOfSlinger {
 		public override void ExitState ()
 		{
 			base.ExitState ();
+		}
+
+		protected virtual void OnOpenUIJobPanel(GameObject detectedGo) {
+			this.m_GameManager.OnOpenUIJobPanel (detectedGo);
 		}
 
 	}

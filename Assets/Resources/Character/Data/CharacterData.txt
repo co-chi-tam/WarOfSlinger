@@ -1,8 +1,9 @@
 ﻿{
+	"objectPosition": "(6.6,0,0)",
 	"objectName": "Clyne",
 	"objectModel": "Character/Prefabs/Character 1",
 	"objectDescription": "Character data.",
-	"objectTypes": ["character"],
+	"objectType": "character",
 	"objectElements": [],
 	"objectLevel": 1,
 	"currentHealth": 100,

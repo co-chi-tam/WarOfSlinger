@@ -52,6 +52,9 @@ namespace WarOfSlinger {
 		}
 
 		public void CloseBuildingControl() {
+			if (CGameManager.Instance.canChangeMode == false)
+				return;
+			this.m_BuildingControlPanel.SetActive (false);
 			CGameManager.Instance.SetMode (CGameManager.EGameMode.PLAYING);
 		}
 

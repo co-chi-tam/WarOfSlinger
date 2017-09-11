@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4720983677184310}
-  - component: {fileID: 114713616743109544}
+  - component: {fileID: 114020196274425344}
   m_Layer: 10
   m_Name: Resident 1
   m_TagString: Untagged
@@ -134,7 +134,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114713616743109544
+--- !u!114 &114020196274425344
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -142,17 +142,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1314618013530510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bbf59a1011f0c249b17ff10c6f1c6b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ba2e7e5167dba947b0365157e9cefdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UIJobPoint: {fileID: 1536921994098666}
   m_Animator: {fileID: 95330806786017446}
   m_Collider2D: {fileID: 0}
   m_CharacterCollider: {fileID: 58614868618082850}
-  m_TextAsset: {fileID: 4900000, guid: 735059b6bea97a74faad9e5b9d7a68c8, type: 3}
   m_ObjectData:
     objectPosition: (0,0,0)
-    objectId: 791900bf-8970-41a2-a8c1-7baabd74f706
+    objectId: 83f03021-c08b-4c7d-a7e5-c23d3c46839b
     objectName: 
     objectModel: 
     objectDescription: 

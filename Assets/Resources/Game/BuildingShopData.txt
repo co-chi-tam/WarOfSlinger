@@ -5,7 +5,7 @@
 		{
 			"itemName": "Residence",
 			"itemAvatar": "Residence-1",
-			"itemCommand": "CreateResident",
+			"itemSource": "Building/Data/ResidenceData",
 			"itemCost": [
 				{
 					"resouceName": "wood",
@@ -37,7 +37,7 @@
 		},{
 			"itemName": "Storage",
 			"itemAvatar": "Storage-1",
-			"itemCommand": "CreateStorage",
+			"itemSource": "Building/Data/StorageData",
 			"itemCost": [
 				{
 					"resouceName": "wood",
@@ -69,7 +69,7 @@
 		},{
 			"itemName": "Blacksmith House",
 			"itemAvatar": "BlacksmithHouse-1",
-			"itemCommand": "CreateBlacksmithHouse",
+			"itemSource": "Building/Data/BlacksmithHouseData",
 			"itemCost": [
 				{
 					"resouceName": "wood",
@@ -101,7 +101,7 @@
 		},{
 			"itemName": "Archer Tower",
 			"itemAvatar": "ArcherTower-1",
-			"itemCommand": "CreateArcherTower",
+			"itemSource": "Building/Data/ArcherTowerData",
 			"itemCost": [
 				{
 					"resouceName": "wood",
@@ -133,7 +133,7 @@
 		},{
 			"itemName": "Hatching",
 			"itemAvatar": "Hatching-1",
-			"itemCommand": "CreateHatchingHouse",
+			"itemSource": "Building/Data/HatchingHouseData",
 			"itemCost": [
 				{
 					"resouceName": "wood",

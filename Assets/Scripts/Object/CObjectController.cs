@@ -15,9 +15,13 @@ namespace WarOfSlinger {
 		[Header("Animator")]
 		[SerializeField]	protected Animator m_Animator;
 
-		[Header("Collider")]
+		[Header("Renderer")]
+		[SerializeField]	protected SpriteRenderer m_SpriteRender;
+
+		[Header("Physic Collider")]
 		[SerializeField]	protected RedrawableCollider m_Collider2D;
 		[SerializeField]	protected Collider2D m_CharacterCollider;
+		[SerializeField]	protected Rigidbody2D m_Rigidbody2D;
 
         protected List<CComponent> m_Components = new List<CComponent>();
 
@@ -33,10 +37,6 @@ namespace WarOfSlinger {
 			get { return this.m_ColliderPoint; }
 			protected set { this.m_ColliderPoint = value; }
 		}
-
-        #endregion
-
-		#region Properties
 
 		public virtual Vector3 objectPosition {
 			get { return this.m_Transform.position; }
@@ -61,6 +61,12 @@ namespace WarOfSlinger {
 			get { return this.m_UIJobPoint.transform; }
 		}
 
+		[SerializeField]	protected bool m_IsObjectWorking = true;
+		public bool IsObjectWorking {
+			get { return this.m_IsObjectWorking; }
+			set { this.m_IsObjectWorking = value; }
+		}
+
 		#endregion
 
         #region Implementation Moonobehaviour
@@ -69,6 +75,7 @@ namespace WarOfSlinger {
 			// INITED
 			this.m_Inited = true;
 			this.m_Active = true; 
+			this.m_IsObjectWorking = true;
 			// REGISTER COMPONENT
 			this.m_EventComponent = new CEventComponent();
 			this.m_JobComponent = new CJobComponent(this);
@@ -87,7 +94,7 @@ namespace WarOfSlinger {
         }
 
 		protected virtual void Update() {
-			if (this.m_Inited == false || this.m_Active == false)
+			if (this.m_Inited == false || this.m_Active == false || this.m_IsObjectWorking == false)
 				return;
             for (int i = 0; i < this.m_Components.Count; i++) {
                 this.m_Components[i].UpdateComponent(Time.deltaTime);
@@ -98,7 +105,7 @@ namespace WarOfSlinger {
         //    for (int i = 0; i < this.m_Components.Count; i++) {
         //        this.m_Components[i].EndComponent();
         //    }
-        //}
+                                         //}
 
         #endregion
 
@@ -231,7 +238,7 @@ namespace WarOfSlinger {
 		}
 
 		public virtual Collider2D GetCollider() {
-			return this.m_Collider2D.collider;
+			return this.m_Collider2D.collider2D;
 		}
 
 		public virtual Vector3 GetClosestPoint(Vector3 point) {
@@ -248,6 +255,21 @@ namespace WarOfSlinger {
 
 		public virtual CObjectController GetController() {
 			return this;
+		}
+
+		public virtual void SetEnabledPhysic(bool value) {
+			if (this.m_Rigidbody2D != null)
+				this.m_Rigidbody2D.bodyType = value ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
+			if (this.m_Collider2D != null)
+				this.m_Collider2D.enabledTrigger = !value;
+			if (this.m_CharacterCollider != null)
+				this.m_CharacterCollider.isTrigger = !value;
+		}
+
+		public virtual void SetColor(Color value) {
+			if (this.m_SpriteRender != null) {
+				this.m_SpriteRender.color = value;
+			}
 		}
 
         #endregion

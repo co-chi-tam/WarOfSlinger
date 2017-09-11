@@ -1,8 +1,9 @@
 ﻿{
+	"objectPosition": "(6.6,0,0)",
 	"objectName": "Tree object",
 	"objectModel": "Environment/Prefabs/Tree 1",
 	"objectDescription": "Tree object.",
-	"objectTypes": ["object", "environment"],
+	"objectType": "environment",
 	"objectElements": ["leaf", "wood", "wood", "wood"],
 	"objectLevel": 1,
 	"currentHealth": 100,

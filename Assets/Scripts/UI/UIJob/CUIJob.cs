@@ -47,13 +47,14 @@ namespace WarOfSlinger {
 				var x = Mathf.Sin (theta) * this.m_Radius;
 				var y = Mathf.Cos (theta) * this.m_Radius;
 				var tmpJob = this.m_JobItems [i];
+				tmpJob.gameObject.SetActive (false);
 				if (i > jobs.Length - 1) {
-					tmpJob.gameObject.SetActive (false);
 					continue;
 				}
 				var data = jobs [i];
 				if (data.jobType == (int)CJobObjectData.EJobType.PassiveJob)
 					continue;
+				tmpJob.gameObject.SetActive (true);
 				tmpJob.SetupItem (new Vector2 (x, y), data, (jobData) => {
 					// SELECTED
 					if (jobSelected != null) {

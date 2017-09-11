@@ -168,19 +168,21 @@ MonoBehaviour:
   m_UIJobPoint: {fileID: 1734362703082794}
   m_Animator: {fileID: 0}
   m_Collider2D: {fileID: 114339428731758700}
+  m_CharacterCollider: {fileID: 60730422956449214}
+  m_Rigidbody2D: {fileID: 50444241451865834}
   m_RedrawCollider: {fileID: 114339428731758700}
   m_RedrawSprite: {fileID: 114955014037606318}
   m_ActiveDamageAfterTime: 0.1
-  m_ObjectTextAsset: {fileID: 4900000, guid: c02d531514b563448b3b3cc5631075dd, type: 3}
   m_ObjectData:
+    objectPosition: (0,0,0)
     objectId: 2ff21ebe-f5ab-49ff-8142-06a710cb1d7c
     objectName: 
     objectModel: 
     objectDescription: 
-    objectTypes: []
-    objectElements: []
+    objectType: 
     objectLevel: 0
     objectJobs: []
+    objectElements: []
     currentHealth: 0
     maxHealth: 0
   m_FSMTextAsset: {fileID: 4900000, guid: 5f4521c3e7ece704b8245c27eda6bc11, type: 3}

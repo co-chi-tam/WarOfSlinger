@@ -9,6 +9,14 @@ namespace WarOfSlinger {
 
         #region Fields
 
+		[Header("Detect other")]
+		[SerializeField]	protected LayerMask m_DetectLayerMask;
+		[SerializeField]	protected float m_DetectRadius = 1f;
+		[SerializeField]	protected Collider2D[] m_ExceptCollider;
+		[SerializeField]	protected bool m_TriggerWithOther = false;
+		[SerializeField]	protected Color m_NormalColor = Color.white;
+		[SerializeField]	protected Color m_AlertColor = Color.red;
+
         [Header("Building Data")]
 		[SerializeField]    protected CBuildingData m_BuidingData;
 
@@ -59,9 +67,32 @@ namespace WarOfSlinger {
 			this.m_FSMStateName = this.m_FSMManager.currentStateName;
 		}
 
+		protected virtual void LateUpdate() {
+			this.OnDetectColliderWithOther ();
+			this.OnObjectChangeColor ();
+		}
+
+		protected virtual void OnDrawGizmos() {
+			Gizmos.DrawWireSphere (this.transform.position, this.m_DetectRadius);
+		}
+
         #endregion
 
 		#region Main methods
+
+		protected virtual void OnDetectColliderWithOther() {
+			var originPosition = this.m_Transform.position;
+			var rayHit2Ds = Physics2D.CircleCastAll (originPosition, this.m_DetectRadius, Vector2.zero, 0f, this.m_DetectLayerMask);
+			for (int i = 0; i < rayHit2Ds.Length; i++) {
+				var collider = rayHit2Ds [i].collider;
+				this.m_TriggerWithOther = Array.IndexOf (this.m_ExceptCollider, collider) == -1;
+				this.m_IsObjectWorking = !this.m_TriggerWithOther;
+			}
+		}
+
+		protected virtual void OnObjectChangeColor() {
+			this.SetColor (this.m_TriggerWithOther ? this.m_AlertColor : this.m_NormalColor);
+		}
 
 		#endregion
 

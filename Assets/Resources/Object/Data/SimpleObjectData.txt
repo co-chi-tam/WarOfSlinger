@@ -1,8 +1,9 @@
 ﻿{
+	"objectPosition": "(6.6,0,0)",
 	"objectName": "Simple object",
 	"objectModel": "SimpleObject 1",
 	"objectDescription": "Simple object.",
-	"objectTypes": ["object", "environment"],
+	"objectType": "environment",
 	"objectElements": ["rock", "wood"],
 	"objectLevel": 1,
 	"currentHealth": 100,

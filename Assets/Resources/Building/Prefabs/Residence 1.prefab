@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 114089235631002028}
   - component: {fileID: 114250646077373926}
   - component: {fileID: 50176557850784702}
+  - component: {fileID: 114166629070068020}
   m_Layer: 8
   m_Name: ResidenceSprite
   m_TagString: Untagged
@@ -168,7 +169,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1585425362040010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.589, y: 0, z: 0}
+  m_LocalPosition: {x: 6.872, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4102913784364854}
@@ -312,6 +313,19 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+--- !u!114 &114166629070068020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1636611146887848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787c3325f279d474c8ddfe43b7830c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DragObject: {fileID: 1585425362040010}
+  m_DragOffsetPosition: {x: 0, y: -0.2}
 --- !u!114 &114250646077373926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -344,18 +358,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UIJobPoint: {fileID: 1941248671024528}
   m_Animator: {fileID: 0}
+  m_SpriteRender: {fileID: 212446815849327960}
   m_Collider2D: {fileID: 114250646077373926}
-  m_CharacterCollider: {fileID: 0}
+  m_CharacterCollider: {fileID: 60870235926286586}
+  m_Rigidbody2D: {fileID: 50176557850784702}
+  m_IsObjectWorking: 1
   m_RedrawCollider: {fileID: 114250646077373926}
   m_RedrawSprite: {fileID: 114089235631002028}
   m_ActiveDamageAfterTime: 0.1
+  m_DetectLayerMask:
+    serializedVersion: 2
+    m_Bits: 3221225728
+  m_DetectRadius: 0.5
+  m_ExceptCollider:
+  - {fileID: 60870235926286586}
+  m_TriggerWithOther: 0
+  m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_AlertColor: {r: 1, g: 0.30147058, b: 0.30147058, a: 1}
   m_BuidingData:
     objectPosition: (0,0,0)
     objectId: 
     objectName: 
     objectModel: 
     objectDescription: 
-    objectTypes: []
+    objectType: 
     objectLevel: 0
     objectJobs: []
     objectElements: []
