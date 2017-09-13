@@ -12,6 +12,21 @@ namespace WarOfSlinger {
 		public override void Init() {
 			base.Init();
 			// RANDOM NPC
+			this.OnRandomNPC ();
+		}
+
+		protected override void OnEnable ()
+		{
+			base.OnEnable ();
+			// RANDOM NPC
+			this.OnRandomNPC ();
+		}
+
+		#endregion
+
+		#region Main methods
+
+		private void OnRandomNPC() {
 			this.SetAnimation ("AnimParam", UnityEngine.Random.Range (1, 7));
 			this.objectSide = (int) Time.time % 2 == 0 ? 1 : -1;
 		}

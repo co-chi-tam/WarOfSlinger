@@ -114,7 +114,7 @@ SpriteRenderer:
   m_PrefabParentObject: {fileID: 212738816496748520, guid: a523f3575783107458e8c1a9cc4b9eee,
     type: 2}
   m_PrefabInternal: {fileID: 1481231641}
---- !u!1001 &571157912
+--- !u!1001 &597889797
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -410,11 +410,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114629649834758934, guid: f11f732ee3e1de64f9e5c0a59685ef2b,
         type: 2}
-      propertyPath: m_UITalk
-      value: 
-      objectReference: {fileID: 1980792479}
-    - target: {fileID: 114629649834758934, guid: f11f732ee3e1de64f9e5c0a59685ef2b,
-        type: 2}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1679143597}
@@ -425,18 +420,54 @@ Prefab:
       objectReference: {fileID: 1679143601}
     - target: {fileID: 114629649834758934, guid: f11f732ee3e1de64f9e5c0a59685ef2b,
         type: 2}
-      propertyPath: m_UIJob
-      value: 
-      objectReference: {fileID: 1297382204}
+      propertyPath: m_TouchDetectLayerMask.m_Bits
+      value: 1073745152
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f11f732ee3e1de64f9e5c0a59685ef2b, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1297382204 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114246717630964328, guid: b9cadc9c7fe8abe40847f0f15aecb7a7,
-    type: 2}
-  m_PrefabInternal: {fileID: 571157912}
-  m_Script: {fileID: 11500000, guid: 47af503c726c5a4438aee6a30d7e9c3b, type: 3}
+--- !u!1001 &1460975923
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4942903665805746, guid: cf16a1c2a23408144ad73701b1a3b52f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 5.569
+      objectReference: {fileID: 0}
+    - target: {fileID: 4942903665805746, guid: cf16a1c2a23408144ad73701b1a3b52f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4942903665805746, guid: cf16a1c2a23408144ad73701b1a3b52f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4942903665805746, guid: cf16a1c2a23408144ad73701b1a3b52f, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4942903665805746, guid: cf16a1c2a23408144ad73701b1a3b52f, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4942903665805746, guid: cf16a1c2a23408144ad73701b1a3b52f, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4942903665805746, guid: cf16a1c2a23408144ad73701b1a3b52f, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4942903665805746, guid: cf16a1c2a23408144ad73701b1a3b52f, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: cf16a1c2a23408144ad73701b1a3b52f, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1481231641
 Prefab:
   m_ObjectHideFlags: 0
@@ -617,9 +648,3 @@ MonoBehaviour:
   m_FollowTransform: {fileID: 0}
   m_Damping: 0.1
   m_IsFollowing: 0
---- !u!114 &1980792479 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114579261344973000, guid: b9cadc9c7fe8abe40847f0f15aecb7a7,
-    type: 2}
-  m_PrefabInternal: {fileID: 571157912}
-  m_Script: {fileID: 11500000, guid: 41711032d6c53534f804e8facce682c0, type: 3}

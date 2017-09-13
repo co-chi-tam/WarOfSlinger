@@ -17,7 +17,6 @@ namespace WarOfSlinger {
 		}
 
 		public virtual void OnBeginDrag2D(Vector2 position) {
-			var newPosition = position + this.m_DragOffsetPosition;
 			this.m_DragObject.transform.position = position;
 		}
 

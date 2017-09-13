@@ -7,7 +7,7 @@ namespace WarOfSlinger {
 
 		public string objectPosition;
 
-		private Vector3 m_ObjectV3Position = Vector3.zero;
+		private Vector3 m_ObjectV3Position;
 		public Vector3 objectV3Position {
 			get { return objectPosition.ToV3 (); }
 			set { 

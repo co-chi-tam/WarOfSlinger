@@ -35,7 +35,7 @@ namespace WarOfSlinger {
 			var direction = targetPosition - currentPosition;
 			var movePostion = direction.normalized;
 			// DATA
-			var moveSpeed = this.m_CharacterData.actionSpeed;
+			var moveSpeed = 1f / this.m_CharacterData.actionSpeed;
 			// CALCULATE POSITION
 			currentPosition += movePostion * moveSpeed * dt;
 			this.m_Controller.objectPosition = currentPosition;

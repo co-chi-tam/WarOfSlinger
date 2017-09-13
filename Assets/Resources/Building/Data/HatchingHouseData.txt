@@ -10,23 +10,48 @@
 	"maxHealth": 100,
 	"currentResident": 0,
 	"maxResident": 0,
+	"NPCDatas": [
+		{
+			"objectPosition": "(0,0,0)",
+			"objectName": "Breeder",
+			"objectModel": "NPC/Prefabs/Breeder 1",
+			"objectDescription": "Breeder data.",
+			"objectType": "NPC",
+			"objectLevel": 1,
+			"objectJobs": [
+				{
+					"jobDisplayName": "Walk.",
+					"jobAvatar": "MoveTo",
+					"jobExcute": "WalkCommand",
+					"jobDescription": "Walk to object.",
+					"jobLaborRequire": 1,
+					"jobToolRequire": 0,
+					"jobValues": ["freeLabor", "moveTo", "thisPosition"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				}
+			]
+		}
+	],
 	"objectJobs": [
 		{
+			"jobDisplayName": "Call random NPC",
+			"jobAvatar": "CallRandomNPC",
+			"jobExcute": "CallRandomNPC",
+			"jobLaborRequire": 1,
+			"jobToolRequire": 0,
+			"jobDescription": "Call random a NPC base data.",
+			"jobValues": ["random", "NPC"],
+			"jobTimer": 30.0,
+			"jobType": 0
+		},{
 			"jobDisplayName": "Walk.",
 			"jobAvatar": "MoveTo",
 			"jobExcute": "WalkCommand",
 			"jobDescription": "Walk to object.",
 			"jobLaborRequire": 1,
-			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
-			"jobTimer": 1.0,
-			"jobType": 1
-		},{
-			"jobDisplayName": "Demolition.",
-			"jobAvatar": "Demolition",
-			"jobExcute": "DemolitionCommand",
-			"jobDescription": "Demolition object.",
-			"jobLaborRequire": 1,
-			"jobValues": ["freeLaborator"],
+			"jobToolRequire": 0,
+			"jobValues": ["freeLabor", "moveTo", "thisPosition"],
 			"jobTimer": 1.0,
 			"jobType": 1
 		},{
@@ -35,8 +60,9 @@
 			"jobExcute": "HatchEggCommand",
 			"jobDescription": "Hatch an egg.",
 			"jobLaborRequire": 3,
-			"jobValues": ["freeLaborator", "eggs", "dinosaur"],
-			"jobTimer": 10.0,
+			"jobToolRequire": 0,
+			"jobValues": ["freeLabor", "eggs", "dinosaur"],
+			"jobTimer": 1.0,
 			"jobType": 1
 		}
 	]

@@ -10,7 +10,7 @@
 				{
 					"resouceName": "wood",
 					"resouceAvatar": "wood-avatar",
-					"currentAmount": 10,
+					"currentAmount": 1000,
 					"maxAmount": 999999
 				},{
 					"resouceName": "rock",
@@ -31,38 +31,6 @@
 					"resouceName": "tool",
 					"resouceAvatar": "tool-avatar",
 					"currentAmount": 1,
-					"maxAmount": 999999
-				}
-			]
-		},{
-			"itemName": "Storage",
-			"itemAvatar": "Storage-1",
-			"itemSource": "Building/Data/StorageData",
-			"itemCost": [
-				{
-					"resouceName": "wood",
-					"resouceAvatar": "wood-avatar",
-					"currentAmount": 10,
-					"maxAmount": 999999
-				},{
-					"resouceName": "rock",
-					"resouceAvatar": "rock-avatar",
-					"currentAmount": 10,
-					"maxAmount": 999999
-				},{
-					"resouceName": "leaf",
-					"resouceAvatar": "leaf-avatar",
-					"currentAmount": 10,
-					"maxAmount": 999999
-				},{
-					"resouceName": "food",
-					"resouceAvatar": "food-avatar",
-					"currentAmount": 10,
-					"maxAmount": 999999
-				},{
-					"resouceName": "tool",
-					"resouceAvatar": "tool-avatar",
-					"currentAmount": 2,
 					"maxAmount": 999999
 				}
 			]

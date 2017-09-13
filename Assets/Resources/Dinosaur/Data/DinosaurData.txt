@@ -1,0 +1,27 @@
+﻿{
+	"objectPosition": "(3,0,0)",
+	"objectName": "Lizard",
+	"objectModel": "Dinosaur/Prefabs/Lizard",
+	"objectDescription": "Dinosaur data.",
+	"objectType": "dinosaur",
+	"objectElements": [],
+	"objectLevel": 1,
+	"currentHealth": 20,
+	"maxHealth": 20,
+	"damageCharacter": 2,
+	"damageBuilding": 20,
+	"actionSpeed": 2.0,
+	"objectJobs": [
+		{
+			"jobDisplayName": "Attack",
+			"jobAvatar": "AttackCommand",
+			"jobExcute": "AttackCommand",
+			"jobLaborRequire": 1,
+			"jobToolRequire": 0,
+			"jobDescription": "Attack this.",
+			"jobValues": ["freeLabor", "food"],
+			"jobTimer": 1.0,
+			"jobType": 1
+		}
+	]
+}

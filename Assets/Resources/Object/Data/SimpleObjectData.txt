@@ -15,6 +15,7 @@
 			"jobExcute": "WalkCommand",
 			"jobDescription": "Walk to object.",
 			"jobLaborRequire": 1,
+			"jobToolRequire": 0,
 			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
 			"jobTimer": 1.0,
 			"jobType": 1

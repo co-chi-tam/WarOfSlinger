@@ -15,7 +15,8 @@
 			"jobExcute": "WalkCommand",
 			"jobDescription": "Walk to object.",
 			"jobLaborRequire": 1,
-			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
+			"jobToolRequire": 0,
+			"jobValues": ["freeLabor", "moveTo", "thisPosition"],
 			"jobTimer": 1.0,
 			"jobType": 1
 		},{
@@ -24,7 +25,8 @@
 			"jobExcute": "GatheringCommand",
 			"jobDescription": "Gathering to object.",
 			"jobLaborRequire": 1,
-			"jobValues": ["freeLaborator", "gathering", "thisObject"],
+			"jobToolRequire": 0,
+			"jobValues": ["rock", "rock"],
 			"jobTimer": 1.0,
 			"jobType": 1
 		}

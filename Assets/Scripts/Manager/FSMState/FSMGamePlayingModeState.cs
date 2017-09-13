@@ -30,6 +30,7 @@ namespace WarOfSlinger {
 #else
 			this.m_GameManager.OnMouseDetectMobile();
 #endif
+			this.m_GameManager.CalculatePopular ();
 		}
 
 		public override void ExitState ()
@@ -39,6 +40,7 @@ namespace WarOfSlinger {
 
 		protected virtual void OnOpenUIJobPanel(GameObject detectedGo) {
 			this.m_GameManager.OnOpenUIJobPanel (detectedGo);
+//			this.m_GameManager.OnOpenUIInfoPanel (detectedGo);
 		}
 
 	}

@@ -50,6 +50,11 @@ namespace WarOfSlinger {
 			return this.m_ObjectData;
 		}
 
+		public override string GetObjectType ()
+		{
+			return m_ObjectData.objectType;
+		}
+
 		#endregion
 
 	}

@@ -4,7 +4,7 @@ using UnityEngine;
 using FSM;
 
 namespace WarOfSlinger  {
-	public class CCharacterController : CObjectController, ICharacterContext, IJobLabor {
+	public class CCharacterController : CObjectController, ICharacterContext, IJobLabor, ICharacterJobOwner {
 
         #region Fields
 
@@ -43,8 +43,6 @@ namespace WarOfSlinger  {
 
         public override void Init() {
             base.Init();
-            // DATA
-//            this.m_CharacterData = TinyJSON.JSON.Load(this.m_TextAsset.text).Make<CCharacterData>();
 			for (int i = 0; i < this.m_CharacterData.objectJobs.Length; i++) {
 				var currentJob = this.m_CharacterData.objectJobs [i];
 				this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
@@ -63,17 +61,14 @@ namespace WarOfSlinger  {
 			this.m_FSMManager.RegisterCondition("IsActive", 			this.IsActive);
 			// GAME OBJECT
 			this.m_TargetPosition = this.m_Transform.position;
-			// SET IS FREE LABOR
-			CJobManager.ReturnFreeLabor (this);
         }
 
         protected override void Awake() {
 			base.Awake();
         }
 
-		protected virtual void Start() {
-			// REGISTER UI
-			this.Talk ("Hello world !!!");
+		protected override void Start() {
+			base.Start ();
 		}
 
 		protected override void Update ()
@@ -95,6 +90,18 @@ namespace WarOfSlinger  {
 			this.targetObject = null;
 		}
 
+		public override void OnDamageObject (Vector2 point, CObjectController target, int damage)
+		{
+			base.OnDamageObject (point, target, damage);
+			if (this.m_TargetObject == null) {
+				this.SetTargetController (target);
+			}
+			this.SetAnimation ("IsHit");
+			var totalDamage = this.GetCurrentHealth () - damage;
+			this.SetCurrentHealth (totalDamage);
+			Debug.Log (target.name + " ==> " + damage); 
+		}
+
 		#endregion
 
 		#region FSM
@@ -102,11 +109,18 @@ namespace WarOfSlinger  {
 		public virtual bool DidMoveToTarget ()
 		{
 			var direction = this.targetPosition - this.objectPosition;
-			return direction.sqrMagnitude <= 0.001f;
+			var distance = 0.01f;
+			return direction.sqrMagnitude <= distance * distance;
 		}
 
 		public virtual bool HaveTargetObject() {
-			return this.m_TargetObject != null && this.m_TargetObject.GetCollider().enabled == true;
+			return this.m_TargetObject != null 
+				&& this.m_TargetObject.GetActive();
+		}
+
+		public override bool IsActive ()
+		{
+			return base.IsActive () && this.GetCurrentHealth() > 0;
 		}
 
 		#endregion
@@ -125,6 +139,11 @@ namespace WarOfSlinger  {
 			return this.m_CharacterData as CCharacterData;
 		}
 
+		public override bool GetActive ()
+		{
+			return base.GetActive () && this.GetCurrentHealth() > 0;
+		}
+
 		public override void SetTargetPosition (Vector3 value)
 		{
 			base.SetTargetPosition (value);
@@ -141,7 +160,7 @@ namespace WarOfSlinger  {
 		public override void SetTargetController (CObjectController value)
 		{
 			base.SetTargetController (value);
-			this.m_TargetObject = value;
+			this.targetObject = value;
 		}
 
 		public override CObjectController GetTargetController ()
@@ -153,6 +172,43 @@ namespace WarOfSlinger  {
 		{
 			base.SetPosition (value);
 			this.m_CharacterData.objectV3Position = value;
+		}
+
+		public override string GetObjectType ()
+		{
+			return m_CharacterData.objectType;
+		}
+
+		public virtual int GetConsumeFood() {
+			return this.m_CharacterData.consumeFood;
+		}
+
+		public override int GetCurrentHealth() {
+			base.GetCurrentHealth ();
+			return this.m_CharacterData.currentHealth;
+		}
+
+		public override void SetCurrentHealth(int value) {
+			base.SetCurrentHealth (value);
+			this.m_CharacterData.currentHealth = value > this.m_CharacterData.maxHealth ? this.m_CharacterData.maxHealth : value;
+		}
+
+		public override int GetMaxHealth() {
+			base.GetMaxHealth ();
+			return this.m_CharacterData.maxHealth;
+		}
+
+		public virtual int GetDamageBuilding() {
+			return this.m_CharacterData.damageBuilding;
+		}
+
+		public virtual int GetDamageCharacter() {
+			return this.m_CharacterData.damageCharacter;
+		}
+
+		public override float GetActionSpeed ()
+		{
+			return this.m_CharacterData.actionSpeed;
 		}
 
 		#endregion

@@ -31,6 +31,8 @@ namespace WarOfSlinger {
 					}
 				} else {
 					for (int i = 0; i < listObjs.Count; i++) {
+						if (listObjs [i] == null)
+							continue;
 						listObjs [i].SetEnabledPhysic (false);
 						listObjs [i].gameObject.SetActive (true);
 					}

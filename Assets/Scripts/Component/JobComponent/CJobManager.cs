@@ -30,6 +30,15 @@ namespace WarOfSlinger {
 			}
 		}
 
+		public static void ReleaseLabor(IJobLabor value) {
+			if (jobLaborInProcessing.Contains (value)) {
+				jobLaborInProcessing.Remove (value);
+			}
+			if (jobLaborFree.Contains (value)) {
+				jobLaborFree.Remove (value);
+			}
+		}
+
 		// GET LAST LIST
 		public static IJobLabor GetFreeLabor() {
 			var first = jobLaborFree.First;

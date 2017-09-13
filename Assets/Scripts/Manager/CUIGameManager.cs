@@ -15,7 +15,7 @@ namespace WarOfSlinger {
 		[SerializeField]	protected Text m_RockResourceText;
 		[Header("Leaf")]
 		[SerializeField]	protected Text m_LeafResourceText;
-		[Header("Meat")]
+		[Header("Food")]
 		[SerializeField]	protected Text m_FoodResourceText;
 		[Header("Tool")]
 		[SerializeField]	protected Text m_ToolResourceText;
@@ -23,12 +23,39 @@ namespace WarOfSlinger {
 		[Header ("Shop")]
 		[SerializeField]	protected CUIShopBuilding m_ShopBuilding;
 
+		[Header("Inventory")]
+		[SerializeField]	protected CUIInventory m_Inventory;
+
 		[Header("Building control")]
 		[SerializeField]	protected GameObject m_BuildingControlPanel;
+
+		[Header("Job")]
+		[SerializeField]	protected CUIJob m_UIJob;
+
+		[Header ("Talk")]
+		[SerializeField]	protected CUITalk m_UITalk;
+
+		[Header ("Info")]
+		[SerializeField]	protected CUIInfo m_UIInfo;
 
 		#endregion
 
 		#region Main methods
+
+		public void OpenTalk(Transform parent, string value) {
+			this.m_UITalk.ShowTalkItem (parent, value);
+		}
+
+		public void OpenJob(Transform owner, Action<CJobObjectData> jobSelected, Action<CJobObjectData> jobClosed, params CJobObjectData[] jobs) {
+			this.m_UIJob.ShowJobs (owner, jobSelected, jobClosed, jobs);
+		}
+
+		public void OpenInfo(CObjectController controller) {
+			var data = controller.GetData () as CDamageableObjectData;
+			if (data != null) {
+				this.m_UIInfo.LoadInfoData (data, controller);
+			}
+		}
 
 		public void OpenShop(string shopName, Action<CShopItemData> onSelectedItem) {
 			switch (shopName) {
@@ -56,6 +83,15 @@ namespace WarOfSlinger {
 				return;
 			this.m_BuildingControlPanel.SetActive (false);
 			CGameManager.Instance.SetMode (CGameManager.EGameMode.PLAYING);
+		}
+
+		public void OpenInventory(CInventoryItemData[] villageInventories, Action<CInventoryItemData> onSelectedItem) {
+			this.m_Inventory.LoadInventoryData (villageInventories, onSelectedItem);
+			this.m_Inventory.gameObject.SetActive (true);
+		}
+
+		public void CloseInventory() {
+			this.m_Inventory.gameObject.SetActive (false);
 		}
 
 		public virtual void SetUpResource() {

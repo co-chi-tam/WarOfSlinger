@@ -2,23 +2,46 @@
 	"objectPosition": "(6.6,0,0)",
 	"objectName": "Clyne",
 	"objectModel": "Character/Prefabs/Character 1",
+	"objectAvatar": "CharacterAvatar",
 	"objectDescription": "Character data.",
 	"objectType": "character",
 	"objectElements": [],
 	"objectLevel": 1,
 	"currentHealth": 100,
 	"maxHealth": 100,
+	"consumeFood": 1,
 	"damageCharacter": 10,
-	"damageConstruction": 20,
+	"damageBuilding": 30,
 	"actionSpeed": 1.0,
 	"objectJobs": [
 		{
+			"jobDisplayName": "Consume food",
+			"jobAvatar": "ConsumeFood",
+			"jobExcute": "ConsumeFood",
+			"jobLaborRequire": 1,
+			"jobToolRequire": 0,
+			"jobDescription": "Consume food per 30 second.",
+			"jobValues": ["thisOwner", "hungry", "descrease", "health"],
+			"jobTimer": 30.0,
+			"jobType": 0
+		},{
 			"jobDisplayName": "Love",
 			"jobAvatar": "Love",
 			"jobExcute": "LoveCommand",
 			"jobDescription": "Love resident",
 			"jobLaborRequire": 1,
+			"jobToolRequire": 0,
 			"jobValues": ["Love u too!!", "Can i have a Dinosaur ??", "Something new.", "Errr..."],
+			"jobTimer": 1.0,
+			"jobType": 1
+		},{
+			"jobDisplayName": "Cover",
+			"jobAvatar": "Cover",
+			"jobExcute": "CoverCommand",
+			"jobDescription": "Cover resident",
+			"jobLaborRequire": 1,
+			"jobToolRequire": 0,
+			"jobValues": ["Cover me."],
 			"jobTimer": 1.0,
 			"jobType": 1
 		}

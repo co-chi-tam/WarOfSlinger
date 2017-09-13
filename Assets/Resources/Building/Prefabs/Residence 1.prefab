@@ -115,7 +115,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1327691179200040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.265, y: 0, z: 0}
+  m_LocalPosition: {x: 0.6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4407521285071522}
@@ -141,7 +141,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1336736967846268}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.306, y: 0, z: 0}
+  m_LocalPosition: {x: -0.6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4407521285071522}
@@ -169,7 +169,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1585425362040010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.872, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4102913784364854}
@@ -366,10 +366,13 @@ MonoBehaviour:
   m_RedrawCollider: {fileID: 114250646077373926}
   m_RedrawSprite: {fileID: 114089235631002028}
   m_ActiveDamageAfterTime: 0.1
+  m_NPCPoints:
+  - {fileID: 1327691179200040}
+  - {fileID: 1336736967846268}
   m_DetectLayerMask:
     serializedVersion: 2
     m_Bits: 3221225728
-  m_DetectRadius: 0.5
+  m_DetectRadius: 0.6
   m_ExceptCollider:
   - {fileID: 60870235926286586}
   m_TriggerWithOther: 0
@@ -389,6 +392,7 @@ MonoBehaviour:
     maxHealth: 0
     currentResident: 0
     maxResident: 0
+    NPCDatas: []
   m_FSMTextAsset: {fileID: 4900000, guid: bbd136d8d9576b2438c7a96bdde3bc48, type: 3}
   m_FSMStateName: 
 --- !u!212 &212446815849327960

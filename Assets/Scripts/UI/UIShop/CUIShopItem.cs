@@ -3,12 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace WarOfSlinger {
-	public class CUIShopItem : MonoBehaviour {
+	public class CUIShopItem : CUIInventoryItem {
 			
-		[Header("Item info")]
-		[SerializeField]	protected Button m_ShopItemButton;
-		[SerializeField]	protected Image m_ShopItemImage;
-		[SerializeField]	protected Text m_ShopItemNameText;
 		[Header("Wood")]
 		[SerializeField]	protected GameObject m_WoodCostGo;
 		[SerializeField]	protected Text m_WoodCostText;

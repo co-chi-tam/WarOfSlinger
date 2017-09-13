@@ -16,6 +16,10 @@ namespace WarOfSlinger {
 		public override void StartState ()
 		{
 			base.StartState ();
+			this.m_Controller.SetActive (false);
+			this.m_Controller.IsObjectWorking = false;
+			this.m_Controller.SetAnimation ("AnimParam", (int) 10);
+			CJobManager.ReleaseLabor (this.m_Controller);
 		}
 
 		public override void UpdateState (float dt)

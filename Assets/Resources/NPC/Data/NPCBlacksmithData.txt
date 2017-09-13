@@ -1,0 +1,31 @@
+﻿{
+	"objectPosition": "(6.6,0,0)",
+	"objectName": "Resident",
+	"objectModel": "NPC/Prefabs/BlacksmithMan 1",
+	"objectDescription": "Blacksmith Man data.",
+	"objectType": "NPC",
+	"objectLevel": 1,
+	"objectJobs": [
+		{
+			"jobDisplayName": "Walk.",
+			"jobAvatar": "MoveTo",
+			"jobExcute": "WalkCommand",
+			"jobDescription": "Walk to object.",
+			"jobLaborRequire": 1,
+			"jobToolRequire": 0,
+			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
+			"jobTimer": 1.0,
+			"jobType": 1
+		},{
+			"jobDisplayName": "Improve tool",
+			"jobAvatar": "ImproveTool",
+			"jobExcute": "ImproveToolCommand",
+			"jobDescription": "Improve tool",
+			"jobLaborRequire": 1,
+			"jobToolRequire": 1,
+			"jobValues": ["freeLaborator", "tool", "tool", "wood", "rock", "food"],
+			"jobTimer": 1.0,
+			"jobType": 1
+		}
+	]
+}

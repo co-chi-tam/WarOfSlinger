@@ -61,7 +61,7 @@ namespace WarOfSlinger {
 			get { return this.m_UIJobPoint.transform; }
 		}
 
-		[SerializeField]	protected bool m_IsObjectWorking = true;
+		protected bool m_IsObjectWorking = true;
 		public bool IsObjectWorking {
 			get { return this.m_IsObjectWorking; }
 			set { this.m_IsObjectWorking = value; }
@@ -82,6 +82,14 @@ namespace WarOfSlinger {
 			this.RegisterComponent(this.m_EventComponent);
 			this.RegisterComponent(this.m_JobComponent);
         }
+
+		protected virtual void OnEnable() {
+		
+		}
+
+		protected virtual void OnDisable() {
+		
+		}
 
         protected virtual void Awake() {
 			this.m_Transform = this.transform;
@@ -167,7 +175,7 @@ namespace WarOfSlinger {
             this.m_EventComponent.AddCallback(name, callbacks);
         }
 
-		public virtual void OnDamageObject(Vector2 point, int radius) {
+		public virtual void OnDamageObject(Vector2 point, CObjectController target, int damage) {
 
 		}
 
@@ -238,7 +246,11 @@ namespace WarOfSlinger {
 		}
 
 		public virtual Collider2D GetCollider() {
-			return this.m_Collider2D.collider2D;
+			if (this.m_Collider2D != null) 
+				return this.m_Collider2D.collider2D;
+			if (this.m_CharacterCollider != null)
+				return this.m_CharacterCollider;
+			return null;	
 		}
 
 		public virtual Vector3 GetClosestPoint(Vector3 point) {
@@ -257,6 +269,22 @@ namespace WarOfSlinger {
 			return this;
 		}
 
+		public virtual string GetObjectType() {
+			return string.Empty;
+		}
+
+		public virtual int GetCurrentHealth() {
+			return 0;
+		}
+
+		public virtual void SetCurrentHealth(int value) {
+			
+		}
+
+		public virtual int GetMaxHealth() {
+			return 0;
+		}
+
 		public virtual void SetEnabledPhysic(bool value) {
 			if (this.m_Rigidbody2D != null)
 				this.m_Rigidbody2D.bodyType = value ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
@@ -270,6 +298,10 @@ namespace WarOfSlinger {
 			if (this.m_SpriteRender != null) {
 				this.m_SpriteRender.color = value;
 			}
+		}
+
+		public virtual float GetActionSpeed() {
+			return 0f;
 		}
 
         #endregion

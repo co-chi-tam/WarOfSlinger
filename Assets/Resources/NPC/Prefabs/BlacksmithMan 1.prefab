@@ -19,7 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4746915807636190}
-  m_Layer: 0
+  - component: {fileID: 114048275926156004}
+  - component: {fileID: 82162475575414006}
+  m_Layer: 10
   m_Name: BlacksmithMan 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +38,8 @@ GameObject:
   - component: {fileID: 4901750403730346}
   - component: {fileID: 212818139988205786}
   - component: {fileID: 95995281007059490}
-  m_Layer: 0
+  - component: {fileID: 58554369873526532}
+  m_Layer: 10
   m_Name: BacksmithManSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +82,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1549775942643178}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.623, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4901750403730346}
@@ -100,6 +103,101 @@ Transform:
   m_Father: {fileID: 4746915807636190}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58554369873526532
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1828156268607648}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25
+--- !u!82 &82162475575414006
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1549775942643178}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!95 &95995281007059490
 Animator:
   serializedVersion: 3
@@ -117,6 +215,33 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114048275926156004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1549775942643178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bbf59a1011f0c249b17ff10c6f1c6b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UIJobPoint: {fileID: 1876830571505814}
+  m_Animator: {fileID: 95995281007059490}
+  m_SpriteRender: {fileID: 212818139988205786}
+  m_Collider2D: {fileID: 0}
+  m_CharacterCollider: {fileID: 58554369873526532}
+  m_Rigidbody2D: {fileID: 0}
+  m_ObjectData:
+    objectPosition: (0,0,0)
+    objectId: 7b70bba1-3b9a-416a-944b-e8069eae1356
+    objectName: 
+    objectAvatar: 
+    objectModel: 
+    objectDescription: 
+    objectType: 
+    objectLevel: 0
+    objectJobs: []
 --- !u!212 &212284318869986296
 SpriteRenderer:
   m_ObjectHideFlags: 1

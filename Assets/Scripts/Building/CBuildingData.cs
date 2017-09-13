@@ -9,6 +9,7 @@ namespace WarOfSlinger {
 		
 		public int currentResident;
 		public int maxResident;
+		public CObjectData[] NPCDatas;
 
         public CBuildingData() : base () {
 			this.currentResident    = 0;

@@ -16,6 +16,7 @@ namespace WarOfSlinger {
 		public override void StartState ()
 		{
 			base.StartState ();
+			this.m_Controller.SetActive (false);
 		}
 
 		public override void UpdateState (float dt)

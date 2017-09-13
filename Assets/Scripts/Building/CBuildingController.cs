@@ -9,6 +9,9 @@ namespace WarOfSlinger {
 
         #region Fields
 
+		[Header("NPC")]
+		[SerializeField]	protected GameObject[] m_NPCPoints;
+
 		[Header("Detect other")]
 		[SerializeField]	protected LayerMask m_DetectLayerMask;
 		[SerializeField]	protected float m_DetectRadius = 1f;
@@ -26,6 +29,8 @@ namespace WarOfSlinger {
 
 		// FSMManager
 		protected FSMManager m_FSMManager;
+		// NPCs
+		protected CNPCController[] m_NPCCtrls;
 
         #endregion
 
@@ -49,7 +54,17 @@ namespace WarOfSlinger {
 			// CONDITION
 			this.m_FSMManager.RegisterCondition("HaveAction", 			this.HaveAction);
 			this.m_FSMManager.RegisterCondition("IsActive", 			this.IsActive);
-        }
+			// NPC
+			this.m_NPCCtrls = new CNPCController[this.m_BuidingData.NPCDatas.Length];
+			CGameManager.Instance.LoadVillageObjects <CNPCController> (false, this.m_BuidingData.NPCDatas, () => {
+				// TODO
+			}, (index, objCtrl) => {
+				var parentPosition = this.m_NPCPoints[index % this.m_NPCPoints.Length].transform.position;
+				this.m_NPCCtrls[index] = objCtrl as CNPCController;
+				this.m_NPCCtrls[index].SetPosition (parentPosition);
+				this.m_NPCCtrls[index].gameObject.SetActive (false);
+			});
+        }	
 
         protected override void Awake() {
             base.Awake();
@@ -83,9 +98,10 @@ namespace WarOfSlinger {
 		protected virtual void OnDetectColliderWithOther() {
 			var originPosition = this.m_Transform.position;
 			var rayHit2Ds = Physics2D.CircleCastAll (originPosition, this.m_DetectRadius, Vector2.zero, 0f, this.m_DetectLayerMask);
+			this.m_TriggerWithOther = false;
 			for (int i = 0; i < rayHit2Ds.Length; i++) {
 				var collider = rayHit2Ds [i].collider;
-				this.m_TriggerWithOther = Array.IndexOf (this.m_ExceptCollider, collider) == -1;
+				this.m_TriggerWithOther |= Array.IndexOf (this.m_ExceptCollider, collider) == -1;
 				this.m_IsObjectWorking = !this.m_TriggerWithOther;
 			}
 		}
@@ -129,12 +145,25 @@ namespace WarOfSlinger {
 		}
 
         public virtual void SetCurrentResident(int value) {
-			
+			this.m_BuidingData.currentResident = value >= this.m_BuidingData.maxResident ? this.m_BuidingData.maxResident : value;
         }
 
         public virtual int GetCurrentResident() {
-            return 0;
+			return this.m_BuidingData.currentResident;
         }
+
+		public virtual CNPCController[] GetNPCControllers() {
+			return this.m_NPCCtrls;
+		}
+
+		public virtual GameObject[] GetNPCPoints() {
+			return this.m_NPCPoints;
+		}
+
+		public override string GetObjectType ()
+		{
+			return m_BuidingData.objectType;
+		}
 
         #endregion
 

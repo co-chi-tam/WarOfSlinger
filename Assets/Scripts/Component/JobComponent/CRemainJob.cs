@@ -21,11 +21,15 @@ namespace WarOfSlinger {
 			this.m_JobCompleteCondition.Add("LoveCommand",			this.AutoCompleteCommand);
 			this.m_JobCompleteCondition.Add("TalkCommand",			this.AutoCompleteCommand);
 			this.m_JobCompleteCondition.Add("OpenShopCommand",		this.WalkCompleteCommand);
+			this.m_JobCompleteCondition.Add("OpenInventoryCommand",	this.WalkCompleteCommand);
 			this.m_JobCompleteCondition.Add("WalkCommand",			this.WalkCompleteCommand);
-			this.m_JobCompleteCondition.Add("GatheringCommand",		this.GatheringCompleteCommand);
-			this.m_JobCompleteCondition.Add("DemolitionCommand",	this.DemolitionCompleteCommand);
+			this.m_JobCompleteCondition.Add("GatheringCommand",		this.InactiveCompleteCommand);
+			this.m_JobCompleteCondition.Add("CoverCommand",			this.InactiveCompleteCommand);
+			this.m_JobCompleteCondition.Add("AttackCommand",		this.InactiveCompleteCommand);
+			this.m_JobCompleteCondition.Add("DemolitionCommand",	this.InactiveCompleteCommand);
 			this.m_JobCompleteCondition.Add("CreateLaborCommand",	this.CreateLaborCompleteCommand);
 			this.m_JobCompleteCondition.Add("MakeToolCommand",		this.MakeToolCompleteCommand);
+			this.m_JobCompleteCondition.Add("ImproveToolCommand",	this.MakeToolCompleteCommand);
 			this.m_JobCompleteCondition.Add("HatchEggCommand",		this.HatchEggCompleteCommand);
 		}
 
@@ -35,7 +39,7 @@ namespace WarOfSlinger {
 				var isConditionCorrect = true;
 				for (int i = 0; i < this.jobLaborList.Count; i++) {
 					var labor = this.jobLaborList [i];
-					isConditionCorrect &= this.m_JobCompleteCondition [this.jobExcute] (labor);
+					isConditionCorrect &= (this.m_JobCompleteCondition [this.jobExcute] (labor) && labor.IsActive());
 				}
 				// RELEASE JOB LABOR
 				if (isConditionCorrect) {
@@ -49,6 +53,10 @@ namespace WarOfSlinger {
 
 		public virtual bool IsFullLabor() {
 			return this.jobLaborList.Count >= this.jobLaborRequire;
+		}
+
+		public virtual int CountLabor () {
+			return this.jobLaborList.Count;
 		}
 
 		// REGISTER JOB LABOR
@@ -88,11 +96,9 @@ namespace WarOfSlinger {
 			return direction.sqrMagnitude <= 0.001f;
 		}
 
-		protected virtual bool GatheringCompleteCommand(IJobLabor labor) {
-			return this.jobOwner.GetActive() == false;
-		}
-
-		protected virtual bool DemolitionCompleteCommand(IJobLabor labor) {
+		protected virtual bool InactiveCompleteCommand(IJobLabor labor) {
+			if (this.jobOwner == null)
+				return true;
 			return this.jobOwner.GetActive() == false;
 		}
 

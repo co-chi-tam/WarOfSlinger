@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: 4618842492496968}
   - component: {fileID: 212745965825062146}
   - component: {fileID: 95588155211007692}
-  m_Layer: 0
+  - component: {fileID: 58955452884421000}
+  m_Layer: 10
   m_Name: WarriorSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +53,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4482676615169554}
-  m_Layer: 0
+  - component: {fileID: 114168092777498952}
+  - component: {fileID: 82110177364257628}
+  m_Layer: 10
   m_Name: Warrior 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1737581599427002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.7, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4618842492496968}
@@ -100,6 +103,101 @@ Transform:
   m_Father: {fileID: 4482676615169554}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58955452884421000
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1127631693879048}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25
+--- !u!82 &82110177364257628
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1737581599427002}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!95 &95588155211007692
 Animator:
   serializedVersion: 3
@@ -117,6 +215,33 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114168092777498952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1737581599427002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bbf59a1011f0c249b17ff10c6f1c6b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UIJobPoint: {fileID: 1282352101530224}
+  m_Animator: {fileID: 95588155211007692}
+  m_SpriteRender: {fileID: 212745965825062146}
+  m_Collider2D: {fileID: 0}
+  m_CharacterCollider: {fileID: 58955452884421000}
+  m_Rigidbody2D: {fileID: 0}
+  m_ObjectData:
+    objectPosition: (0,0,0)
+    objectId: 8dc5d670-6ea9-47d3-a242-111f0ee6a9e4
+    objectName: 
+    objectAvatar: 
+    objectModel: 
+    objectDescription: 
+    objectType: 
+    objectLevel: 0
+    objectJobs: []
 --- !u!212 &212257114494071230
 SpriteRenderer:
   m_ObjectHideFlags: 1

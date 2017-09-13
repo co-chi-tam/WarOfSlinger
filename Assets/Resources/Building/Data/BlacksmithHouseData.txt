@@ -10,23 +10,58 @@
 	"maxHealth": 100,
 	"currentResident": 0,
 	"maxResident": 0,
+	"NPCDatas": [
+		{
+			"objectPosition": "(0,0,0)",
+			"objectName": "BlacksmithMan",
+			"objectModel": "NPC/Prefabs/BlacksmithMan 1",
+			"objectDescription": "BlacksmithMan data.",
+			"objectType": "NPC",
+			"objectLevel": 1,
+			"objectJobs": [
+				{
+					"jobDisplayName": "Walk.",
+					"jobAvatar": "MoveTo",
+					"jobExcute": "WalkCommand",
+					"jobDescription": "Walk to object.",
+					"jobLaborRequire": 1,
+					"jobToolRequire": 0,
+					"jobValues": ["freeLabor", "moveTo", "thisPosition"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				},{
+					"jobDisplayName": "Improve tool",
+					"jobAvatar": "ImproveTool",
+					"jobExcute": "ImproveToolCommand",
+					"jobDescription": "Improve tool",
+					"jobLaborRequire": 1,
+					"jobToolRequire": 1,
+					"jobValues": ["freeLabor", "tool", "tool", "wood", "rock", "food"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				}
+			]
+		}
+	],
 	"objectJobs": [
 		{
+			"jobDisplayName": "Call random NPC",
+			"jobAvatar": "CallRandomNPC",
+			"jobExcute": "CallRandomNPC",
+			"jobLaborRequire": 1,
+			"jobToolRequire": 0,
+			"jobDescription": "Call random a NPC base data.",
+			"jobValues": ["random", "NPC"],
+			"jobTimer": 30.0,
+			"jobType": 0
+		},{
 			"jobDisplayName": "Walk.",
 			"jobAvatar": "MoveTo",
 			"jobExcute": "WalkCommand",
 			"jobDescription": "Walk to object.",
 			"jobLaborRequire": 1,
+			"jobToolRequire": 0,
 			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
-			"jobTimer": 1.0,
-			"jobType": 1
-		},{
-			"jobDisplayName": "Demolition.",
-			"jobAvatar": "Demolition",
-			"jobExcute": "DemolitionCommand",
-			"jobDescription": "Demolition object.",
-			"jobLaborRequire": 1,
-			"jobValues": ["freeLaborator"],
 			"jobTimer": 1.0,
 			"jobType": 1
 		},{
@@ -35,8 +70,9 @@
 			"jobExcute": "MakeToolCommand",
 			"jobDescription": "Make some tool.",
 			"jobLaborRequire": 1,
-			"jobValues": ["freeLaborator", "moveTo", "thisPosition"],
-			"jobTimer": 10.0,
+			"jobToolRequire": 0,
+			"jobValues": ["freeLaborator", "tool", "wood", "wood", "rock"],
+			"jobTimer": 1.0,
 			"jobType": 1
 		}
 	]

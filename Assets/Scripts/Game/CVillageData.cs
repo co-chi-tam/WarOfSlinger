@@ -11,8 +11,8 @@ namespace WarOfSlinger {
 		public CResourceData[] villageResources;
 		public CBuildingData[] villageBuildings;
 		public CCharacterData[] villageCharacters;
-		public CObjectData[] villageNPCs;
 		public CDamageableObjectData[] villageObjects;
+		public CInventoryItemData[] villageInventories;
 
 		public CVillageData ()
 		{

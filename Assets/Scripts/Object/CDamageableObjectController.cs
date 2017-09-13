@@ -49,15 +49,15 @@ namespace WarOfSlinger {
 			if (this.m_DamageActive == false)
 				return;
 			// CIRCLE COLLIDER
-			var circleCollider = obj.GetComponent<Collider2D> () as CircleCollider2D;
-			var radius = circleCollider != null ? (int)(circleCollider.radius * 100) : 30;
+//			var circleCollider = obj.GetComponent<Collider2D> () as CircleCollider2D;
+//			var radius = circleCollider != null ? (int)(circleCollider.radius * 100) : 30;
 //			this.OnDamageObject (point, radius);
 			this.m_ColliderPoint = point;
 		}
 
-		public override void OnDamageObject(Vector2 point, int radius) {
-			base.OnDamageObject (point, radius);
-			this.m_RedrawSprite.Draw(point.x, point.y, Mathf.Clamp (radius, 30, 100));
+		public override void OnDamageObject(Vector2 point, CObjectController target, int damage) {
+			base.OnDamageObject (point, target, damage);
+			this.m_RedrawSprite.Draw(point.x, point.y, Mathf.Clamp (damage, 30, 100));
 			this.m_CountDownActive = this.m_ActiveDamageAfterTime;
 		}
 
@@ -65,16 +65,16 @@ namespace WarOfSlinger {
 
 		#region Getter && Setter
 
-		public virtual void SetHealth(int value) {
+		public override void SetCurrentHealth(int value) {
 			
 		}
 
-		public virtual int GetHealth() {
-			return 0;
+		public override int GetCurrentHealth() {
+			return base.GetCurrentHealth();
 		}
 
-		public virtual int GetMaxHealth() {
-			return 0;
+		public override int GetMaxHealth() {
+			return base.GetMaxHealth();
 		}
 
 		#endregion

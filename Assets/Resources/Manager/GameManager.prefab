@@ -629,13 +629,11 @@ MonoBehaviour:
     villageCharacters: []
     villageNPCs: []
     villageObjects: []
-  m_UITalk: {fileID: 0}
   m_Camera: {fileID: 0}
   m_CameraFollower: {fileID: 0}
   m_TouchDetectLayerMask:
     serializedVersion: 2
     m_Bits: 1073743104
-  m_UIJob: {fileID: 0}
   m_GameMode: 0
   m_GameModeTextAsset: {fileID: 4900000, guid: ad6b709bb673efc4fbfe367f6b358e8f, type: 3}
   m_FSMStateName: 

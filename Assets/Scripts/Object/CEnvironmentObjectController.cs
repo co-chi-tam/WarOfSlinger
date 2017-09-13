@@ -93,6 +93,11 @@ namespace WarOfSlinger {
 			this.m_ObjectData.objectV3Position = value;
 		}
 
+		public override string GetObjectType ()
+		{
+			return m_ObjectData.objectType;
+		}
+
 		#endregion
 		
 	}

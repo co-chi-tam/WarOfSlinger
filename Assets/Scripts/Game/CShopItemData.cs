@@ -3,18 +3,13 @@ using UnityEngine;
 
 namespace WarOfSlinger {
 	[Serializable]
-	public class CShopItemData {
+	public class CShopItemData: CInventoryItemData {
 
-		public string itemName;
-		public string itemAvatar;
-		public string itemSource;
 		public CResourceData[] itemCost;
 
-		public CShopItemData ()
+		public CShopItemData () : base()
 		{
-			this.itemName 		= string.Empty;
-			this.itemAvatar 	= string.Empty;
-			this.itemSource 	= string.Empty;
+			
 		}
 
 	}

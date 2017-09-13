@@ -6,6 +6,8 @@ using UnityEngine;
 namespace SceneTask {
 	public class CTaskUtil {
 
+		public static string VILLAGE_DATA_SAVE_01 = "VILLAGE_DATA_SAVE_01";
+
 		public static Dictionary<string, object> REFERENCES = new Dictionary<string, object> () { 
 //			{ USER_DATA,			new CUserData()	}
 		};

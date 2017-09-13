@@ -88,4 +88,10 @@ public static class CUtil {
 		return results.Count > 0;
 	}
 
+	public static Vector3 GetCenterScreen2WorldPoint() {
+		var halfWidth = (float)Screen.width / 2f;
+		var halfHeight = (float)Screen.height / 2f;
+		return Camera.main.ScreenToWorldPoint (new Vector3 (halfWidth, halfHeight, 0f));
+	}
+
 }

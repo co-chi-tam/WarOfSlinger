@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4693382347670338}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: UIJobShowPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 212571876801711266}
   - component: {fileID: 95573463257407152}
   - component: {fileID: 58107390470311514}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: CharacterSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4276541666944340}
   - component: {fileID: 114686926354747436}
-  m_Layer: 10
+  - component: {fileID: 82651493801011814}
+  m_Layer: 11
   m_Name: Character 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4259211432329514}
   - component: {fileID: 212401645006782878}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: ToolPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,6 +192,86 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.15
+--- !u!82 &82651493801011814
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1416807216004586}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!95 &95573463257407152
 Animator:
   serializedVersion: 3
@@ -221,22 +302,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UIJobPoint: {fileID: 1050024474473490}
   m_Animator: {fileID: 95573463257407152}
+  m_SpriteRender: {fileID: 0}
   m_Collider2D: {fileID: 0}
   m_CharacterCollider: {fileID: 58107390470311514}
-  m_TextAsset: {fileID: 4900000, guid: bec9d51d85098f545a057161705802cc, type: 3}
+  m_Rigidbody2D: {fileID: 0}
   m_CharacterData:
+    objectPosition: (0,0,0)
     objectId: b0510852-afb2-49db-a66f-e110c0f5b2db
     objectName: 
+    objectAvatar: 
     objectModel: 
     objectDescription: 
-    objectTypes: []
-    objectElements: []
+    objectType: 
     objectLevel: 0
     objectJobs: []
+    objectElements: []
     currentHealth: 0
     maxHealth: 0
+    consumeFood: 0
     damageCharacter: 0
-    damageConstruction: 0
+    damageBuilding: 0
     actionSpeed: 0
   m_FSMTextAsset: {fileID: 4900000, guid: 6fbd8eaf2e9fd0243b56dabee6f54fe4, type: 3}
   m_FSMStateName: 

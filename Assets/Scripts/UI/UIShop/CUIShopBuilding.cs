@@ -5,6 +5,7 @@ using UnityEngine.UI;
 namespace WarOfSlinger {
 	public class CUIShopBuilding : MonoBehaviour {
 
+		// TEST
 		[Header("Building data")]
 		[SerializeField]	protected TextAsset m_ShopDataTextAsset;
 		[SerializeField]	protected CShopData m_ShopData;
@@ -19,6 +20,7 @@ namespace WarOfSlinger {
 		public void LoadShopData(Action<CShopItemData> onSelectedItem) {
 			if (this.m_DataLoaded == true)
 				return;
+			// TEST
 			this.m_ShopData = TinyJSON.JSON.Load (this.m_ShopDataTextAsset.text).Make <CShopData>();
 			this.m_ShopNameText.text = this.m_ShopData.shopDisplayName;
 			var shopItems = this.m_ShopData.shopItems;

@@ -10,6 +10,7 @@ namespace WarOfSlinger {
 		public string jobExcute;
         public string jobDescription;
 		public int jobLaborRequire;
+		public int jobToolRequire;
         public string[] jobValues;
 		public float jobTimer;
 		public float jobCountdownTimer;
@@ -26,6 +27,7 @@ namespace WarOfSlinger {
 			this.jobExcute 			= string.Empty;
             this.jobDescription 	= string.Empty;
 			this.jobLaborRequire	= 1;
+			this.jobToolRequire		= 0;
             // jobValues
 			this.jobTimer   		= 0f;
 			this.jobCountdownTimer	= 0f;
