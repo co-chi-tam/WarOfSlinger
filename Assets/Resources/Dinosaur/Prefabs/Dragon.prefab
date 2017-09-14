@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4694329787611932}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: UIJobPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 212489212638213210}
   - component: {fileID: 95873590733538502}
   - component: {fileID: 58085050311065874}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: DragonSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,8 +70,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4984862461062090}
   - component: {fileID: 82121592632257110}
-  - component: {fileID: 114627674755531280}
-  m_Layer: 11
+  - component: {fileID: 114254941179715042}
+  m_Layer: 10
   m_Name: Dragon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1313716215100816}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.17, y: -0.02, z: 0}
+  m_LocalPosition: {x: 0.035, y: -0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4960136216538160}
@@ -182,7 +182,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.4
 --- !u!82 &82121592632257110
 AudioSource:
   m_ObjectHideFlags: 1
@@ -280,7 +280,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114627674755531280
+--- !u!114 &114254941179715042
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1590760684284960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f35c58fce91edfc4ea884a92ce5fb18d, type: 3}
+  m_Script: {fileID: 11500000, guid: 166b70b5d95a04e4abc1b396a59e559e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UIJobPoint: {fileID: 1243758704008996}
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Rigidbody2D: {fileID: 0}
   m_CharacterData:
     objectPosition: (0,0,0)
-    objectId: 136caa98-2f4e-4940-a2ac-ab0ca2b0b75b
+    objectId: 123c0d8c-9513-4788-8331-f5e209d9dba8
     objectName: 
     objectAvatar: 
     objectModel: 
@@ -314,11 +314,11 @@ MonoBehaviour:
     damageCharacter: 0
     damageBuilding: 0
     actionSpeed: 0
-  m_FSMTextAsset: {fileID: 4900000, guid: 6fbd8eaf2e9fd0243b56dabee6f54fe4, type: 3}
+  m_FSMTextAsset: {fileID: 4900000, guid: 6f3642f3d4e48c74c9ef55a3d184fda3, type: 3}
   m_FSMStateName: 
   m_TargetPosition: {x: 0, y: 0, z: 0}
   m_TargetObject: {fileID: 0}
-  m_TextAsset: {fileID: 4900000, guid: 3771f2aac347f6748aefb825bbc7933e, type: 3}
+  m_TextAsset: {fileID: 4900000, guid: ba275d8c56d83ab4a841311036db8862, type: 3}
 --- !u!212 &212489212638213210
 SpriteRenderer:
   m_ObjectHideFlags: 1

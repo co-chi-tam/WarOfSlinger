@@ -2,6 +2,7 @@
 	"villageName": "Village-1",
 	"currentPopulation": 0,
 	"maxPopulation": 0,
+	"villageTimer": 0.0,
 	"villageResources": [
 		{
 			"resouceName": "wood",

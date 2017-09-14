@@ -4,7 +4,7 @@
 	"objectModel": "Environment/Prefabs/Tree 1",
 	"objectDescription": "Tree object.",
 	"objectType": "environment",
-	"objectElements": ["leaf", "wood", "wood", "wood"],
+	"objectElements": [],
 	"objectLevel": 1,
 	"currentHealth": 100,
 	"maxHealth": 100,

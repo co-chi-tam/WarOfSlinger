@@ -1,16 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Character\CCharacterController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Object\CEnvironmentObjectController.cs">
     <Files>
-      <File FileName="Assets\Scripts\Manager\CGameManager.cs" Line="385" Column="24" />
-      <File FileName="Assets\Scripts\Manager\FSMState\FSMGamePlayingModeState.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Manager\FSMState\FSMGameBuildingModeState.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Game\VillageData.txt" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Game\CVillageData.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Object\FSMState\FSMObjectInactiveState.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Object\FSMState\FSMObjectIdleState.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Building\FSMBuilding\FSMBuildingInactiveState.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Character\CCharacterController.cs" Line="7" Column="1" />
+      <File FileName="Assets\Scripts\Manager\FSMState\FSMGameBuildingModeState.cs" Line="101" Column="21" />
+      <File FileName="Assets\Scripts\Manager\CGameManager.cs" Line="72" Column="32" />
+      <File FileName="Assets\Scripts\Object\CEnvironmentObjectController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

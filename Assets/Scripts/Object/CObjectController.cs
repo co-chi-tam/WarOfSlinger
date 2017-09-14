@@ -28,6 +28,7 @@ namespace WarOfSlinger {
 		protected bool m_Active;
 		protected bool m_Inited;
 		protected Transform m_Transform;
+		protected float m_Timer = 0f;
 		// COMPONENTS
 		protected CEventComponent m_EventComponent;
 		protected CJobComponent m_JobComponent;
@@ -124,6 +125,21 @@ namespace WarOfSlinger {
 			return this.GetActive();
 		}
 
+		public virtual bool After30Second() {
+			this.m_Timer += Time.deltaTime;
+			return this.m_Timer >= 30f;
+		}
+
+		public virtual bool After60Second() {
+			this.m_Timer += Time.deltaTime;
+			return this.m_Timer >= 60f;
+		}
+
+		public virtual bool After90Second() {
+			this.m_Timer += Time.deltaTime;
+			return this.m_Timer >= 90f;
+		}
+
 		#endregion
 
 		#region JobOwner
@@ -182,6 +198,10 @@ namespace WarOfSlinger {
 		public virtual void Talk(string value) {
 			// REGISTER UI
 			CGameManager.Instance.ShowTalk (this.m_UIJobPoint.transform, value);
+		}
+
+		public virtual void ResetTimer() {
+			this.m_Timer = 0f;
 		}
 
         #endregion
@@ -256,9 +276,10 @@ namespace WarOfSlinger {
 		public virtual Vector3 GetClosestPoint(Vector3 point) {
 			if (this.m_Collider2D != null) {
 				return this.m_Collider2D.GetClosestPoint (point);
-			} else {
+			} else if (this.m_CharacterCollider != null) {
 				return this.m_CharacterCollider.bounds.ClosestPoint (point);
 			}
+			return this.m_Transform.position;
 		}
 
 		public virtual Vector3 GetUIPointPosition() {

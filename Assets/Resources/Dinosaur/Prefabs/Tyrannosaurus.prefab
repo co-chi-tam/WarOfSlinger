@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212490525131063226}
   - component: {fileID: 95486183400345618}
   - component: {fileID: 58410911132551514}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: TyrannosaurusSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4276413853120296}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: UIJobPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,8 +70,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4982084003553998}
   - component: {fileID: 82595327347233892}
-  - component: {fileID: 114392755959888450}
-  m_Layer: 11
+  - component: {fileID: 114373035649403214}
+  m_Layer: 10
   m_Name: Tyrannosaurus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1698231108223866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.431, y: -0.067, z: 0}
+  m_LocalPosition: {x: -0.1, y: -0.067, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4473634598538738}
@@ -182,7 +182,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.5
 --- !u!82 &82595327347233892
 AudioSource:
   m_ObjectHideFlags: 1
@@ -280,7 +280,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114392755959888450
+--- !u!114 &114373035649403214
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1980296121192352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f35c58fce91edfc4ea884a92ce5fb18d, type: 3}
+  m_Script: {fileID: 11500000, guid: 166b70b5d95a04e4abc1b396a59e559e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UIJobPoint: {fileID: 1523975546723650}
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Rigidbody2D: {fileID: 0}
   m_CharacterData:
     objectPosition: (0,0,0)
-    objectId: 3d1545e3-47ee-4966-ad25-955ae4cbb71f
+    objectId: db5c2817-3c58-46ad-847a-9ce46f96de62
     objectName: 
     objectAvatar: 
     objectModel: 
@@ -314,11 +314,11 @@ MonoBehaviour:
     damageCharacter: 0
     damageBuilding: 0
     actionSpeed: 0
-  m_FSMTextAsset: {fileID: 4900000, guid: 6fbd8eaf2e9fd0243b56dabee6f54fe4, type: 3}
+  m_FSMTextAsset: {fileID: 4900000, guid: 6f3642f3d4e48c74c9ef55a3d184fda3, type: 3}
   m_FSMStateName: 
   m_TargetPosition: {x: 0, y: 0, z: 0}
   m_TargetObject: {fileID: 0}
-  m_TextAsset: {fileID: 4900000, guid: 3771f2aac347f6748aefb825bbc7933e, type: 3}
+  m_TextAsset: {fileID: 4900000, guid: ab002bfe4e3422c448f73e652b418fbb, type: 3}
 --- !u!212 &212490525131063226
 SpriteRenderer:
   m_ObjectHideFlags: 1

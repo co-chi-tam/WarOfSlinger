@@ -9,6 +9,7 @@ namespace WarOfSlinger {
 
 		protected CGameManager m_GameManager;
 		protected string[] m_ApplyObjectType;
+		protected CDragable2DComponent m_CurrentDraggedObject;
 		protected CObjectController m_CurrentSelectObject;
 
 		public FSMGameBuildingModeState (IContext context): base(context)
@@ -20,8 +21,7 @@ namespace WarOfSlinger {
 		public override void StartState ()
 		{
 			base.StartState ();
-			this.m_GameManager.OnEventTouchedGameObject = null;
-			this.m_GameManager.OnEventTouchedGameObject += this.OnTouchedObject;
+			this.m_GameManager.OnEventTouchedGameObject = this.OnTouchedObject;
 			var villageObjects = this.m_GameManager.villageObjects;
 			foreach (var item in villageObjects) {
 				var listObjs = item.Value;
@@ -71,12 +71,12 @@ namespace WarOfSlinger {
 
 		protected virtual void OnTouchedObject(GameObject detectedGo) {
 			var dragableComponent = detectedGo.GetComponent<CDragable2DComponent> ();
-			if (dragableComponent != null) {
+			if (dragableComponent != null && this.m_CurrentDraggedObject == null) {
+				this.m_CurrentDraggedObject 			= dragableComponent;
 				this.m_CurrentSelectObject 				= dragableComponent.DragObject.GetComponent<CObjectController>();
 				this.m_GameManager.OnEventBeginTouch 	= dragableComponent.OnBeginDrag2D;
 				this.m_GameManager.OnEventTouched 		= dragableComponent.OnDrag2D;
-				this.m_GameManager.OnEventEndTouch 		= dragableComponent.OnEndDrag2D;
-				this.m_GameManager.OnEventEndTouch 		+= ResetTouch;
+				this.m_GameManager.OnEventEndTouch 		= ResetTouch;
 				this.m_GameManager.FollowObject (dragableComponent.transform);
 			}
 		}
@@ -87,10 +87,15 @@ namespace WarOfSlinger {
 			} else {
 				this.m_GameManager.canChangeMode = true;
 			}
-			this.m_GameManager.OnEventBeginTouch = null;
-			this.m_GameManager.OnEventTouched = null;
-			this.m_GameManager.OnEventEndTouch = null;
+
+			this.m_GameManager.OnEventBeginTouch 	= null;
+			this.m_GameManager.OnEventTouched 		= null;
+			this.m_GameManager.OnEventEndTouch 		= null;
 			this.m_GameManager.FollowObject (null);
+
+			this.m_CurrentDraggedObject.OnEndDrag2D (position);
+			this.m_CurrentDraggedObject 			= null;
+			this.m_CurrentSelectObject 				= null;
 		}
 
 	}

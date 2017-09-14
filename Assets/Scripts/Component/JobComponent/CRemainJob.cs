@@ -93,7 +93,8 @@ namespace WarOfSlinger {
 			var laborPosition = labor.GetPosition ();
 			var targetPosition = labor.GetTargetPosition ();
 			var direction = targetPosition - laborPosition;
-			return direction.sqrMagnitude <= 0.001f;
+			var distance = 0.01f;
+			return direction.sqrMagnitude <= distance * distance;
 		}
 
 		protected virtual bool InactiveCompleteCommand(IJobLabor labor) {

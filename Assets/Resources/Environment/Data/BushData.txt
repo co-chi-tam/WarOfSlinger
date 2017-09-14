@@ -4,7 +4,7 @@
 	"objectModel": "Environment/Prefabs/Bush 1",
 	"objectDescription": "Bush object.",
 	"objectType": "environment",
-	"objectElements": ["leaf", "leaf", "wood"],
+	"objectElements": [],
 	"objectLevel": 1,
 	"currentHealth": 100,
 	"maxHealth": 100,

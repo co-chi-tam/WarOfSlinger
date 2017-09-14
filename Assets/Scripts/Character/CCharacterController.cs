@@ -51,14 +51,18 @@ namespace WarOfSlinger  {
 			this.m_FSMManager = new FSMManager ();
 			this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
 			// STATE
-			this.m_FSMManager.RegisterState ("CharacterIdleState", 		new FSMCharacterIdleState(this));
-			this.m_FSMManager.RegisterState ("CharacterMoveState", 		new FSMCharacterMoveState(this));
-			this.m_FSMManager.RegisterState ("CharacterActionState", 	new FSMCharacterActionState(this));
-			this.m_FSMManager.RegisterState ("CharacterDeathState", 	new FSMCharacterDeathState(this));
+			this.m_FSMManager.RegisterState ("CharacterIdleState", 			new FSMCharacterIdleState(this));
+			this.m_FSMManager.RegisterState ("CharacterMoveState", 			new FSMCharacterMoveState(this));
+			this.m_FSMManager.RegisterState ("CharacterActionState", 		new FSMCharacterActionState(this));
+			this.m_FSMManager.RegisterState ("CharacterDeathState", 		new FSMCharacterDeathState(this));
+			this.m_FSMManager.RegisterState ("CharacterFoundTargetState", 	new FSMCharacterFoundTargetState(this));
 			// CONDITION
 			this.m_FSMManager.RegisterCondition("DidMoveToTarget", 		this.DidMoveToTarget);
 			this.m_FSMManager.RegisterCondition("HaveTargetObject", 	this.HaveTargetObject);
 			this.m_FSMManager.RegisterCondition("IsActive", 			this.IsActive);
+			this.m_FSMManager.RegisterCondition("After30Second", 		this.After30Second);
+			this.m_FSMManager.RegisterCondition("After60Second", 		this.After60Second);
+			this.m_FSMManager.RegisterCondition("After90Second", 		this.After90Second);
 			// GAME OBJECT
 			this.m_TargetPosition = this.m_Transform.position;
         }
@@ -93,9 +97,6 @@ namespace WarOfSlinger  {
 		public override void OnDamageObject (Vector2 point, CObjectController target, int damage)
 		{
 			base.OnDamageObject (point, target, damage);
-			if (this.m_TargetObject == null) {
-				this.SetTargetController (target);
-			}
 			this.SetAnimation ("IsHit");
 			var totalDamage = this.GetCurrentHealth () - damage;
 			this.SetCurrentHealth (totalDamage);
@@ -209,6 +210,12 @@ namespace WarOfSlinger  {
 		public override float GetActionSpeed ()
 		{
 			return this.m_CharacterData.actionSpeed;
+		}
+
+		public virtual void SetSide(Vector3 targetPosition) {
+			var currentPosition = this.objectPosition;
+			var direction 		= targetPosition - currentPosition;
+			this.objectSide 	= direction.x >= 0f ? 1f : -1f;
 		}
 
 		#endregion

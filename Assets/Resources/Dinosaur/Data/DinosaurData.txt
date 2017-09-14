@@ -1,5 +1,5 @@
 ﻿{
-	"objectPosition": "(3,0,0)",
+	"objectPosition": "(0,0,0)",
 	"objectName": "Lizard",
 	"objectModel": "Dinosaur/Prefabs/Lizard",
 	"objectDescription": "Dinosaur data.",

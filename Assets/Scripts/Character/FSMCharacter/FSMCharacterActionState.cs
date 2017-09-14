@@ -19,6 +19,9 @@ namespace WarOfSlinger {
 		{
 			base.StartState ();
 			this.m_AnimationDelay = this.m_Controller.GetActionSpeed();
+
+			var targetPosition = this.m_Controller.targetPosition;
+			this.m_Controller.SetSide (targetPosition);
 		}
 
 		public override void UpdateState (float dt)
@@ -43,11 +46,7 @@ namespace WarOfSlinger {
 				this.m_Controller.SetAnimation ("IsAttack");
 			}
 			if (target != null) {
-				var currentPosition = this.m_Controller.objectPosition;
-				var targetPosition = target.objectPosition;
-				var direction = targetPosition - currentPosition;
-				this.m_Controller.objectSide = direction.x >= 0f ? 1f : -1f;
-				this.m_Controller.targetPosition = target.GetClosestPoint (this.m_Controller.objectPosition);
+				this.m_Controller.targetPosition = target.GetClosestPoint (this.m_Controller.GetPosition());
 			}
 		}
 

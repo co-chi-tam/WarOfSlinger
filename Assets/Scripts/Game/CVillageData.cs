@@ -8,6 +8,7 @@ namespace WarOfSlinger {
 		public string villageName;
 		public int currentPopulation;
 		public int maxPopulation;
+		public float villageTimer;
 		public CResourceData[] villageResources;
 		public CBuildingData[] villageBuildings;
 		public CCharacterData[] villageCharacters;
@@ -16,9 +17,10 @@ namespace WarOfSlinger {
 
 		public CVillageData ()
 		{
-			this.villageName 	= string.Empty;
-			this.currentPopulation = 0;
-			this.maxPopulation 	= 99;
+			this.villageName 		= string.Empty;
+			this.currentPopulation 	= 0;
+			this.maxPopulation 		= 99;
+			this.villageTimer 		= 0f;
 		}
 		
 	}

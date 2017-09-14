@@ -4,7 +4,7 @@
 	"objectModel": "Environment/Prefabs/Rock 1",
 	"objectDescription": "Rock object.",
 	"objectType": "environment",
-	"objectElements": ["rock", "rock"],
+	"objectElements": [],
 	"objectLevel": 1,
 	"currentHealth": 100,
 	"maxHealth": 100,

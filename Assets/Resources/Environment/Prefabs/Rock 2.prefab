@@ -167,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UIJobPoint: {fileID: 1734362703082794}
   m_Animator: {fileID: 0}
+  m_SpriteRender: {fileID: 0}
   m_Collider2D: {fileID: 114339428731758700}
   m_CharacterCollider: {fileID: 60730422956449214}
   m_Rigidbody2D: {fileID: 50444241451865834}
@@ -177,6 +178,7 @@ MonoBehaviour:
     objectPosition: (0,0,0)
     objectId: 2ff21ebe-f5ab-49ff-8142-06a710cb1d7c
     objectName: 
+    objectAvatar: 
     objectModel: 
     objectDescription: 
     objectType: 
@@ -185,7 +187,7 @@ MonoBehaviour:
     objectElements: []
     currentHealth: 0
     maxHealth: 0
-  m_FSMTextAsset: {fileID: 4900000, guid: 5f4521c3e7ece704b8245c27eda6bc11, type: 3}
+  m_FSMTextAsset: {fileID: 4900000, guid: 383214d46cc9a5c4e9476f245ad252f6, type: 3}
   m_FSMStateName: 
 --- !u!114 &114339428731758700
 MonoBehaviour:

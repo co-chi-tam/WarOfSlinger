@@ -18,8 +18,7 @@ namespace WarOfSlinger {
 		public override void StartState ()
 		{
 			base.StartState ();
-			this.m_GameManager.OnEventTouchedGameObject = null;
-			this.m_GameManager.OnEventTouchedGameObject += this.OnOpenUIJobPanel;
+			this.m_GameManager.OnEventTouchedGameObject = this.OnOpenUIJobPanel;
 		}
 
 		public override void UpdateState (float dt)

@@ -64,9 +64,9 @@ namespace WarOfSlinger {
 		protected override void Awake ()
 		{
 			base.Awake ();
-#if UNITY_EDITOR
+
 			PlayerPrefs.DeleteAll ();
-#endif
+
 			this.m_VillageObjects = new Dictionary<string, List<CObjectController>> ();
 			// LOAD DATA
 			var villageDataText = PlayerPrefs.GetString (CTaskUtil.VILLAGE_DATA_SAVE_01, this.m_VillageTextAsset.text);
@@ -171,7 +171,7 @@ namespace WarOfSlinger {
 		}
 
 		public void OnMouseDetectMobile() {
-			if (Input.touchCount != 1)
+			if (Input.touchCount == 0)
 				return;
 			var fingerTouch = Input.GetTouch (0);
 			var worldPos = this.m_Camera.ScreenToWorldPoint(fingerTouch.position);
@@ -261,6 +261,14 @@ namespace WarOfSlinger {
 		#endregion
 
 		#region Load village building
+
+		public virtual CObjectController[] FindObjectWith(string type) {
+			if (this.m_VillageObjects.ContainsKey (type)) {
+				var result = this.m_VillageObjects [type];
+				return result.ToArray ();
+			}
+			return null;
+		}
 
 		public virtual void LoadVillageObjects<T> (bool needRegistry, CObjectData[] villageObjects, Action completed, Action<int, CObjectController> processing) where T : CObjectController {
 			StartCoroutine (this.HandleLoadVillageObjects<T> (needRegistry, villageObjects, completed, processing));

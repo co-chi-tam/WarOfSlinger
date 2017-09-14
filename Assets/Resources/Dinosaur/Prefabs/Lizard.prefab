@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4219378079971828}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: UIJobPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 212988764789256768}
   - component: {fileID: 95875762045260368}
   - component: {fileID: 58398735336402306}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: LizardSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,8 +70,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4942903665805746}
   - component: {fileID: 82694035908463734}
-  - component: {fileID: 114325465722263876}
-  m_Layer: 11
+  - component: {fileID: 114784426103960892}
+  m_Layer: 10
   m_Name: Lizard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404982206987394}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.145, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4390350067617766}
@@ -182,7 +182,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.13
+  m_Radius: 0.2
 --- !u!82 &82694035908463734
 AudioSource:
   m_ObjectHideFlags: 1
@@ -280,7 +280,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114325465722263876
+--- !u!114 &114784426103960892
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1687725040420486}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f35c58fce91edfc4ea884a92ce5fb18d, type: 3}
+  m_Script: {fileID: 11500000, guid: 166b70b5d95a04e4abc1b396a59e559e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UIJobPoint: {fileID: 1147354710739318}
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Rigidbody2D: {fileID: 0}
   m_CharacterData:
     objectPosition: (0,0,0)
-    objectId: 62f74e75-9242-42dd-a1cd-b6d0adacd6fa
+    objectId: 23b7b5da-d958-41e1-8bef-f5404e10e08f
     objectName: 
     objectAvatar: 
     objectModel: 
@@ -314,11 +314,11 @@ MonoBehaviour:
     damageCharacter: 0
     damageBuilding: 0
     actionSpeed: 0
-  m_FSMTextAsset: {fileID: 4900000, guid: 6fbd8eaf2e9fd0243b56dabee6f54fe4, type: 3}
+  m_FSMTextAsset: {fileID: 4900000, guid: 6f3642f3d4e48c74c9ef55a3d184fda3, type: 3}
   m_FSMStateName: 
   m_TargetPosition: {x: 0, y: 0, z: 0}
   m_TargetObject: {fileID: 0}
-  m_TextAsset: {fileID: 4900000, guid: 3771f2aac347f6748aefb825bbc7933e, type: 3}
+  m_TextAsset: {fileID: 4900000, guid: 2ff3b956b377e554c8392636eb8ec914, type: 3}
 --- !u!212 &212988764789256768
 SpriteRenderer:
   m_ObjectHideFlags: 1
