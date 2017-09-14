@@ -1,5 +1,5 @@
 ﻿{
-	"objectPosition": "(6.6,0,0)",
+	"objectPosition": "(0,0,0)",
 	"objectName": "Hatching House Building",
 	"objectModel": "Building/Prefabs/HatchingHouse 1",
 	"objectDescription": "Hatching House Building.",

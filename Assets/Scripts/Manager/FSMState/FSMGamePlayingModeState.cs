@@ -30,6 +30,7 @@ namespace WarOfSlinger {
 			this.m_GameManager.OnMouseDetectMobile();
 #endif
 			this.m_GameManager.CalculatePopular ();
+			this.m_GameManager.CalculateVillageTimer (dt);
 		}
 
 		public override void ExitState ()

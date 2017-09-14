@@ -234,7 +234,7 @@ Prefab:
     - target: {fileID: 224123554141861202, guid: b9cadc9c7fe8abe40847f0f15aecb7a7,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -40.05005
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 224123554141861202, guid: b9cadc9c7fe8abe40847f0f15aecb7a7,
         type: 2}
@@ -264,7 +264,7 @@ Prefab:
     - target: {fileID: 224372500148212260, guid: b9cadc9c7fe8abe40847f0f15aecb7a7,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -40.05005
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 224372500148212260, guid: b9cadc9c7fe8abe40847f0f15aecb7a7,
         type: 2}
@@ -294,7 +294,7 @@ Prefab:
     - target: {fileID: 224579738975256248, guid: b9cadc9c7fe8abe40847f0f15aecb7a7,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -40.05005
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 224579738975256248, guid: b9cadc9c7fe8abe40847f0f15aecb7a7,
         type: 2}
@@ -324,7 +324,7 @@ Prefab:
     - target: {fileID: 224102557991146124, guid: b9cadc9c7fe8abe40847f0f15aecb7a7,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -40.05005
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 224102557991146124, guid: b9cadc9c7fe8abe40847f0f15aecb7a7,
         type: 2}
@@ -354,7 +354,7 @@ Prefab:
     - target: {fileID: 224043883081202986, guid: b9cadc9c7fe8abe40847f0f15aecb7a7,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -40.05005
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 224043883081202986, guid: b9cadc9c7fe8abe40847f0f15aecb7a7,
         type: 2}
@@ -418,11 +418,6 @@ Prefab:
       propertyPath: m_CameraFollower
       value: 
       objectReference: {fileID: 1679143601}
-    - target: {fileID: 114629649834758934, guid: f11f732ee3e1de64f9e5c0a59685ef2b,
-        type: 2}
-      propertyPath: m_TouchDetectLayerMask.m_Bits
-      value: 1073745152
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f11f732ee3e1de64f9e5c0a59685ef2b, type: 2}
   m_IsPrefabParent: 0

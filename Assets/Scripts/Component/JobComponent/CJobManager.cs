@@ -41,13 +41,13 @@ namespace WarOfSlinger {
 
 		// GET LAST LIST
 		public static IJobLabor GetFreeLabor() {
-			var first = jobLaborFree.First;
-			if (first != null) {
-				jobLaborFree.RemoveFirst ();
-				if (jobLaborInProcessing.Contains (first.Value) == false) {
-					jobLaborInProcessing.Add (first.Value);
+			var last = jobLaborFree.Last;
+			if (last != null) {
+				jobLaborFree.RemoveLast ();
+				if (jobLaborInProcessing.Contains (last.Value) == false) {
+					jobLaborInProcessing.Add (last.Value);
 				}
-				return first.Value;
+				return last.Value;
 			}
 			return null;
 		}

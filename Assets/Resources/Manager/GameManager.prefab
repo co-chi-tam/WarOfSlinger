@@ -50,7 +50,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4592905372840470}
   m_Layer: 31
-  m_Name: BuildingPoint
+  m_Name: MapPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -624,20 +624,21 @@ MonoBehaviour:
     villageName: 
     currentPopulation: 0
     maxPopulation: 99
+    villageTimer: 0
     villageResources: []
     villageBuildings: []
     villageCharacters: []
-    villageNPCs: []
     villageObjects: []
+    villageInventories: []
   m_Camera: {fileID: 0}
   m_CameraFollower: {fileID: 0}
   m_TouchDetectLayerMask:
     serializedVersion: 2
-    m_Bits: 1073743104
+    m_Bits: 1073745152
   m_GameMode: 0
   m_GameModeTextAsset: {fileID: 4900000, guid: ad6b709bb673efc4fbfe367f6b358e8f, type: 3}
   m_FSMStateName: 
-  m_BuildingPoints:
+  m_MapPoints:
   - {fileID: 1788359225330930}
   - {fileID: 1869292119264342}
   - {fileID: 1460731001465962}

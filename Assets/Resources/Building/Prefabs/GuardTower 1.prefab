@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 50953657410343226}
   - component: {fileID: 114120504254482990}
   m_Layer: 8
-  m_Name: ArcherTowerSprite
+  m_Name: GuardTowerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4708127810296760}
   - component: {fileID: 114953777694635792}
   m_Layer: 8
-  m_Name: ArcherTower 1
+  m_Name: GuardTower 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,7 +334,6 @@ MonoBehaviour:
   m_Collider2D: {fileID: 114380917236371012}
   m_CharacterCollider: {fileID: 60624412593511528}
   m_Rigidbody2D: {fileID: 50953657410343226}
-  m_IsObjectWorking: 1
   m_RedrawCollider: {fileID: 114380917236371012}
   m_RedrawSprite: {fileID: 114484643095901648}
   m_ActiveDamageAfterTime: 0.1
@@ -353,6 +352,7 @@ MonoBehaviour:
     objectPosition: (0,0,0)
     objectId: 
     objectName: 
+    objectAvatar: 
     objectModel: 
     objectDescription: 
     objectType: 

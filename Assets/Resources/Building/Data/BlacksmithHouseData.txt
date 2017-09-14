@@ -1,5 +1,5 @@
 ﻿{
-	"objectPosition": "(6.6,0,0)",
+	"objectPosition": "(0,0,0)",
 	"objectName": "Black Smith Building",
 	"objectModel": "Building/Prefabs/BlacksmithHouse 1",
 	"objectDescription": "Black Smith Building.",

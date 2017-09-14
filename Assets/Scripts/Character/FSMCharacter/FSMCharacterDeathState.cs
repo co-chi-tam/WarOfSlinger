@@ -17,7 +17,6 @@ namespace WarOfSlinger {
 		{
 			base.StartState ();
 			this.m_Controller.SetActive (false);
-			this.m_Controller.IsObjectWorking = false;
 			this.m_Controller.SetAnimation ("AnimParam", (int) 10);
 			CJobManager.ReleaseLabor (this.m_Controller);
 		}

@@ -9,6 +9,7 @@ namespace WarOfSlinger {
 		public int currentPopulation;
 		public int maxPopulation;
 		public float villageTimer;
+		public CRespawnObjectData villageRespawnObject;
 		public CResourceData[] villageResources;
 		public CBuildingData[] villageBuildings;
 		public CCharacterData[] villageCharacters;

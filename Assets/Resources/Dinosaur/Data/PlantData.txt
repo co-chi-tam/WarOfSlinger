@@ -1,0 +1,27 @@
+﻿{
+	"objectPosition": "(0,0,0)",
+	"objectName": "Plant",
+	"objectModel": "Dinosaur/Prefabs/Plant",
+	"objectDescription": "Plant data.",
+	"objectType": "respawn-object",
+	"objectElements": [],
+	"objectLevel": 1,
+	"currentHealth": 1,
+	"maxHealth": 1,
+	"damageCharacter": 1,
+	"damageBuilding": 1,
+	"actionSpeed": 2.0,
+	"objectJobs": [
+		{
+			"jobDisplayName": "Attack",
+			"jobAvatar": "AttackCommand",
+			"jobExcute": "AttackCommand",
+			"jobLaborRequire": 1,
+			"jobToolRequire": 1,
+			"jobDescription": "Attack this.",
+			"jobValues": ["freeLabor", "leaf", "wood"],
+			"jobTimer": 1.0,
+			"jobType": 1
+		}
+	]
+}

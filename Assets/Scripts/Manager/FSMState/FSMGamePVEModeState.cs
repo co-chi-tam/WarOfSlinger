@@ -6,9 +6,11 @@ using FSM;
 namespace WarOfSlinger {
 	public class FSMGamePVEModeState : FSMBaseState {
 
+		protected CGameManager m_GameManager;
+
 		public FSMGamePVEModeState (IContext context): base(context)
 		{
-
+			this.m_GameManager = context as CGameManager;
 		}
 
 		public override void StartState ()

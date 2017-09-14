@@ -9,7 +9,7 @@ using FSM;
 using SceneTask;
 
 namespace WarOfSlinger {
-	public class CGameManager : CMonoSingleton<CGameManager>, IContext {
+	public partial class CGameManager : CMonoSingleton<CGameManager>, IContext {
 
 		#region Fields
 
@@ -27,15 +27,14 @@ namespace WarOfSlinger {
 		[SerializeField]	protected TextAsset m_GameModeTextAsset;
 		[SerializeField]	protected string m_FSMStateName;
 
-		[Header("Building points")]
-		[SerializeField]	protected GameObject[] m_BuildingPoints;
+		[Header("Map points")]
+		[SerializeField]	protected GameObject[] m_MapPoints;
 
 		protected Dictionary<string, List<CObjectController>> m_VillageObjects;
 		public Dictionary<string, List<CObjectController>> villageObjects {
 			get { return this.m_VillageObjects; }
 			protected set { this.m_VillageObjects = value; }
 		}
-		protected FSMManager m_FSMManager;
 
 		public Action<GameObject> OnEventTouchedGameObject;
 		public Action<Vector2> OnEventBeginTouch;
@@ -55,8 +54,6 @@ namespace WarOfSlinger {
 			PVE = 5
 		}
 
-		protected bool m_IsUITouched = false;
-
 		#endregion
 
 		#region Implementation Monobehaviour
@@ -64,30 +61,15 @@ namespace WarOfSlinger {
 		protected override void Awake ()
 		{
 			base.Awake ();
-
+#if UNITY_EDITOR
 			PlayerPrefs.DeleteAll ();
-
+#endif
 			this.m_VillageObjects = new Dictionary<string, List<CObjectController>> ();
 			// LOAD DATA
 			var villageDataText = PlayerPrefs.GetString (CTaskUtil.VILLAGE_DATA_SAVE_01, this.m_VillageTextAsset.text);
 			this.m_VillageData = TinyJSON.JSON.Load (villageDataText).Make<CVillageData>();
-			// LOAD FSM
-			this.m_FSMManager = new FSMManager ();
-			this.m_FSMManager.LoadFSM (this.m_GameModeTextAsset.text);
-			// FSM STATE
-			this.m_FSMManager.RegisterState ("GameFreeModeState", 		new FSMGameFreeModeState(this));
-			this.m_FSMManager.RegisterState ("GameLoadingModeState", 	new FSMGameLoadingModeState(this));
-			this.m_FSMManager.RegisterState ("GamePlayingModeState",	new FSMGamePlayingModeState(this));
-			this.m_FSMManager.RegisterState ("GameBuildingModeState",	new FSMGameBuildingModeState(this));
-			this.m_FSMManager.RegisterState ("GamePVPModeState", 		new FSMGamePVPModeState(this));
-			this.m_FSMManager.RegisterState ("GamePVEModeState", 		new FSMGamePVEModeState(this));
-			// FSM CONDITION
-			this.m_FSMManager.RegisterCondition ("IsFreeMode", 			this.IsFreeMode);
-			this.m_FSMManager.RegisterCondition ("IsLoadingMode",		this.IsLoadingMode);
-			this.m_FSMManager.RegisterCondition ("IsPlayingMode",		this.IsPlayingMode);
-			this.m_FSMManager.RegisterCondition ("IsBuildingMode",		this.IsBuildingMode);
-			this.m_FSMManager.RegisterCondition ("IsPVPMode", 			this.IsPVPMode);
-			this.m_FSMManager.RegisterCondition ("IsPVEMode", 			this.IsPVEMode);
+			// FSM
+			this.RegisterFSM ();
 		}
 
 		protected virtual void Start() {
@@ -104,6 +86,7 @@ namespace WarOfSlinger {
 					// LOAD OBJECT
 					this.LoadVillageObjects<CEnvironmentObjectController> (true, this.m_VillageData.villageObjects, () => { 
 						this.m_GameMode = EGameMode.PLAYING;
+						this.SetupRespawnObject();
 					}, null);
 				}, (index, objCtrl) => {
 					// SET IS FREE LABOR
@@ -146,83 +129,7 @@ namespace WarOfSlinger {
 
 		#endregion
 
-		#region Detect object method
-
-		public void OnMouseDetectStandalone() {
-			var worldPos = this.m_Camera.ScreenToWorldPoint(Input.mousePosition);
-			if (Input.GetMouseButtonDown (0)) {
-				if (!EventSystem.current.IsPointerOverGameObject()) {
-					this.OnTouchedObject ();
-				}
-				if (this.OnEventBeginTouch != null) {
-					this.OnEventBeginTouch (worldPos);
-				}
-			}
-			if (Input.GetMouseButton (0)) {
-				if (this.OnEventTouched != null) {
-					this.OnEventTouched (worldPos);
-				}
-			}
-			if (Input.GetMouseButtonUp (0)) {
-				if (this.OnEventEndTouch != null) {
-					this.OnEventEndTouch (worldPos);
-				}
-			}
-		}
-
-		public void OnMouseDetectMobile() {
-			if (Input.touchCount == 0)
-				return;
-			var fingerTouch = Input.GetTouch (0);
-			var worldPos = this.m_Camera.ScreenToWorldPoint(fingerTouch.position);
-			switch (fingerTouch.phase) {
-			case TouchPhase.Began:
-				this.m_IsUITouched = EventSystem.current.IsPointerOverGameObject (fingerTouch.fingerId);
-				if (this.OnEventBeginTouch != null) {
-					this.OnEventBeginTouch (worldPos);
-				}
-				break;
-			case TouchPhase.Moved:
-				if (this.OnEventTouched != null) {
-					this.OnEventTouched (worldPos);
-				}
-				break;
-			case TouchPhase.Canceled:
-			case TouchPhase.Ended:
-				if (this.OnEventEndTouch != null) {
-					this.OnEventEndTouch (worldPos);
-				}
-				break;
-			}
-			if (this.m_IsUITouched == false) {
-				this.OnTouchedObject ();
-			}
-		}
-
-		protected virtual void OnTouchedObject() {
-			GameObject detectedGo = null;
-			if (this.OnDectedGameObject (ref detectedGo)) {
-				if (this.OnEventTouchedGameObject != null) {
-					this.OnEventTouchedGameObject (detectedGo);
-				}
-			}
-		}
-
-		public virtual bool OnDectedGameObject(ref GameObject detectGo) {
-			var mouseWorldPoint = this.m_Camera.ScreenToWorldPoint (Input.mousePosition);
-			var rayHit2Ds = Physics2D.RaycastAll (mouseWorldPoint, Vector2.zero, Mathf.Infinity);
-			if (rayHit2Ds.Length > 0) {
-				for (int i = 0; i < rayHit2Ds.Length; i++) {
-					var objectLayer = rayHit2Ds [i].collider.gameObject.layer;
-					var isDetected = this.m_TouchDetectLayerMask == (this.m_TouchDetectLayerMask | (1 << objectLayer));
-					if (isDetected == true) {
-						detectGo = rayHit2Ds [i].collider.gameObject;
-						return true;
-					}
-				}
-			}
-			return false;
-		}
+		#region UI
 
 		public virtual void OnOpenUIJobPanel(GameObject detectedGo) {
 			var parentRoot = detectedGo.transform.root;
@@ -260,78 +167,6 @@ namespace WarOfSlinger {
 
 		#endregion
 
-		#region Load village building
-
-		public virtual CObjectController[] FindObjectWith(string type) {
-			if (this.m_VillageObjects.ContainsKey (type)) {
-				var result = this.m_VillageObjects [type];
-				return result.ToArray ();
-			}
-			return null;
-		}
-
-		public virtual void LoadVillageObjects<T> (bool needRegistry, CObjectData[] villageObjects, Action completed, Action<int, CObjectController> processing) where T : CObjectController {
-			StartCoroutine (this.HandleLoadVillageObjects<T> (needRegistry, villageObjects, completed, processing));
-		}
-
-		public virtual void LoadVillageObject<T> (bool needRegistry, CObjectData villageObject, Vector3 position, Action<CObjectController> completed) where T : CObjectController {
-			StartCoroutine (this.HandleLoadVillageObject<T> (needRegistry, villageObject, position, completed));
-		}
-
-		protected virtual IEnumerator HandleLoadVillageObjects<T>(bool needRegistry, CObjectData[] villageObjects, Action completed, Action<int, CObjectController> processing) where T : CObjectController {
-			for (int i = 0; i < villageObjects.Length; i++) {
-				// INSTANTIATE OBJECT
-				var objectData = villageObjects [i];
-				if (objectData == null || string.IsNullOrEmpty (objectData.objectModel)) 
-					continue;
-				var objectCtrl = Instantiate (Resources.Load<T>(objectData.objectModel));
-				yield return objectCtrl != null;
-				objectCtrl.SetData (objectData);
-				objectCtrl.SetPosition (objectData.objectV3Position);
-				objectCtrl.Init ();
-				if (needRegistry) {
-					// SETUP VILLAGE OBJECT
-					var villageObjectType = objectData.objectType;
-					if (this.m_VillageObjects.ContainsKey (villageObjectType) == false) {
-						this.m_VillageObjects [villageObjectType] = new List<CObjectController> ();
-					}
-					if (this.m_VillageObjects [villageObjectType].Contains (objectCtrl) == false) {
-						this.m_VillageObjects [villageObjectType].Add (objectCtrl);
-					}
-				}
-				// EVENTS
-				if (processing != null) {
-					processing (i, objectCtrl);
-				}
-			}
-			if (completed != null) {
-				completed ();
-			}
-		}
-
-		protected virtual IEnumerator HandleLoadVillageObject<T>(bool needRegistry, CObjectData objectData, Vector3 position, Action<CObjectController> completed) where T : CObjectController {
-			var objectCtrl = Instantiate (Resources.Load<T>(objectData.objectModel));
-			yield return objectCtrl != null;
-			objectCtrl.SetData (objectData);
-			objectCtrl.SetPosition (position);
-			objectCtrl.Init ();
-			if (needRegistry) {
-				// SETUP VILLAGE OBJECT
-				var villageObjectType = objectData.objectType;
-				if (this.m_VillageObjects.ContainsKey (villageObjectType) == false) {
-					this.m_VillageObjects [villageObjectType] = new List<CObjectController> ();
-				}
-				if (this.m_VillageObjects [villageObjectType].Contains (objectCtrl) == false) {
-					this.m_VillageObjects [villageObjectType].Add (objectCtrl);
-				}
-			}
-			if (completed != null) {
-				completed (objectCtrl);
-			}
-		}
-
-		#endregion
-
 		#region Main methods
 
 		public virtual void CalculatePopular() {
@@ -352,6 +187,14 @@ namespace WarOfSlinger {
 					continue;
 				var data = listObjectBuildings [i].GetData () as CBuildingData;
 				this.m_VillageData.maxPopulation += data.maxResident;
+			}
+		}
+
+		public virtual void CalculateVillageTimer(float dt) {
+			this.m_VillageData.villageTimer += dt;
+			// RESPAWN OBJECT
+			if (this.m_VillageData.villageTimer >= this.m_RespawnObjNextTimer) {
+				this.RespawnObject ();
 			}
 		}
 
@@ -394,50 +237,6 @@ namespace WarOfSlinger {
 					this.m_VillageData.maxPopulation += buildingData.maxResident;
 				});
 			});
-		}
-
-		public virtual void CreateResident(Vector3 position) {
-			if (this.m_VillageData.currentPopulation + 1 > this.m_VillageData.maxPopulation)
-				return;
-			var characters 		= Resources.LoadAll<CCharacterController> ("Character/Prefabs");
-			var characterDatas 	= Resources.LoadAll<TextAsset>("Character/Data");
-			// RANDOM
-			var random 		= (int)Time.time % characters.Length;
-			var newLabor 	= GameObject.Instantiate (characters[random]);
-			var newData 	= TinyJSON.JSON.Load (characterDatas[0].text).Make<CCharacterData>();
-			newData.objectName = "NEW NAME";
-			newData.objectModel = "Character/Prefabs/" + characters[random].name;
-			newLabor.SetTargetPosition (position);
-			newLabor.SetPosition (position);
-			newLabor.SetData (newData);
-			newLabor.Init ();
-			// SET IS FREE LABOR
-			CJobManager.ReturnFreeLabor (newLabor);
-			var currentPopulation = CVillageManager.GetCurrentPopulation ();
-			CVillageManager.SetCurrentPopulation (currentPopulation + 1);
-			// SETUP VILLAGE OBJECT
-			var villageObjectType = newData.objectType;
-			if (this.m_VillageObjects.ContainsKey (villageObjectType) == false) {
-				this.m_VillageObjects [villageObjectType] = new List<CObjectController> ();
-			}
-			if (this.m_VillageObjects [villageObjectType].Contains (newLabor as CObjectController) == false) {
-				this.m_VillageObjects [villageObjectType].Add (newLabor as CObjectController);
-			}
-		}
-
-		public virtual void CreateItemFromData (CInventoryItemData itemData, Action<CObjectController> completed) {
-			var itemSource = Resources.Load<TextAsset>(itemData.itemSource);
-			var buildingData = TinyJSON.JSON.Load(itemSource.text).Make<CBuildingData>();
-			var buildingPosition = CUtil.GetCenterScreen2WorldPoint();
-			this.LoadVillageObject<CBuildingController> (true, buildingData, buildingPosition, completed);
-		}
-
-		public virtual CInventoryItemData CreateObjectToItem(CObjectData data) {
-			var item = new CInventoryItemData ();
-			item.itemName = data.objectName;
-			item.itemAvatar = data.objectAvatar;
-			item.itemSource = data.objectModel;
-			return item;
 		}
 
 		public virtual void FollowObject(Transform obj, float timer = -1f) {
@@ -506,7 +305,7 @@ namespace WarOfSlinger {
 
 		#endregion
 
-		#region Mode handle
+		#region Getter && Setter
 
 		public void SetMode(EGameMode value) {
 			if (this.canChangeMode == false)
@@ -514,35 +313,11 @@ namespace WarOfSlinger {
 			this.m_GameMode = value;
 		}
 
-		#endregion
-
-		#region FSM 
-
-		public virtual bool IsFreeMode() {
-			return this.m_GameMode == EGameMode.FREE;
-		}
-
-		public virtual bool IsLoadingMode() {
-			return this.m_GameMode == EGameMode.LOADING;
-		}
-
-		public virtual bool IsPlayingMode() {
-			return this.m_GameMode == EGameMode.PLAYING;
-		}
-
-		public virtual bool IsBuildingMode() {
-			return this.m_GameMode == EGameMode.BUILDING;
-		}
-
-		public virtual bool IsPVEMode() {
-			return this.m_GameMode == EGameMode.PVE;
-		}
-
-		public virtual bool IsPVPMode() {
-			return this.m_GameMode == EGameMode.PVP;
+		public GameObject[] GetMapPoints() {
+			return this.m_MapPoints;
 		}
 
 		#endregion
-		
+
 	}
 }

@@ -19,9 +19,6 @@ namespace WarOfSlinger {
 		{
 			base.StartState ();
 			this.m_AnimationDelay = this.m_Controller.GetActionSpeed();
-
-			var targetPosition = this.m_Controller.targetPosition;
-			this.m_Controller.SetSide (targetPosition);
 		}
 
 		public override void UpdateState (float dt)

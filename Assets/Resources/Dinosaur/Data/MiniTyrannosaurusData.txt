@@ -6,10 +6,10 @@
 	"objectType": "dinosaur",
 	"objectElements": [],
 	"objectLevel": 1,
-	"currentHealth": 20,
-	"maxHealth": 20,
-	"damageCharacter": 2,
-	"damageBuilding": 20,
+	"currentHealth": 50,
+	"maxHealth": 50,
+	"damageCharacter": 5,
+	"damageBuilding": 30,
 	"actionSpeed": 2.0,
 	"objectJobs": [
 		{
@@ -17,7 +17,7 @@
 			"jobAvatar": "AttackCommand",
 			"jobExcute": "AttackCommand",
 			"jobLaborRequire": 1,
-			"jobToolRequire": 0,
+			"jobToolRequire": 1,
 			"jobDescription": "Attack this.",
 			"jobValues": ["freeLabor", "food", "rock"],
 			"jobTimer": 1.0,

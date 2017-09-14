@@ -3,6 +3,11 @@
 	"currentPopulation": 0,
 	"maxPopulation": 0,
 	"villageTimer": 0.0,
+	"villageRespawnObject": {
+		"respawnTimers": [33.0, 44.0, 55.0],
+		"respawnSources": ["Dinosaur/Prefabs/GrassHopper", "Dinosaur/Prefabs/Plant"],
+		"respawnPoints": ["buiding", "environment", "mapPoint"]
+	},
 	"villageResources": [
 		{
 			"resouceName": "wood",

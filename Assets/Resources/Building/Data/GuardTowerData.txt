@@ -1,8 +1,8 @@
 ﻿{
-	"objectPosition": "(6.6,0,0)",
-	"objectName": "Archer Tower Building",
-	"objectModel": "Building/Prefabs/ArcherTower 1",
-	"objectDescription": "Archer Tower Building.",
+	"objectPosition": "(0,0,0)",
+	"objectName": "Guard Tower Building",
+	"objectModel": "Building/Prefabs/GuardTower 1",
+	"objectDescription": "Guard Tower Building.",
 	"objectType": "building",
 	"objectElements": ["rock", "rock", "wood", "wood", "wood"],
 	"objectLevel": 1,

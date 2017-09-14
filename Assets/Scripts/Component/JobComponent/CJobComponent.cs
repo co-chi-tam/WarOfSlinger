@@ -291,6 +291,8 @@ namespace WarOfSlinger {
 				freeLabor.SetTargetPosition (owner.GetClosestPoint (freeLabor.GetPosition ()));
 				freeLabor.SetTargetController (owner.GetController ());
 				currentJob.RegisterJobLabor (freeLabor);
+				currentJob.OnJobCompleted -= HandleGatheringObject;
+				currentJob.OnJobCompleted += HandleGatheringObject;
 			} else {
 				owner.GetController ().Talk ("NOT FREE LABOR.");
 			}

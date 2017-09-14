@@ -204,6 +204,10 @@ namespace WarOfSlinger {
 			this.m_Timer = 0f;
 		}
 
+		public virtual void ResetOject() {
+			
+		}
+
         #endregion
 
         #region Getter && Setter
