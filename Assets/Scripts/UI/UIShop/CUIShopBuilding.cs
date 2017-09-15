@@ -5,9 +5,7 @@ using UnityEngine.UI;
 namespace WarOfSlinger {
 	public class CUIShopBuilding : MonoBehaviour {
 
-		// TEST
 		[Header("Building data")]
-		[SerializeField]	protected TextAsset m_ShopDataTextAsset;
 		[SerializeField]	protected CShopData m_ShopData;
 		[Header("Shop")]
 		[SerializeField]	protected Text m_ShopNameText;
@@ -15,13 +13,13 @@ namespace WarOfSlinger {
 		[SerializeField]	protected GameObject m_ShopBuildingRoot;
 		[SerializeField]	protected CUIShopItem m_ShopBuildingPrefab;
 
+		protected CUIShopItem[] m_ShopItemList;
 		protected bool m_DataLoaded = false;
 
-		public void LoadShopData(Action<CShopItemData> onSelectedItem) {
+		public void LoadShopData(CShopData shopData, Action<CShopItemData> onSelectedItem) {
 			if (this.m_DataLoaded == true)
 				return;
-			// TEST
-			this.m_ShopData = TinyJSON.JSON.Load (this.m_ShopDataTextAsset.text).Make <CShopData>();
+			this.m_ShopData = shopData; 
 			this.m_ShopNameText.text = this.m_ShopData.shopDisplayName;
 			var shopItems = this.m_ShopData.shopItems;
 			for (int i = 0; i < shopItems.Length; i++) {
@@ -33,6 +31,11 @@ namespace WarOfSlinger {
 			}
 			this.m_ShopBuildingPrefab.gameObject.SetActive (false);
 			this.m_DataLoaded = true;
+		}
+
+		public void SaveShop() {
+			var jsonSaved = TinyJSON.JSON.Dump (this.m_ShopData);
+			Debug.Log (jsonSaved);
 		}
 		
 	}

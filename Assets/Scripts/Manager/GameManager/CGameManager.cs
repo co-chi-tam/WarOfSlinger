@@ -54,6 +54,14 @@ namespace WarOfSlinger {
 			PVE = 5
 		}
 
+		public float villageTimer {
+			get { 
+				if (this.m_VillageData == null)
+					return Time.time;
+				return this.m_VillageData.villageTimer;
+			}
+		}
+
 		#endregion
 
 		#region Implementation Monobehaviour
@@ -65,9 +73,6 @@ namespace WarOfSlinger {
 			PlayerPrefs.DeleteAll ();
 #endif
 			this.m_VillageObjects = new Dictionary<string, List<CObjectController>> ();
-			// LOAD DATA
-			var villageDataText = PlayerPrefs.GetString (CTaskUtil.VILLAGE_DATA_SAVE_01, this.m_VillageTextAsset.text);
-			this.m_VillageData = TinyJSON.JSON.Load (villageDataText).Make<CVillageData>();
 			// FSM
 			this.RegisterFSM ();
 		}
@@ -75,28 +80,15 @@ namespace WarOfSlinger {
 		protected virtual void Start() {
 			this.canChangeMode = true;
 			this.m_GameMode = EGameMode.LOADING;
-			// RESET POPULAR
-			this.m_VillageData.currentPopulation = 0;
-			this.m_VillageData.maxPopulation = 0;
-			// LOAD BUILDING
-			this.LoadVillageObjects<CBuildingController> (true, this.m_VillageData.villageBuildings, () => {
-				CUIGameManager.Instance.SetUpResource(this.m_VillageData);
-				// LOAD CHARACTER
-				this.LoadVillageObjects<CCharacterController> (true, this.m_VillageData.villageCharacters, () => {
-					// LOAD OBJECT
-					this.LoadVillageObjects<CEnvironmentObjectController> (true, this.m_VillageData.villageObjects, () => { 
-						this.m_GameMode = EGameMode.PLAYING;
-						this.SetupRespawnObject();
-					}, null);
-				}, (index, objCtrl) => {
-					// SET IS FREE LABOR
-					CJobManager.ReturnFreeLabor (objCtrl as CCharacterController);
-					this.m_VillageData.currentPopulation += 1;
+			// LOAD DATA
+			this.LoadVillageData (() => {
+				// LOAD VILLAGE OBJECTS
+				this.LoadAllVillageObjects(() => {
+					// SWITCH PLAYING MODE
+					this.m_GameMode = EGameMode.PLAYING;
+					// SET UP RESPAWN OBJECT
+					this.SetupRespawnObject(this.m_RespawnSlot);
 				});
-			}, (index, objCtrl) => {
-				Debug.Log (index);
-				var buildingData = this.m_VillageData.villageBuildings[index];
-				this.m_VillageData.maxPopulation += buildingData.maxResident;
 			});
 		}
 
@@ -126,6 +118,50 @@ namespace WarOfSlinger {
 			}
 		}
 #endif
+
+		#endregion
+
+		#region Load data 
+
+		public virtual void LoadVillageData(Action completed) {
+			StartCoroutine (this.HandleLoadVillageData (completed));
+		}
+
+		protected virtual IEnumerator HandleLoadVillageData(Action completed) {
+			// LOAD DATA
+			var villageDataText = PlayerPrefs.GetString (CTaskUtil.VILLAGE_DATA_SAVE_01, this.m_VillageTextAsset.text);
+			this.m_VillageData = TinyJSON.JSON.Load (villageDataText).Make<CVillageData>();
+			yield return this.m_VillageData != null;
+			if (completed != null) {
+				completed ();
+			}
+		}
+
+		protected virtual void LoadAllVillageObjects(Action completed) {
+			// RESET POPULAR
+			this.m_VillageData.currentPopulation = 0;
+			this.m_VillageData.maxPopulation = 0;
+			// LOAD BUILDING
+			this.LoadVillageObjects<CBuildingController> (true, this.m_VillageData.villageBuildings, () => {
+				CUIGameManager.Instance.SetUpResource(this.m_VillageData);
+				// LOAD CHARACTER
+				this.LoadVillageObjects<CCharacterController> (true, this.m_VillageData.villageCharacters, () => {
+					// LOAD OBJECT
+					this.LoadVillageObjects<CEnvironmentObjectController> (true, this.m_VillageData.villageObjects, () => { 
+						if (completed != null) {
+							completed ();
+						}
+					}, null);
+				}, (index, objCtrl) => {
+					// SET IS FREE LABOR
+					CJobManager.ReturnFreeLabor (objCtrl as CCharacterController);
+					this.m_VillageData.currentPopulation += 1;
+				});
+			}, (index, objCtrl) => {
+				var buildingData = this.m_VillageData.villageBuildings[index];
+				this.m_VillageData.maxPopulation += buildingData.maxResident;
+			});
+		}
 
 		#endregion
 
@@ -194,13 +230,22 @@ namespace WarOfSlinger {
 			this.m_VillageData.villageTimer += dt;
 			// RESPAWN OBJECT
 			if (this.m_VillageData.villageTimer >= this.m_RespawnObjNextTimer) {
-				this.RespawnObject ();
+				this.RespawnObject (this.m_RespawnSlot);
 			}
 		}
 
+		public virtual void OpenBuildingControl() {
+			CUIGameManager.Instance.OpenBuildingControl();
+			this.SetMode (EGameMode.BUILDING);
+		}
+
 		public virtual void OpenShop(string shopName) {
-			CUIGameManager.Instance.OpenShop (shopName, (itemData) => {
-				if (CVillageManager.IsEnoughResources(itemData.itemCost)) {
+			if (this.m_VillageData.villageShops.ContainsKey (shopName) == false) {
+				return;
+			}
+			var shopData = this.m_VillageData.villageShops [shopName];
+			CUIGameManager.Instance.OpenShop (shopData, (itemData) => {
+				if (CVillageManager.IsEnoughResources(itemData.itemCost) && itemData.currentAmount < itemData.maxAmount) {
 					CUIGameManager.Instance.OpenBuildingControl();
 					CUIGameManager.Instance.CloseShop (shopName);
 					this.SetMode (EGameMode.BUILDING);
@@ -208,6 +253,7 @@ namespace WarOfSlinger {
 					case "building-shop":
 						this.CreateItemFromData (itemData, (building) => {
 							building.SetEnabledPhysic (false);
+							itemData.currentAmount++;
 							// TEST
 							var buildingData = building.GetData() as CBuildingData;
 							this.m_VillageData.maxPopulation += buildingData.maxResident;

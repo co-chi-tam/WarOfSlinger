@@ -13,25 +13,31 @@ namespace WarOfSlinger {
 
 		#region Fields
 
-		[SerializeField]	protected float m_RespawnObjNextTimer = 0f;
+		protected float m_RespawnObjNextTimer = 0f;
+		protected int m_RespawnSlot = 0;
 
 		#endregion
 
 		#region Respawn object
 
-		public virtual void SetupRespawnObject() {
+		public virtual void SetupRespawnObject(int index) {
 			var villageTimer 		= (int)this.m_VillageData.villageTimer;
-			var respawnObject 		= this.m_VillageData.villageRespawnObject;
+			var respawnObject 		= this.m_VillageData.villageRespawnObjects[index];
 			var randomTimer 		= villageTimer % respawnObject.respawnTimers.Length;
 			var randomSpawnTimer 	= respawnObject.respawnTimers[randomTimer];
 			this.m_RespawnObjNextTimer = villageTimer + randomSpawnTimer;
 		}
 
-		public virtual void RespawnObject() {
+		public virtual void RespawnObject(int index) {
 			var villageTimer 		= (int)this.m_VillageData.villageTimer;
-			var respawnObjectData	= this.m_VillageData.villageRespawnObject;
+			var respawnObjectData	= this.m_VillageData.villageRespawnObjects[index];
 			// SOURCE PATH
-			var randomSource 		= villageTimer % respawnObjectData.respawnSources.Length;
+			var randomSource 		= villageTimer % (respawnObjectData.respawnSources.Length + respawnObjectData.respawnSources.Length);
+			if (randomSource >= respawnObjectData.respawnSources.Length) {
+				// RESET TIMER
+				this.SetupRespawnObject (index);
+				return;
+			}
 			var respawnSourcePath	= respawnObjectData.respawnSources[randomSource];
 			// POINT PATH
 			var randomPoint			= villageTimer % respawnObjectData.respawnPoints.Length;
@@ -63,7 +69,7 @@ namespace WarOfSlinger {
 				});
 			}
 			// RESET TIMER
-			this.SetupRespawnObject ();
+			this.SetupRespawnObject (index);
 		}
 
 		#endregion

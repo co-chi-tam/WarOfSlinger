@@ -43,11 +43,7 @@ namespace WarOfSlinger {
 		public override void UpdateState (float dt)
 		{
 			base.UpdateState (dt);
-#if UNITY_EDITOR || UNITY_STANDALONE
 			this.m_GameManager.OnMouseDetectStandalone();
-#else
-			this.m_GameManager.OnMouseDetectMobile();
-#endif
 		}
 
 		public override void ExitState ()

@@ -1,0 +1,38 @@
+﻿{
+  "fsm": [
+    {
+      "condition_name": "IsRoot",
+      "state_name": "BuildingIdleState",
+      "states": [
+        {
+          "condition_name": "HaveAction",
+          "state_name": "BuildingActionState",
+          "states": [
+            {
+              "condition_name": "!HaveAction",
+              "state_name": "BuildingIdleState",
+              "states": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "condition_name": "IsAnyState",
+      "state_name": "AnyState",
+      "states": [
+        {
+          "condition_name": "!IsActive",
+          "state_name": "BuildingInactiveState",
+          "states": [
+            {
+              "condition_name": "IsActive",
+              "state_name": "BuildingIdleState",
+              "states": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

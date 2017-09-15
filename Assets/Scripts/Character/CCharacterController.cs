@@ -43,26 +43,30 @@ namespace WarOfSlinger  {
 
         public override void Init() {
             base.Init();
-			for (int i = 0; i < this.m_CharacterData.objectJobs.Length; i++) {
-				var currentJob = this.m_CharacterData.objectJobs [i];
-				this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
+			if (this.m_CharacterData != null) {
+				for (int i = 0; i < this.m_CharacterData.objectJobs.Length; i++) {
+					var currentJob = this.m_CharacterData.objectJobs [i];
+					this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
+				}
 			}
-			// FSM
-			this.m_FSMManager = new FSMManager ();
-			this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
-			// STATE
-			this.m_FSMManager.RegisterState ("CharacterIdleState", 			new FSMCharacterIdleState(this));
-			this.m_FSMManager.RegisterState ("CharacterMoveState", 			new FSMCharacterMoveState(this));
-			this.m_FSMManager.RegisterState ("CharacterActionState", 		new FSMCharacterActionState(this));
-			this.m_FSMManager.RegisterState ("CharacterDeathState", 		new FSMCharacterDeathState(this));
-			this.m_FSMManager.RegisterState ("CharacterFoundTargetState", 	new FSMCharacterFoundTargetState(this));
-			// CONDITION
-			this.m_FSMManager.RegisterCondition("DidMoveToTarget", 		this.DidMoveToTarget);
-			this.m_FSMManager.RegisterCondition("HaveTargetObject", 	this.HaveTargetObject);
-			this.m_FSMManager.RegisterCondition("IsActive", 			this.IsActive);
-			this.m_FSMManager.RegisterCondition("After30Second", 		this.After30Second);
-			this.m_FSMManager.RegisterCondition("After60Second", 		this.After60Second);
-			this.m_FSMManager.RegisterCondition("After90Second", 		this.After90Second);
+			if (this.m_FSMTextAsset != null) {
+				// FSM
+				this.m_FSMManager = new FSMManager ();
+				this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
+				// STATE
+				this.m_FSMManager.RegisterState ("CharacterIdleState", new FSMCharacterIdleState (this));
+				this.m_FSMManager.RegisterState ("CharacterMoveState", new FSMCharacterMoveState (this));
+				this.m_FSMManager.RegisterState ("CharacterActionState", new FSMCharacterActionState (this));
+				this.m_FSMManager.RegisterState ("CharacterDeathState", new FSMCharacterDeathState (this));
+				this.m_FSMManager.RegisterState ("CharacterFoundTargetState", new FSMCharacterFoundTargetState (this));
+				// CONDITION
+				this.m_FSMManager.RegisterCondition ("DidMoveToTarget", this.DidMoveToTarget);
+				this.m_FSMManager.RegisterCondition ("HaveTargetObject", this.HaveTargetObject);
+				this.m_FSMManager.RegisterCondition ("IsActive", this.IsActive);
+				this.m_FSMManager.RegisterCondition ("After30Second", this.After30Second);
+				this.m_FSMManager.RegisterCondition ("After60Second", this.After60Second);
+				this.m_FSMManager.RegisterCondition ("After90Second", this.After90Second);
+			}
 			// GAME OBJECT
 			this.m_TargetPosition = this.m_Transform.position;
         }
@@ -78,7 +82,7 @@ namespace WarOfSlinger  {
 		protected override void Update ()
 		{
 			base.Update ();
-			if (this.m_Inited == false)
+			if (this.m_Inited == false || this.m_FSMManager == null)
 				return;
 			this.m_FSMManager.UpdateState (Time.deltaTime);
 			this.m_FSMStateName = this.m_FSMManager.currentStateName;
@@ -161,7 +165,9 @@ namespace WarOfSlinger  {
 		public override void SetTargetController (CObjectController value)
 		{
 			base.SetTargetController (value);
-			this.targetObject = value;
+			if (value != this) {
+				this.targetObject = value;
+			}
 		}
 
 		public override CObjectController GetTargetController ()
@@ -172,30 +178,42 @@ namespace WarOfSlinger  {
 		public override void SetPosition (Vector3 value)
 		{
 			base.SetPosition (value);
-			this.m_CharacterData.objectV3Position = value;
+			if (this.m_CharacterData != null) {
+				this.m_CharacterData.objectV3Position = value;
+			}
 		}
 
 		public override string GetObjectType ()
 		{
+			if (this.m_CharacterData == null)
+				return string.Empty;
 			return m_CharacterData.objectType;
 		}
 
 		public virtual int GetConsumeFood() {
+			if (this.m_CharacterData == null)
+				return 0;
 			return this.m_CharacterData.consumeFood;
 		}
 
 		public override int GetCurrentHealth() {
 			base.GetCurrentHealth ();
+			if (this.m_CharacterData == null)
+				return 0;
 			return this.m_CharacterData.currentHealth;
 		}
 
 		public override void SetCurrentHealth(int value) {
 			base.SetCurrentHealth (value);
+			if (this.m_CharacterData == null)
+				return;
 			this.m_CharacterData.currentHealth = value > this.m_CharacterData.maxHealth ? this.m_CharacterData.maxHealth : value;
 		}
 
 		public override int GetMaxHealth() {
 			base.GetMaxHealth ();
+			if (this.m_CharacterData == null)
+				return 0;
 			return this.m_CharacterData.maxHealth;
 		}
 

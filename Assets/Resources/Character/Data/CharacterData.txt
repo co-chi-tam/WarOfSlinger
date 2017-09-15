@@ -34,16 +34,6 @@
 			"jobValues": ["Love u too!!", "Can i have a Dinosaur ??", "Something new.", "Errr..."],
 			"jobTimer": 1.0,
 			"jobType": 1
-		},{
-			"jobDisplayName": "Cover",
-			"jobAvatar": "Cover",
-			"jobExcute": "CoverCommand",
-			"jobDescription": "Cover resident",
-			"jobLaborRequire": 1,
-			"jobToolRequire": 0,
-			"jobValues": ["Cover me."],
-			"jobTimer": 1.0,
-			"jobType": 1
 		}
 	]
 }

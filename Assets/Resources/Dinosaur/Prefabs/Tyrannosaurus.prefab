@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212490525131063226}
   - component: {fileID: 95486183400345618}
   - component: {fileID: 58410911132551514}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: TyrannosaurusSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4276413853120296}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: UIJobPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4982084003553998}
   - component: {fileID: 82595327347233892}
   - component: {fileID: 114373035649403214}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Tyrannosaurus
   m_TagString: Untagged
   m_Icon: {fileID: 0}

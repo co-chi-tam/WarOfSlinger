@@ -17,7 +17,7 @@
 			"jobAvatar": "AttackCommand",
 			"jobExcute": "AttackCommand",
 			"jobLaborRequire": 1,
-			"jobToolRequire": 1,
+			"jobToolRequire": 0,
 			"jobDescription": "Attack this.",
 			"jobValues": ["freeLabor", "leaf", "wood"],
 			"jobTimer": 1.0,

@@ -29,8 +29,8 @@ namespace WarOfSlinger {
 			this.m_JobMap.Add("ConsumeFood", 		this.ConsumeFood);
 			// ACTIVE JOB
 			this.m_JobMap.Add("WalkCommand",		this.WalkCommand);
-			this.m_JobMap.Add("CoverCommand",		this.CoverCommand);
 			this.m_JobMap.Add("GatheringCommand",	this.GatheringCommand);
+			this.m_JobMap.Add("ImproveFoodCommand",	this.ImproveFoodCommand);
 			this.m_JobMap.Add("AttackCommand",		this.AttackCommand);
 			this.m_JobMap.Add("DemolitionCommand",	this.DemolitionCommand);
 			this.m_JobMap.Add("CreateLaborCommand",	this.CreateLaborCommand);
@@ -40,6 +40,7 @@ namespace WarOfSlinger {
 			this.m_JobMap.Add("HatchEggCommand",	this.HatchEggCommand);
 			this.m_JobMap.Add("OpenShopCommand",	this.OpenShopCommand);
 			this.m_JobMap.Add("OpenInventoryCommand",	this.OpenInventoryCommand);
+			this.m_JobMap.Add("BodyGuardObject",	this.BodyGuardObject);
 
 			this.m_JobCommandElement = new Dictionary <string, object> ();
         }
@@ -220,20 +221,32 @@ namespace WarOfSlinger {
 			if (resourceData != null) {
 				var foodConsume = characterOwner.GetConsumeFood ();
 				if (resourceData.currentAmount >= foodConsume) {
+					// INCREASE HEALTH
+					var healthIncrease = (int)(characterOwner.GetMaxHealth() / 100f * 10);
+					var currentHealth = characterOwner.GetCurrentHealth ();
+					var totalHealth = currentHealth + healthIncrease;
+					characterOwner.SetCurrentHealth (totalHealth);
+					// UPDATE VILLAGE DATA
 					var totalAmount = resourceData.currentAmount - foodConsume;
 					CVillageManager.SetResource (resourceName, totalAmount);
 					CGameManager.Instance.UpdateVillageData ();
 				} else {
 					owner.GetController ().Talk ("I am hungry !!");
-					var values = currentJob.jobValues;
-					var isHunger = Array.IndexOf (values, "hungry") != -1;
-					if (isHunger) {
-						var healthDecrease = 5;
-						var currentHealth = characterOwner.GetCurrentHealth ();
-						var totalHealth = currentHealth - healthDecrease;
-						characterOwner.SetCurrentHealth (totalHealth);
-					}
+					// DECREASE HEALTH
+					var healthDecrease = 5;
+					var currentHealth = characterOwner.GetCurrentHealth ();
+					var totalHealth = currentHealth - healthDecrease;
+					characterOwner.SetCurrentHealth (totalHealth);
 				}
+			}
+		}
+
+		// Body guard object
+		protected virtual void BodyGuardObject(IJobOwner owner, CRemainJob currentJob) {
+			var guardOwner = owner as IGuarderJobOwner;
+			if (guardOwner != null & guardOwner.HaveEnemy ()) {
+				guardOwner.SendRandomEnemyCommand ("AttackCommand");
+				owner.GetController ().Talk ("Enemy Attack. Under command.");
 			}
 		}
 
@@ -252,6 +265,9 @@ namespace WarOfSlinger {
 
 		// GATHERING TO
 		protected virtual void GatheringCommand(IJobOwner owner, CRemainJob currentJob) {
+			if (currentJob.IsFullLabor ()) {
+				return;
+			}
 			var resourceName 	= "tool";
 			var isNeedTool 		= currentJob.jobToolRequire > 0;
 			if (isNeedTool) {
@@ -284,18 +300,9 @@ namespace WarOfSlinger {
 			}
 		}
 
-		// DEMOLITION 
+		// ATTACK 
 		protected virtual void AttackCommand(IJobOwner owner, CRemainJob currentJob) {
-			var freeLabor = CJobManager.GetFreeLabor ();
-			if (freeLabor != null) {
-				freeLabor.SetTargetPosition (owner.GetClosestPoint (freeLabor.GetPosition ()));
-				freeLabor.SetTargetController (owner.GetController ());
-				currentJob.RegisterJobLabor (freeLabor);
-				currentJob.OnJobCompleted -= HandleGatheringObject;
-				currentJob.OnJobCompleted += HandleGatheringObject;
-			} else {
-				owner.GetController ().Talk ("NOT FREE LABOR.");
-			}
+			this.GatheringCommand (owner, currentJob);
 		}
 
 		// DEMOLITION 
@@ -304,18 +311,6 @@ namespace WarOfSlinger {
 			if (freeLabor != null) {
 				freeLabor.SetTargetPosition (owner.GetClosestPoint (freeLabor.GetPosition ()));
 				freeLabor.SetTargetController (owner.GetController ());
-				currentJob.RegisterJobLabor (freeLabor);
-			} else {
-				owner.GetController ().Talk ("NOT FREE LABOR.");
-			}
-		}
-
-		protected virtual void CoverCommand(IJobOwner owner, CRemainJob currentJob) {
-			var freeLabor = CJobManager.GetFreeLabor ();
-			if (freeLabor != null) {
-				freeLabor.SetTargetPosition (owner.GetTargetPosition ());
-				freeLabor.SetTargetController (owner.GetTargetController ());
-				currentJob.jobOwner = owner.GetTargetController ();
 				currentJob.RegisterJobLabor (freeLabor);
 			} else {
 				owner.GetController ().Talk ("NOT FREE LABOR.");
@@ -355,6 +350,14 @@ namespace WarOfSlinger {
 			currentJob.OnJobCompleted += HandleMakeTool;
 		}
 
+		// MAKE TOOL
+		protected virtual void ImproveFoodCommand(IJobOwner owner, CRemainJob currentJob) {
+			this.WalkCommand (owner, currentJob);
+			owner.SetAnimation ("IsActive", true);
+			currentJob.OnJobCompleted -= HandleImproveFood;
+			currentJob.OnJobCompleted += HandleImproveFood;
+		}
+
 		// HATCH EGG
 		protected virtual void HatchEggCommand(IJobOwner owner, CRemainJob currentJob) {
 			this.WalkCommand (owner, currentJob);
@@ -378,12 +381,38 @@ namespace WarOfSlinger {
 
 		#region Job methods
 
-		protected virtual void HandleMakeTool (IJobOwner owner, CJobObjectData data) {
-			var toolValue = data.jobValues;
-			var resourceValue = toolValue.GroupBy ((x) => x)
+		protected virtual void HandleImproveFood (IJobOwner owner, CJobObjectData data) {
+			var foodvalues = data.jobValues;
+			var resourceValues = foodvalues.GroupBy ((x) => x)
 										.ToDictionary(k => k.Key, v => v.Count());
-			if (CVillageManager.IsEnoughResources (resourceValue)) {
-				foreach (var resourceCost in resourceValue) {
+			if (CVillageManager.IsEnoughResources (resourceValues)) {
+				foreach (var resourceCost in resourceValues) {
+					var resourceName 	= resourceCost.Key;
+					var resourceData 	= CVillageManager.GetResource (resourceName);
+					if (resourceData != null) {
+						var totalAmount = resourceData.currentAmount - resourceCost.Value;
+						CVillageManager.SetResource (resourceName, totalAmount);
+					}
+				}
+				var foodData = CVillageManager.GetResource ("food");
+				if (foodData != null) {
+					var foodInscrease = resourceValues.ContainsKey ("add3Food") ? 3 : 1;
+					var totalAmount = foodData.currentAmount + foodInscrease;
+					CVillageManager.SetResource ("food", totalAmount);
+				}
+				owner.SetAnimation ("IsActive", false);
+			} else {
+				owner.GetController ().Talk ("NEED MORE RESOURCE.");
+			}
+			CGameManager.Instance.UpdateVillageData ();
+		}
+
+		protected virtual void HandleMakeTool (IJobOwner owner, CJobObjectData data) {
+			var toolValues = data.jobValues;
+			var resourceValues = toolValues.GroupBy ((x) => x)
+										.ToDictionary(k => k.Key, v => v.Count());
+			if (CVillageManager.IsEnoughResources (resourceValues)) {
+				foreach (var resourceCost in resourceValues) {
 					var resourceName 	= resourceCost.Key;
 					var resourceData 	= CVillageManager.GetResource (resourceName);
 					if (resourceData != null && resourceName != "tool") {
@@ -391,9 +420,9 @@ namespace WarOfSlinger {
 						CVillageManager.SetResource (resourceName, totalAmount);
 					}
 				}
-				var toolData 	= CVillageManager.GetResource ("tool");
-				if (toolData != null && resourceValue.ContainsKey ("tool")) {
-					var toolInscrease = resourceValue ["tool"];
+				var toolData = CVillageManager.GetResource ("tool");
+				if (toolData != null && resourceValues.ContainsKey ("tool")) {
+					var toolInscrease = resourceValues ["tool"];
 					var totalAmount = toolData.currentAmount + toolInscrease;
 					CVillageManager.SetResource ("tool", totalAmount);
 				}
@@ -444,6 +473,17 @@ namespace WarOfSlinger {
 				}
 			}
 			return countLabor;
+		}
+
+		public virtual List<IJobLabor> GetLaborsWith (string jobExcuteName) {
+			for (int i = 0; i < this.m_JobRemains.Count; i++) {
+				// CURRENT JOB
+				var currentJob = this.m_JobRemains [i];
+				if (currentJob.jobExcute == jobExcuteName) {
+					return currentJob.jobLaborList;
+				}
+			}
+			return null;
 		}
 
 		#endregion

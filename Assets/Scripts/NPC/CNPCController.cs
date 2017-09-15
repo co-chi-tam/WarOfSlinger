@@ -19,11 +19,12 @@ namespace WarOfSlinger {
 		public override void Init() {
 			base.Init();
 			// DATA
-//			this.m_ObjectData = TinyJSON.JSON.Load(this.m_TextAsset.text).Make<CObjectData>();
 			for (int i = 0; i < this.m_ObjectData.objectJobs.Length; i++) {
 				var currentJob = this.m_ObjectData.objectJobs [i];
 				this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
 			}
+			// SIDE
+			this.objectSide = (int) Time.time % 2 == 0 ? 1 : -1;
 		}
 
 		protected override void Awake() {

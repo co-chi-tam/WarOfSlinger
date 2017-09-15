@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 049ce941df3d97f418abb2f57107c551
-timeCreated: 1504860906
+timeCreated: 1505445108
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -30,7 +30,7 @@ TextureImporter:
     21300046: Stone-9
     21300048: BlacksmithHouse-1
     21300050: Storage-1
-    21300052: ArcherTower-1
+    21300052: GuardTower-1
     21300054: Hatching-1
     21300056: Rock-1
     21300058: Tree-1
@@ -347,7 +347,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: ArcherTower-1
+      name: GuardTower-1
       rect:
         serializedVersion: 2
         x: 362

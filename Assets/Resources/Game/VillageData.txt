@@ -3,11 +3,13 @@
 	"currentPopulation": 0,
 	"maxPopulation": 0,
 	"villageTimer": 0.0,
-	"villageRespawnObject": {
-		"respawnTimers": [33.0, 44.0, 55.0],
-		"respawnSources": ["Dinosaur/Prefabs/GrassHopper", "Dinosaur/Prefabs/Plant"],
-		"respawnPoints": ["buiding", "environment", "mapPoint"]
-	},
+	"villageRespawnObjects": [
+		{
+			"respawnTimers": [33.0, 44.0, 55.0, 66.0],
+			"respawnSources": ["Dinosaur/Prefabs/GrassHopper", "Dinosaur/Prefabs/Plant"],
+			"respawnPoints": ["buiding", "environment", "mapPoint"]
+		}
+	],
 	"villageResources": [
 		{
 			"resouceName": "wood",
@@ -76,6 +78,36 @@
 							"jobLaborRequire": 1,
 							"jobToolRequire": 0,
 							"jobValues": ["building-shop"],
+							"jobTimer": 1.0,
+							"jobType": 1
+						}
+					]
+				},{
+					"objectPosition": "(0,0,0)",
+					"objectName": "Fire meat",
+					"objectModel": "NPC/Prefabs/FireMeat 1",
+					"objectDescription": "Fire meat data.",
+					"objectType": "NPC",
+					"objectLevel": 1,
+					"objectJobs": [
+						{
+							"jobDisplayName": "Walk.",
+							"jobAvatar": "MoveTo",
+							"jobExcute": "WalkCommand",
+							"jobDescription": "Walk to object.",
+							"jobLaborRequire": 1,
+							"jobToolRequire": 0,
+							"jobValues": ["freeLabor", "moveTo", "thisPosition"],
+							"jobTimer": 1.0,
+							"jobType": 1
+						},{
+							"jobDisplayName": "Fire meat",
+							"jobAvatar": "FireMeat",
+							"jobExcute": "ImproveFoodCommand",
+							"jobDescription": "Make 2 food with 1 food + 1 wood",
+							"jobLaborRequire": 1,
+							"jobToolRequire": 1,
+							"jobValues": ["freeLabor", "food", "wood", "add3Food"],
 							"jobTimer": 1.0,
 							"jobType": 1
 						}
@@ -200,16 +232,6 @@
 					"jobValues": ["Love u too!!", "Can i have a Dinosaur ??", "Something new.", "Errr..."],
 					"jobTimer": 1.0,
 					"jobType": 1
-				},{
-					"jobDisplayName": "Cover",
-					"jobAvatar": "Cover",
-					"jobExcute": "CoverCommand",
-					"jobDescription": "Cover resident",
-					"jobLaborRequire": 1,
-					"jobToolRequire": 0,
-					"jobValues": ["Cover me."],
-					"jobTimer": 1.0,
-					"jobType": 1
 				}
 			]
 		},{
@@ -246,16 +268,6 @@
 					"jobLaborRequire": 1,
 					"jobToolRequire": 0,
 					"jobValues": ["Love u too!!", "Can i have a Dinosaur ??", "Something new.", "Errr..."],
-					"jobTimer": 1.0,
-					"jobType": 1
-				},{
-					"jobDisplayName": "Cover",
-					"jobAvatar": "Cover",
-					"jobExcute": "CoverCommand",
-					"jobDescription": "Cover resident",
-					"jobLaborRequire": 1,
-					"jobToolRequire": 0,
-					"jobValues": ["Cover me."],
 					"jobTimer": 1.0,
 					"jobType": 1
 				}
@@ -364,6 +376,151 @@
 			]
 		}
 	],
+	"villageShops": {
+		"building-shop": {
+			"shopDisplayName": "Building shop",
+			"shopName": "building-shop",
+			"shopItems": [
+				{
+					"itemName": "Residence",
+					"itemAvatar": "Residence-1",
+					"itemSource": "Building/Data/ResidenceData",
+					"currentAmount": 0,
+					"maxAmount": 4,
+					"itemCost": [
+						{
+							"resouceName": "wood",
+							"resouceAvatar": "wood-avatar",
+							"currentAmount": 1000,
+							"maxAmount": 999999
+						},{
+							"resouceName": "rock",
+							"resouceAvatar": "rock-avatar",
+							"currentAmount": 10,
+							"maxAmount": 999999
+						},{
+							"resouceName": "leaf",
+							"resouceAvatar": "leaf-avatar",
+							"currentAmount": 10,
+							"maxAmount": 999999
+						},{
+							"resouceName": "food",
+							"resouceAvatar": "food-avatar",
+							"currentAmount": 0,
+							"maxAmount": 999999
+						},{
+							"resouceName": "tool",
+							"resouceAvatar": "tool-avatar",
+							"currentAmount": 1,
+							"maxAmount": 999999
+						}
+					]
+				},{
+					"itemName": "Blacksmith House",
+					"itemAvatar": "BlacksmithHouse-1",
+					"itemSource": "Building/Data/BlacksmithHouseData",
+					"currentAmount": 0,
+					"maxAmount": 4,
+					"itemCost": [
+						{
+							"resouceName": "wood",
+							"resouceAvatar": "wood-avatar",
+							"currentAmount": 10,
+							"maxAmount": 999999
+						},{
+							"resouceName": "rock",
+							"resouceAvatar": "rock-avatar",
+							"currentAmount": 20,
+							"maxAmount": 999999
+						},{
+							"resouceName": "leaf",
+							"resouceAvatar": "leaf-avatar",
+							"currentAmount": 0,
+							"maxAmount": 999999
+						},{
+							"resouceName": "food",
+							"resouceAvatar": "food-avatar",
+							"currentAmount": 5,
+							"maxAmount": 999999
+						},{
+							"resouceName": "tool",
+							"resouceAvatar": "tool-avatar",
+							"currentAmount": 2,
+							"maxAmount": 999999
+						}
+					]
+				},{
+					"itemName": "Guard Tower",
+					"itemAvatar": "GuardTower-1",
+					"itemSource": "Building/Data/GuardTowerData",
+					"currentAmount": 0,
+					"maxAmount": 4,
+					"itemCost": [
+						{
+							"resouceName": "wood",
+							"resouceAvatar": "wood-avatar",
+							"currentAmount": 10,
+							"maxAmount": 999999
+						},{
+							"resouceName": "rock",
+							"resouceAvatar": "rock-avatar",
+							"currentAmount": 10,
+							"maxAmount": 999999
+						},{
+							"resouceName": "leaf",
+							"resouceAvatar": "leaf-avatar",
+							"currentAmount": 0,
+							"maxAmount": 999999
+						},{
+							"resouceName": "food",
+							"resouceAvatar": "food-avatar",
+							"currentAmount": 0,
+							"maxAmount": 999999
+						},{
+							"resouceName": "tool",
+							"resouceAvatar": "tool-avatar",
+							"currentAmount": 2,
+							"maxAmount": 999999
+						}
+					]
+				},{
+					"itemName": "Hatching",
+					"itemAvatar": "Hatching-1",
+					"itemSource": "Building/Data/HatchingHouseData",
+					"currentAmount": 0,
+					"maxAmount": 4,
+					"itemCost": [
+						{
+							"resouceName": "wood",
+							"resouceAvatar": "wood-avatar",
+							"currentAmount": 10,
+							"maxAmount": 999999
+						},{
+							"resouceName": "rock",
+							"resouceAvatar": "rock-avatar",
+							"currentAmount": 10,
+							"maxAmount": 999999
+						},{
+							"resouceName": "leaf",
+							"resouceAvatar": "leaf-avatar",
+							"currentAmount": 20,
+							"maxAmount": 999999
+						},{
+							"resouceName": "food",
+							"resouceAvatar": "food-avatar",
+							"currentAmount": 10,
+							"maxAmount": 999999
+						},{
+							"resouceName": "tool",
+							"resouceAvatar": "tool-avatar",
+							"currentAmount": 2,
+							"maxAmount": 999999
+						}
+					]
+				}
+			]
+		}
+	}
 	"villageInventories": [
 		{
 			"itemName": "Residence",

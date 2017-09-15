@@ -23,6 +23,7 @@ namespace WarOfSlinger {
 			this.m_JobCompleteCondition.Add("OpenShopCommand",		this.WalkCompleteCommand);
 			this.m_JobCompleteCondition.Add("OpenInventoryCommand",	this.WalkCompleteCommand);
 			this.m_JobCompleteCondition.Add("WalkCommand",			this.WalkCompleteCommand);
+			this.m_JobCompleteCondition.Add("ImproveFoodCommand",	this.WalkCompleteCommand);
 			this.m_JobCompleteCondition.Add("GatheringCommand",		this.InactiveCompleteCommand);
 			this.m_JobCompleteCondition.Add("CoverCommand",			this.InactiveCompleteCommand);
 			this.m_JobCompleteCondition.Add("AttackCommand",		this.InactiveCompleteCommand);
@@ -31,6 +32,7 @@ namespace WarOfSlinger {
 			this.m_JobCompleteCondition.Add("MakeToolCommand",		this.MakeToolCompleteCommand);
 			this.m_JobCompleteCondition.Add("ImproveToolCommand",	this.MakeToolCompleteCommand);
 			this.m_JobCompleteCondition.Add("HatchEggCommand",		this.HatchEggCompleteCommand);
+			this.m_JobCompleteCondition.Add("BodyGuardCommand",		this.BodyGuardCompleteCommand);
 		}
 
 		public virtual void UpdateRemainJob(float dt) {
@@ -38,8 +40,14 @@ namespace WarOfSlinger {
 				// CHECK JOB COMPLETED
 				var isConditionCorrect = true;
 				for (int i = 0; i < this.jobLaborList.Count; i++) {
-					var labor = this.jobLaborList [i];
-					isConditionCorrect &= (this.m_JobCompleteCondition [this.jobExcute] (labor) && labor.IsActive());
+					if (this.m_JobCompleteCondition.ContainsKey (this.jobExcute)) {
+						var labor = this.jobLaborList [i];
+						if (labor.IsActive ()) {
+							isConditionCorrect &= this.m_JobCompleteCondition [this.jobExcute] (labor);
+						} else {
+							isConditionCorrect &= true;
+						}
+					}
 				}
 				// RELEASE JOB LABOR
 				if (isConditionCorrect) {
@@ -48,6 +56,10 @@ namespace WarOfSlinger {
 					}
 					this.ClearJobLabor ();
 				} 
+			} else if (this.jobLaborRequire == 0) {
+				if (this.OnJobCompleted != null) {
+					this.OnJobCompleted (this.jobOwner, this);
+				}
 			}
 		}
 
@@ -84,6 +96,10 @@ namespace WarOfSlinger {
 			}
 		}
 
+		protected virtual bool ForeverCommand(IJobLabor labor) {
+			return false;
+		}
+
 		protected virtual bool AutoCompleteCommand(IJobLabor labor) {
 			return true;
 		}
@@ -113,6 +129,11 @@ namespace WarOfSlinger {
 
 		protected virtual bool HatchEggCompleteCommand(IJobLabor labor) {
 			return this.WalkCompleteCommand (labor);
+		}
+
+		protected virtual bool BodyGuardCompleteCommand(IJobLabor labor) {
+			var target = labor.GetTargetController ();
+			return target != null && target.GetActive ();
 		}
 
 	}

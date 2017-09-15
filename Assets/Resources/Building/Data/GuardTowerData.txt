@@ -45,6 +45,16 @@
 			"jobTimer": 30.0,
 			"jobType": 0
 		},{
+			"jobDisplayName": "Body guard.",
+			"jobAvatar": "BodyGuard",
+			"jobExcute": "BodyGuardObject",
+			"jobDescription": "Body guard object.",
+			"jobLaborRequire": 1,
+			"jobToolRequire": 0,
+			"jobValues": ["freeLabor", "bodyGuard", "thisPosition"],
+			"jobTimer": 3.0,
+			"jobType": 0
+		},{
 			"jobDisplayName": "Walk.",
 			"jobAvatar": "MoveTo",
 			"jobExcute": "WalkCommand",

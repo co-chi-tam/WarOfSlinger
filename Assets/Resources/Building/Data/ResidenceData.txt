@@ -41,6 +41,36 @@
 					"jobType": 1
 				}
 			]
+		},{
+			"objectPosition": "(0,0,0)",
+			"objectName": "Fire meat",
+			"objectModel": "NPC/Prefabs/FireMeat 1",
+			"objectDescription": "Fire meat data.",
+			"objectType": "NPC",
+			"objectLevel": 1,
+			"objectJobs": [
+				{
+					"jobDisplayName": "Walk.",
+					"jobAvatar": "MoveTo",
+					"jobExcute": "WalkCommand",
+					"jobDescription": "Walk to object.",
+					"jobLaborRequire": 1,
+					"jobToolRequire": 0,
+					"jobValues": ["freeLabor", "moveTo", "thisPosition"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				},{
+					"jobDisplayName": "Fire meat",
+					"jobAvatar": "FireMeat",
+					"jobExcute": "ImproveFoodCommand",
+					"jobDescription": "Make 2 food with 1 food + 1 wood",
+					"jobLaborRequire": 1,
+					"jobToolRequire": 1,
+					"jobValues": ["freeLabor", "food", "wood", "add3Food"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				}
+			]
 		}
 	],
 	"objectJobs": [

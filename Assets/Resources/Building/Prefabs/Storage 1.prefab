@@ -291,7 +291,6 @@ MonoBehaviour:
   m_Collider2D: {fileID: 114617387419715128}
   m_CharacterCollider: {fileID: 60407693620938594}
   m_Rigidbody2D: {fileID: 50501955591878956}
-  m_IsObjectWorking: 1
   m_RedrawCollider: {fileID: 114617387419715128}
   m_RedrawSprite: {fileID: 114481492956072480}
   m_ActiveDamageAfterTime: 0.1
@@ -301,8 +300,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3221225728
   m_DetectRadius: 0.5
-  m_ExceptCollider:
-  - {fileID: 60407693620938594}
+  m_ExceptObjects:
+  - {fileID: 1416345200116144}
   m_TriggerWithOther: 0
   m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
   m_AlertColor: {r: 1, g: 0.30147058, b: 0.30147058, a: 1}
@@ -310,6 +309,7 @@ MonoBehaviour:
     objectPosition: (0,0,0)
     objectId: 
     objectName: 
+    objectAvatar: 
     objectModel: 
     objectDescription: 
     objectType: 

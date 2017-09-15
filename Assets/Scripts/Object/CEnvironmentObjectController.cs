@@ -24,20 +24,22 @@ namespace WarOfSlinger {
 
 		public override void Init() {
 			base.Init();
-			// DATA
-//			this.m_ObjectData = TinyJSON.JSON.Load(this.m_ObjectTextAsset.text).Make<CDamageableObjectData>();
-			for (int i = 0; i < this.m_ObjectData.objectJobs.Length; i++) {
-				var currentJob = this.m_ObjectData.objectJobs [i];
-				this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
+			if (this.m_ObjectData != null) {
+				for (int i = 0; i < this.m_ObjectData.objectJobs.Length; i++) {
+					var currentJob = this.m_ObjectData.objectJobs [i];
+					this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
+				}
 			}
-			// FSM
-			this.m_FSMManager = new FSMManager ();
-			this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
-			// STATE
-			this.m_FSMManager.RegisterState ("ObjectIdleState", 		new FSMObjectIdleState(this));
-			this.m_FSMManager.RegisterState ("ObjectInactiveState", 	new FSMObjectInactiveState(this));
-			// CONDITION
-			this.m_FSMManager.RegisterCondition("IsActive", 			this.IsActive);
+			if (this.m_FSMTextAsset != null) {
+				// FSM
+				this.m_FSMManager = new FSMManager ();
+				this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
+				// STATE
+				this.m_FSMManager.RegisterState ("ObjectIdleState", new FSMObjectIdleState (this));
+				this.m_FSMManager.RegisterState ("ObjectInactiveState", new FSMObjectInactiveState (this));
+				// CONDITION
+				this.m_FSMManager.RegisterCondition ("IsActive", this.IsActive);
+			}
 		}
 
 		protected override void Awake() {
@@ -50,7 +52,7 @@ namespace WarOfSlinger {
 
 		protected override void Update () {
 			base.Update ();
-			if (this.m_Inited == false)
+			if (this.m_Inited == false || this.m_FSMManager == null)
 				return;
 			this.m_FSMManager.UpdateState (Time.deltaTime);
 			this.m_FSMStateName = this.m_FSMManager.currentStateName;

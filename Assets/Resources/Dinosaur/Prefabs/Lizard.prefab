@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4219378079971828}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: UIJobPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 212988764789256768}
   - component: {fileID: 95875762045260368}
   - component: {fileID: 58398735336402306}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: LizardSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4942903665805746}
   - component: {fileID: 82694035908463734}
   - component: {fileID: 114784426103960892}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Lizard
   m_TagString: Untagged
   m_Icon: {fileID: 0}

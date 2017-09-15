@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212908660852949894}
   - component: {fileID: 95171997056221712}
   - component: {fileID: 58182687825483444}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: PlantSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4588664755795242}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: UIJobPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4667210486006328}
   - component: {fileID: 82118738565849142}
   - component: {fileID: 114260190509060666}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Plant
   m_TagString: Untagged
   m_Icon: {fileID: 0}

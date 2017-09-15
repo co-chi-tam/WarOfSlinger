@@ -36,7 +36,7 @@
 					"jobDescription": "Improve tool",
 					"jobLaborRequire": 1,
 					"jobToolRequire": 1,
-					"jobValues": ["freeLabor", "tool", "tool", "wood", "rock", "food"],
+					"jobValues": ["freeLabor", "tool", "tool", "wood", "food"],
 					"jobTimer": 1.0,
 					"jobType": 1
 				}

@@ -29,6 +29,9 @@ namespace WarOfSlinger {
 		[Header("Building control")]
 		[SerializeField]	protected GameObject m_BuildingControlPanel;
 
+		[Header("Village control")]
+		[SerializeField]	protected GameObject m_VillageControlPanel;
+
 		[Header("Job")]
 		[SerializeField]	protected CUIJob m_UIJob;
 
@@ -57,10 +60,11 @@ namespace WarOfSlinger {
 			}
 		}
 
-		public void OpenShop(string shopName, Action<CShopItemData> onSelectedItem) {
+		public void OpenShop(CShopData shopData, Action<CShopItemData> onSelectedItem) {
+			var shopName = shopData.shopName;
 			switch (shopName) {
 			case "building-shop":
-				this.m_ShopBuilding.LoadShopData (onSelectedItem);
+				this.m_ShopBuilding.LoadShopData (shopData, onSelectedItem);
 				this.m_ShopBuilding.gameObject.SetActive (true);
 				break;
 			}
@@ -76,12 +80,19 @@ namespace WarOfSlinger {
 
 		public void OpenBuildingControl() {
 			this.m_BuildingControlPanel.SetActive (true);
+			this.m_VillageControlPanel.SetActive (false);
+		}
+
+		public void SwitchBuildingMode() {
+			CGameManager.Instance.OpenBuildingControl ();
+			this.m_VillageControlPanel.SetActive (false);
 		}
 
 		public void CloseBuildingControl() {
 			if (CGameManager.Instance.canChangeMode == false)
 				return;
 			this.m_BuildingControlPanel.SetActive (false);
+			this.m_VillageControlPanel.SetActive (true);
 			CGameManager.Instance.SetMode (CGameManager.EGameMode.PLAYING);
 		}
 

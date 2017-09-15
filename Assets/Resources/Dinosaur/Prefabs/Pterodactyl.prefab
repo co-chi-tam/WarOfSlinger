@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4164848649005626}
   - component: {fileID: 82927308387779158}
   - component: {fileID: 114241990862393544}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Pterodactyl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4927116167630730}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: UIJobPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 212984111450163422}
   - component: {fileID: 95371249028037752}
   - component: {fileID: 58578533137420640}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: PterodactylSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

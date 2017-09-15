@@ -42,7 +42,7 @@ namespace WarOfSlinger {
 		}
 
 		public void OnMouseDetectMobile() {
-			if (Input.touchCount == 0)
+			if (Input.touchCount != 1)
 				return;
 			var fingerTouch = Input.GetTouch (0);
 			var worldPos = this.m_Camera.ScreenToWorldPoint(fingerTouch.position);

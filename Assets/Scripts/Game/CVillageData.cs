@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace WarOfSlinger {
@@ -9,11 +11,12 @@ namespace WarOfSlinger {
 		public int currentPopulation;
 		public int maxPopulation;
 		public float villageTimer;
-		public CRespawnObjectData villageRespawnObject;
+		public CRespawnObjectData[] villageRespawnObjects;
 		public CResourceData[] villageResources;
 		public CBuildingData[] villageBuildings;
 		public CCharacterData[] villageCharacters;
 		public CDamageableObjectData[] villageObjects;
+		public Dictionary<string, CShopData> villageShops;
 		public CInventoryItemData[] villageInventories;
 
 		public CVillageData ()

@@ -21,7 +21,7 @@
 			"jobAvatar": "Shop",
 			"jobExcute": "OpenShopCommand",
 			"jobDescription": "Open shop",
-			"jobLaborRequire": 1,
+			"jobLaborRequire": 0,
 			"jobToolRequire": 0,
 			"jobValues": ["building-shop"],
 			"jobTimer": 1.0,

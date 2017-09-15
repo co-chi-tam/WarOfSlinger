@@ -418,6 +418,11 @@ Prefab:
       propertyPath: m_CameraFollower
       value: 
       objectReference: {fileID: 1679143601}
+    - target: {fileID: 114629649834758934, guid: f11f732ee3e1de64f9e5c0a59685ef2b,
+        type: 2}
+      propertyPath: m_TouchDetectLayerMask.m_Bits
+      value: 1073749248
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f11f732ee3e1de64f9e5c0a59685ef2b, type: 2}
   m_IsPrefabParent: 0

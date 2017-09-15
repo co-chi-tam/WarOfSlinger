@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4720983677184310}
-  - component: {fileID: 114020196274425344}
   - component: {fileID: 82123275981295828}
+  - component: {fileID: 114020196274425344}
   m_Layer: 10
   m_Name: Resident 1
   m_TagString: Untagged

@@ -97,7 +97,7 @@ namespace WarOfSlinger {
 			var characters 		= Resources.LoadAll<CCharacterController> ("Character/Prefabs");
 			var characterDatas 	= Resources.LoadAll<TextAsset>("Character/Data");
 			// RANDOM
-			var random 		= (int)Time.time % characters.Length;
+			var random 		= (int)this.m_VillageData.villageTimer % characters.Length;
 			var newLabor 	= GameObject.Instantiate (characters[random]);
 			var newData 	= TinyJSON.JSON.Load (characterDatas[0].text).Make<CCharacterData>();
 			newData.objectName = "NEW NAME";

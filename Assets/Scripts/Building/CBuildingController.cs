@@ -15,7 +15,7 @@ namespace WarOfSlinger {
 		[Header("Detect other")]
 		[SerializeField]	protected LayerMask m_DetectLayerMask;
 		[SerializeField]	protected float m_DetectRadius = 1f;
-		[SerializeField]	protected Collider2D[] m_ExceptCollider;
+		[SerializeField]	protected GameObject[] m_ExceptObjects;
 		[SerializeField]	protected bool m_TriggerWithOther = false;
 		[SerializeField]	protected Color m_NormalColor = Color.white;
 		[SerializeField]	protected Color m_AlertColor = Color.red;
@@ -38,22 +38,24 @@ namespace WarOfSlinger {
 
         public override void Init() {
             base.Init();
-            // DATA
-//            this.m_BuidingData = TinyJSON.JSON.Load(this.m_BuildingTextAsset.text).Make<CBuildingData>();
-			for (int i = 0; i < this.m_BuidingData.objectJobs.Length; i++) {
-				var currentJob = this.m_BuidingData.objectJobs [i];
-				this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
+			if (this.m_BuidingData != null) {
+				for (int i = 0; i < this.m_BuidingData.objectJobs.Length; i++) {
+					var currentJob = this.m_BuidingData.objectJobs [i];
+					this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
+				}
 			}
-			// FSM
-			this.m_FSMManager = new FSMManager ();
-			this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
-			// STATE
-			this.m_FSMManager.RegisterState ("BuildingIdleState", 		new FSMBuildingIdleState(this));
-			this.m_FSMManager.RegisterState ("BuildingActionState", 	new FSMBuildingActionState(this));
-			this.m_FSMManager.RegisterState ("BuildingInactiveState", 	new FSMBuildingInactiveState(this));
-			// CONDITION
-			this.m_FSMManager.RegisterCondition("HaveAction", 			this.HaveAction);
-			this.m_FSMManager.RegisterCondition("IsActive", 			this.IsActive);
+			if (this.m_FSMTextAsset != null) {
+				// FSM
+				this.m_FSMManager = new FSMManager ();
+				this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
+				// STATE
+				this.m_FSMManager.RegisterState ("BuildingIdleState", new FSMBuildingIdleState (this));
+				this.m_FSMManager.RegisterState ("BuildingActionState", new FSMBuildingActionState (this));
+				this.m_FSMManager.RegisterState ("BuildingInactiveState", new FSMBuildingInactiveState (this));
+				// CONDITION
+				this.m_FSMManager.RegisterCondition ("HaveAction", this.HaveAction);
+				this.m_FSMManager.RegisterCondition ("IsActive", this.IsActive);
+			}
 			// NPC
 			this.m_NPCCtrls = new CNPCController[this.m_BuidingData.NPCDatas.Length];
 			CGameManager.Instance.LoadVillageObjects <CNPCController> (false, this.m_BuidingData.NPCDatas, () => {
@@ -76,7 +78,7 @@ namespace WarOfSlinger {
 
 		protected override void Update () {
 			base.Update ();
-			if (this.m_Inited == false)
+			if (this.m_Inited == false || this.m_FSMManager == null)
 				return;
 			this.m_FSMManager.UpdateState (Time.deltaTime);
 			this.m_FSMStateName = this.m_FSMManager.currentStateName;
@@ -101,7 +103,7 @@ namespace WarOfSlinger {
 			this.m_TriggerWithOther = false;
 			for (int i = 0; i < rayHit2Ds.Length; i++) {
 				var collider = rayHit2Ds [i].collider;
-				this.m_TriggerWithOther |= Array.IndexOf (this.m_ExceptCollider, collider) == -1;
+				this.m_TriggerWithOther |= Array.IndexOf (this.m_ExceptObjects, collider.gameObject) == -1;
 				this.m_IsObjectWorking = !this.m_TriggerWithOther;
 			}
 		}
