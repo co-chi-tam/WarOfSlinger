@@ -2,6 +2,7 @@
 	"objectPosition": "(6.6,0,0)",
 	"objectName": "Resident",
 	"objectModel": "NPC/Prefabs/Resident 1",
+	"objectFSMPath": "",
 	"objectDescription": "Resident data.",
 	"objectType": "NPC",
 	"objectLevel": 1,

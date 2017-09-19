@@ -2,6 +2,7 @@
 	"objectPosition": "(0,0,0)",
 	"objectName": "Pterodactyl",
 	"objectModel": "Dinosaur/Prefabs/Pterodactyl",
+	"objectFSMPath": "Dinosaur/FSM/FSMDinosaurGraph",
 	"objectDescription": "Pterodactyl data.",
 	"objectType": "dinosaur",
 	"objectElements": [],

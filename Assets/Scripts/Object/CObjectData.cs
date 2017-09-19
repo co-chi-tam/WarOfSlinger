@@ -9,6 +9,7 @@ namespace WarOfSlinger {
 		public string objectName;
 		public string objectAvatar;
         public string objectModel;
+		public string objectFSMPath;
         public string objectDescription;
         public string objectType;
 		public int objectLevel;
@@ -19,6 +20,7 @@ namespace WarOfSlinger {
             this.objectName     = string.Empty;
 			this.objectAvatar	= string.Empty;
             this.objectModel    = string.Empty;
+			this.objectFSMPath	= string.Empty;
             this.objectDescription = string.Empty;
 			this.objectType 	= string.Empty;
             this.objectLevel    = 0;

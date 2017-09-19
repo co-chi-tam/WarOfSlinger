@@ -1,15 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Manager\CUIGameManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Game\VillageData.txt">
     <Files>
-      <File FileName="Assets\Resources\Game\VillageData.txt" Line="8" Column="77" />
-      <File FileName="Assets\Resources\Game\BuildingShopData.txt" Line="97" Column="37" />
-      <File FileName="Assets\Scripts\Game\CShopItemData.cs" Line="6" Column="23" />
-      <File FileName="Assets\Scripts\Game\CInventoryItemData.cs" Line="10" Column="28" />
-      <File FileName="Assets\Scripts\Manager\CUIGameManager.cs" Line="74" Column="25" />
-      <File FileName="Assets\Scripts\UI\UIShop\CUIShopBuilding.cs" Line="39" Column="17" />
-      <File FileName="Assets\Scripts\UI\UIShop\CUIShopItem.cs" Line="24" Column="3" />
-      <File FileName="Assets\Scripts\Manager\GameManager\CGameManager.cs" Line="208" Column="33" />
+      <File FileName="Assets\Scripts\Manager\GameManager\CGameManager.cs" Line="60" Column="19" />
+      <File FileName="Assets\Scripts\Manager\GameManager\CVillageObjectGameManager.cs" Line="100" Column="55" />
+      <File FileName="Assets\Scripts\NPC\CNPCController.cs" Line="27" Column="33" />
+      <File FileName="Assets\Scripts\Component\JobComponent\CJobComponent.cs" Line="226" Column="18" />
+      <File FileName="Assets\Scripts\Character\CCharacterController.cs" Line="213" Column="3" />
+      <File FileName="Assets\Resources\Game\VillageData.txt" Line="313" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

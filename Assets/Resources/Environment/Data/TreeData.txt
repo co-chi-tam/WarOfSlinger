@@ -2,6 +2,7 @@
 	"objectPosition": "(6.6,0,0)",
 	"objectName": "Tree object",
 	"objectModel": "Environment/Prefabs/Tree 1",
+	"objectFSMPath": "Environment/FSM/FSMEnvironmentObjectGraph",
 	"objectDescription": "Tree object.",
 	"objectType": "environment",
 	"objectElements": [],

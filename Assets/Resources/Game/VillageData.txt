@@ -43,6 +43,7 @@
 			"objectPosition": "(6.6,0,0)",
 			"objectName": "Residence Building",
 			"objectModel": "Building/Prefabs/Residence 1",
+			"objectFSMPath": "Building/FSM/FSMBuildingGraph",
 			"objectDescription": "Residence for rent.",
 			"objectType": "building",
 			"objectElements": ["rock", "rock", "wood", "wood"],
@@ -51,6 +52,7 @@
 			"maxHealth": 100,
 			"currentResident": 0,
 			"maxResident": 4,
+			"percentConstruction": 100.0,
 			"NPCDatas": [
 				{
 					"objectPosition": "(0,0,0)",
@@ -161,6 +163,7 @@
 			"objectPosition": "(7.7,0,0)",
 			"objectName": "Storage Building",
 			"objectModel": "Building/Prefabs/Storage 1",
+			"objectFSMPath": "Building/FSM/FSMBuildingGraph",
 			"objectDescription": "Storage house.",
 			"objectType": "building",
 			"objectElements": ["rock", "rock", "wood", "wood", "wood"],
@@ -169,6 +172,7 @@
 			"maxHealth": 100,
 			"currentResident": 0,
 			"maxResident": 0,
+			"percentConstruction": 100.0,
 			"NPCDatas": [],
 			"objectJobs": [
 				{
@@ -200,6 +204,7 @@
 			"objectPosition": "(8.8,0,0)",
 			"objectName": "Clyne",
 			"objectModel": "Character/Prefabs/Character 1",
+			"objectFSMPath": "Character/FSM/FSMCharacterGraph",
 			"objectAvatar": "CharacterAvatar",
 			"objectDescription": "Character data.",
 			"objectType": "character",
@@ -238,6 +243,7 @@
 			"objectPosition": "(8.3,0,0)",
 			"objectName": "Sansa",
 			"objectModel": "Character/Prefabs/Character 5",
+			"objectFSMPath": "Character/FSM/FSMCharacterGraph",
 			"objectAvatar": "CharacterAvatar",
 			"objectDescription": "Character data.",
 			"objectType": "character",
@@ -276,9 +282,78 @@
 	],
 	"villageObjects": [
 		{
+			"objectPosition": "(14,0,0)",
+			"objectName": "Rock object",
+			"objectModel": "Environment/Prefabs/Rock 2",
+			"objectFSMPath": "Environment/FSM/FSMEnvironmentObjectGraph",
+			"objectDescription": "Rock object.",
+			"objectType": "environment",
+			"objectElements": ["rock", "rock"],
+			"objectLevel": 1,
+			"currentHealth": 100,
+			"maxHealth": 100,
+			"objectJobs": [
+				{
+					"jobDisplayName": "Walk.",
+					"jobAvatar": "MoveTo",
+					"jobExcute": "WalkCommand",
+					"jobDescription": "Walk to object.",
+					"jobLaborRequire": 1,
+					"jobToolRequire": 1,
+					"jobValues": ["freeLabor", "moveTo", "thisPosition"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				},{
+					"jobDisplayName": "Gathering.",
+					"jobAvatar": "Gathering",
+					"jobExcute": "GatheringCommand",
+					"jobDescription": "Gathering to object.",
+					"jobLaborRequire": 1,
+					"jobToolRequire": 1,
+					"jobValues": ["rock", "rock"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				}
+			]
+		},{
+			"objectPosition": "(12,0,0)",
+			"objectName": "Bush object",
+			"objectModel": "Environment/Prefabs/Bush 2",
+			"objectFSMPath": "Environment/FSM/FSMEnvironmentObjectGraph",
+			"objectDescription": "Bush object.",
+			"objectType": "environment",
+			"objectElements": ["leaf", "leaf", "wood"],
+			"objectLevel": 1,
+			"currentHealth": 100,
+			"maxHealth": 100,
+			"objectJobs": [
+				{
+					"jobDisplayName": "Walk.",
+					"jobAvatar": "MoveTo",
+					"jobExcute": "WalkCommand",
+					"jobDescription": "Walk to object.",
+					"jobLaborRequire": 1,
+					"jobToolRequire": 1,
+					"jobValues": ["freeLabor", "moveTo", "thisPosition"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				},{
+					"jobDisplayName": "Gathering.",
+					"jobAvatar": "Gathering",
+					"jobExcute": "GatheringCommand",
+					"jobDescription": "Gathering to object.",
+					"jobLaborRequire": 1,
+					"jobToolRequire": 1,
+					"jobValues": ["leaf", "leaf", "wood"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				}
+			]
+		},{
 			"objectPosition": "(10,0,0)",
 			"objectName": "Bush object",
 			"objectModel": "Environment/Prefabs/Bush 1",
+			"objectFSMPath": "Environment/FSM/FSMEnvironmentObjectGraph",
 			"objectDescription": "Bush object.",
 			"objectType": "environment",
 			"objectElements": ["leaf", "leaf", "wood"],
@@ -312,6 +387,7 @@
 			"objectPosition": "(11,0,0)",
 			"objectName": "Rock object",
 			"objectModel": "Environment/Prefabs/Rock 1",
+			"objectFSMPath": "Environment/FSM/FSMEnvironmentObjectGraph",
 			"objectDescription": "Rock object.",
 			"objectType": "environment",
 			"objectElements": ["rock", "rock"],
@@ -345,6 +421,41 @@
 			"objectPosition": "(5,0,0)",
 			"objectName": "Tree object",
 			"objectModel": "Environment/Prefabs/Tree 1",
+			"objectFSMPath": "Environment/FSM/FSMEnvironmentObjectGraph",
+			"objectDescription": "Tree object.",
+			"objectType": "environment",
+			"objectElements": ["leaf", "wood", "wood", "wood"],
+			"objectLevel": 1,
+			"currentHealth": 100,
+			"maxHealth": 100,
+			"objectJobs": [
+				{
+					"jobDisplayName": "Walk.",
+					"jobAvatar": "MoveTo",
+					"jobExcute": "WalkCommand",
+					"jobDescription": "Walk to object.",
+					"jobLaborRequire": 1,
+					"jobToolRequire": 0,
+					"jobValues": ["freeLabor", "moveTo", "thisPosition"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				},{
+					"jobDisplayName": "Gathering.",
+					"jobAvatar": "Gathering",
+					"jobExcute": "GatheringCommand",
+					"jobDescription": "Gathering to object.",
+					"jobLaborRequire": 1,
+					"jobToolRequire": 1,
+					"jobValues": ["leaf", "wood", "wood", "wood"],
+					"jobTimer": 1.0,
+					"jobType": 1
+				}
+			]
+		},{
+			"objectPosition": "(2,0,0)",
+			"objectName": "Tree object",
+			"objectModel": "Environment/Prefabs/Tree 2",
+			"objectFSMPath": "Environment/FSM/FSMEnvironmentObjectGraph",
 			"objectDescription": "Tree object.",
 			"objectType": "environment",
 			"objectElements": ["leaf", "wood", "wood", "wood"],

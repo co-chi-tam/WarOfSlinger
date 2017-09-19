@@ -24,7 +24,6 @@ namespace WarOfSlinger {
 		[SerializeField]    protected CBuildingData m_BuidingData;
 
 		[Header("FSM")]
-		[SerializeField]	protected TextAsset m_FSMTextAsset;
 		[SerializeField]	protected string m_FSMStateName;
 
 		// FSMManager
@@ -44,17 +43,20 @@ namespace WarOfSlinger {
 					this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
 				}
 			}
-			if (this.m_FSMTextAsset != null) {
+			if (string.IsNullOrEmpty (this.m_BuidingData.objectFSMPath) == false) {
+				// TEXT ASSET
+				var fsmTextAsset = Resources.Load<TextAsset> (this.m_BuidingData.objectFSMPath);
 				// FSM
 				this.m_FSMManager = new FSMManager ();
-				this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
+				this.m_FSMManager.LoadFSM (fsmTextAsset.text);
 				// STATE
-				this.m_FSMManager.RegisterState ("BuildingIdleState", new FSMBuildingIdleState (this));
-				this.m_FSMManager.RegisterState ("BuildingActionState", new FSMBuildingActionState (this));
-				this.m_FSMManager.RegisterState ("BuildingInactiveState", new FSMBuildingInactiveState (this));
+				this.m_FSMManager.RegisterState ("BuildingIdleState", 		new FSMBuildingIdleState (this));
+				this.m_FSMManager.RegisterState ("BuildingActionState", 	new FSMBuildingActionState (this));
+				this.m_FSMManager.RegisterState ("BuildingInactiveState", 	new FSMBuildingInactiveState (this));
 				// CONDITION
-				this.m_FSMManager.RegisterCondition ("HaveAction", this.HaveAction);
-				this.m_FSMManager.RegisterCondition ("IsActive", this.IsActive);
+				this.m_FSMManager.RegisterCondition ("IsConstructionCompleted", this.IsConstructionCompleted);
+				this.m_FSMManager.RegisterCondition ("HaveAction", 			this.HaveAction);
+				this.m_FSMManager.RegisterCondition ("IsActive", 			this.IsActive);
 			}
 			// NPC
 			this.m_NPCCtrls = new CNPCController[this.m_BuidingData.NPCDatas.Length];
@@ -121,6 +123,12 @@ namespace WarOfSlinger {
 			return false;
 		}
 
+		public virtual bool IsConstructionCompleted () {
+			if (this.m_BuidingData == null)
+				return false;
+			return this.m_BuidingData.percentConstruction >= 100f;
+		}
+
 		#endregion
 
         #region Getter && Setter
@@ -139,6 +147,11 @@ namespace WarOfSlinger {
             base.GetData();
             return this.m_BuidingData;
         }
+
+		public override CJobObjectData[] GetJobDatas ()
+		{
+			return this.m_BuidingData.objectJobs;
+		}
 
 		public override void SetPosition (Vector3 value)
 		{

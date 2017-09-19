@@ -2,6 +2,7 @@
 	"objectPosition": "(0,0,0)",
 	"objectName": "Dragon",
 	"objectModel": "Dinosaur/Prefabs/Dragon",
+	"objectFSMPath": "Dinosaur/FSM/FSMDinosaurGraph",
 	"objectDescription": "Dragon data.",
 	"objectType": "dinosaur",
 	"objectElements": [],

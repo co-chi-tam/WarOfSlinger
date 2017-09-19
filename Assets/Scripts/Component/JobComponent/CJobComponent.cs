@@ -83,6 +83,7 @@ namespace WarOfSlinger {
 			newJob.jobCountdownTimer = value.jobTimer;
 			newJob.jobType 			= value.jobType;
             newJob.jobOwner         = owner;
+			// EVENTS
 			newJob.OnJobCompleted 	= onCompleted;
 			newJob.OnJobProcessing 	= onProcessing;
 			newJob.OnJobFailed 		= onFailed;
@@ -190,7 +191,7 @@ namespace WarOfSlinger {
 					currentJob.OnJobCompleted (owner, currentJob);
 				}
 				Debug.Log (claimedGold + " / " + perResident);
-			}
+			};
         }
 
 		// CALL RANDOM NPC

@@ -2,6 +2,7 @@
 	"objectPosition": "(0,0,0)",
 	"objectName": "Tyrannosaurus",
 	"objectModel": "Dinosaur/Prefabs/Tyrannosaurus",
+	"objectFSMPath": "Dinosaur/FSM/FSMDinosaurGraph",
 	"objectDescription": "Tyrannosaurus data.",
 	"objectType": "dinosaur",
 	"objectElements": [],

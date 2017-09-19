@@ -12,7 +12,6 @@ namespace WarOfSlinger {
 		[SerializeField]    protected CDamageableObjectData m_ObjectData;
 
 		[Header("FSM")]
-		[SerializeField]	protected TextAsset m_FSMTextAsset;
 		[SerializeField]	protected string m_FSMStateName;
 
 		// FSMManager
@@ -30,10 +29,12 @@ namespace WarOfSlinger {
 					this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
 				}
 			}
-			if (this.m_FSMTextAsset != null) {
+			if (string.IsNullOrEmpty (this.m_ObjectData.objectFSMPath) == false) {
+				// TEXT ASSET
+				var fsmTextAsset = Resources.Load<TextAsset> (this.m_ObjectData.objectFSMPath);
 				// FSM
 				this.m_FSMManager = new FSMManager ();
-				this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
+				this.m_FSMManager.LoadFSM (fsmTextAsset.text);
 				// STATE
 				this.m_FSMManager.RegisterState ("ObjectIdleState", new FSMObjectIdleState (this));
 				this.m_FSMManager.RegisterState ("ObjectInactiveState", new FSMObjectInactiveState (this));
@@ -87,6 +88,11 @@ namespace WarOfSlinger {
 		public override CObjectData GetData() {
 			base.GetData();
 			return this.m_ObjectData;
+		}
+
+		public override CJobObjectData[] GetJobDatas ()
+		{
+			return this.m_ObjectData.objectJobs;
 		}
 
 		public override void SetPosition (Vector3 value)

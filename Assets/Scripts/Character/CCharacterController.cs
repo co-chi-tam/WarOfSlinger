@@ -12,7 +12,6 @@ namespace WarOfSlinger  {
         [SerializeField]    protected CCharacterData m_CharacterData;
 
 		[Header("FSM")]
-		[SerializeField]	protected TextAsset m_FSMTextAsset;
 		[SerializeField]	protected string m_FSMStateName;
 		[SerializeField]	protected Vector3 m_TargetPosition;
 		[SerializeField]	protected CObjectController m_TargetObject;
@@ -49,10 +48,12 @@ namespace WarOfSlinger  {
 					this.m_JobComponent.RegisterJobs (this, currentJob, null, null, null);
 				}
 			}
-			if (this.m_FSMTextAsset != null) {
+			if (string.IsNullOrEmpty (this.m_CharacterData.objectFSMPath) == false) {
+				// TEXT ASSET
+				var fsmTextAsset = Resources.Load<TextAsset> (this.m_CharacterData.objectFSMPath);
 				// FSM
 				this.m_FSMManager = new FSMManager ();
-				this.m_FSMManager.LoadFSM (this.m_FSMTextAsset.text);
+				this.m_FSMManager.LoadFSM (fsmTextAsset.text);
 				// STATE
 				this.m_FSMManager.RegisterState ("CharacterIdleState", new FSMCharacterIdleState (this));
 				this.m_FSMManager.RegisterState ("CharacterMoveState", new FSMCharacterMoveState (this));
@@ -104,7 +105,6 @@ namespace WarOfSlinger  {
 			this.SetAnimation ("IsHit");
 			var totalDamage = this.GetCurrentHealth () - damage;
 			this.SetCurrentHealth (totalDamage);
-			Debug.Log (target.name + " ==> " + damage); 
 		}
 
 		#endregion
@@ -142,6 +142,11 @@ namespace WarOfSlinger  {
 		{
 			base.GetData ();
 			return this.m_CharacterData as CCharacterData;
+		}
+
+		public override CJobObjectData[] GetJobDatas ()
+		{
+			return this.m_CharacterData.objectJobs;
 		}
 
 		public override bool GetActive ()

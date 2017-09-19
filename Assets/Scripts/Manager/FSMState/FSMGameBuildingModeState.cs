@@ -10,7 +10,6 @@ namespace WarOfSlinger {
 		protected CGameManager m_GameManager;
 		protected string[] m_ApplyObjectType;
 		protected CDragable2DComponent m_CurrentDraggedObject;
-		protected CObjectController m_CurrentSelectObject;
 
 		public FSMGameBuildingModeState (IContext context): base(context)
 		{
@@ -69,7 +68,6 @@ namespace WarOfSlinger {
 			var dragableComponent = detectedGo.GetComponent<CDragable2DComponent> ();
 			if (dragableComponent != null && this.m_CurrentDraggedObject == null) {
 				this.m_CurrentDraggedObject 			= dragableComponent;
-				this.m_CurrentSelectObject 				= dragableComponent.DragObject.GetComponent<CObjectController>();
 				this.m_GameManager.OnEventBeginTouch 	= dragableComponent.OnBeginDrag2D;
 				this.m_GameManager.OnEventTouched 		= dragableComponent.OnDrag2D;
 				this.m_GameManager.OnEventEndTouch 		= ResetTouch;
@@ -78,20 +76,26 @@ namespace WarOfSlinger {
 		}
 
 		protected virtual void ResetTouch(Vector2 position) {
-			if (this.m_CurrentSelectObject != null) {
-				this.m_GameManager.canChangeMode = this.m_CurrentSelectObject.IsObjectWorking;
-			} else {
-				this.m_GameManager.canChangeMode = true;
-			}
+			this.m_CurrentDraggedObject.OnEndDrag2D (position);
+			this.m_CurrentDraggedObject 			= null;
+
+//			var isAllObjectWorked = true;
+//			var villageObjects = this.m_GameManager.villageObjects;
+//			foreach (var item in villageObjects) {
+//				var listObjs = item.Value;
+//				if (Array.IndexOf (this.m_ApplyObjectType, item.Key) != -1) {
+//					for (int i = 0; i < listObjs.Count; i++) {
+//						isAllObjectWorked &= listObjs [i].IsObjectWorking;
+//						Debug.Log (listObjs [i].name + " // " + listObjs [i].IsObjectWorking);
+//					}
+//				}
+//			}
+//			this.m_GameManager.canChangeMode = isAllObjectWorked;
 
 			this.m_GameManager.OnEventBeginTouch 	= null;
 			this.m_GameManager.OnEventTouched 		= null;
 			this.m_GameManager.OnEventEndTouch 		= null;
 			this.m_GameManager.FollowObject (null);
-
-			this.m_CurrentDraggedObject.OnEndDrag2D (position);
-			this.m_CurrentDraggedObject 			= null;
-			this.m_CurrentSelectObject 				= null;
 		}
 
 	}

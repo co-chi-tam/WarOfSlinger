@@ -2,6 +2,7 @@
 	"objectPosition": "(0,0,0)",
 	"objectName": "Storage Building",
 	"objectModel": "Building/Prefabs/Storage 1",
+	"objectFSMPath": "Building/FSM/FSMBuildingGraph",
 	"objectDescription": "Storage house.",
 	"objectType": "building",
 	"objectElements": ["rock", "rock", "wood", "wood", "wood"],
@@ -10,6 +11,7 @@
 	"maxHealth": 100,
 	"currentResident": 0,
 	"maxResident": 0,
+	"percentConstruction": 100.0,
 	"NPCDatas": [],
 	"objectJobs": [
 		{

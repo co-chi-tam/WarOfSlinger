@@ -62,7 +62,7 @@ namespace WarOfSlinger {
 			get { return this.m_UIJobPoint.transform; }
 		}
 
-		protected bool m_IsObjectWorking = true;
+		[SerializeField]	protected bool m_IsObjectWorking = false;
 		public bool IsObjectWorking {
 			get { return this.m_IsObjectWorking; }
 			set { this.m_IsObjectWorking = value; }
@@ -234,6 +234,10 @@ namespace WarOfSlinger {
         public virtual CObjectData GetData() {
             return null;
         }
+
+		public virtual CJobObjectData[] GetJobDatas() {
+			return null;
+		}
 
 		public virtual void SetActive(bool value) {
 			this.m_Active = value;

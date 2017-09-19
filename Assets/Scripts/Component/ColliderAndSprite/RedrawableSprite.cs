@@ -75,7 +75,7 @@ public class RedrawableSprite : MonoBehaviour {
 	}
 
 	// CONVERT WORLD POINT TO TEXTURE COORDINATES
-	public virtual void Draw(float wX, float wY, int radius) {
+	public virtual void Draw(float wX, float wY, int radius, float alpha = 0f) {
 		var usedRect	= this.m_CurrentSprite.textureRect;
 		var extendRect 	= this.m_SpriteRenderer.bounds.extents;
 		var parentPosition = this.m_Root != null ? this.m_Root.position : Vector3.zero;
@@ -97,11 +97,11 @@ public class RedrawableSprite : MonoBehaviour {
         if (this.m_RedrawList.Contains (newPoint) == false) {
             this.m_RedrawList.Add(newPoint);
         }
-        this.TransparentCircle (this.m_ReTexture, (int)texturePointX, (int)texturePointY, radius);
+        this.DrawCircle (this.m_ReTexture, (int)texturePointX, (int)texturePointY, radius);
 	}
 
 	// SET ALPHA
-	public virtual void TransparentCircle(Texture2D tex, int cx, int cy, int rd)
+	public virtual void DrawCircle(Texture2D tex, int cx, int cy, int rd, float alpha = 0f)
     {
         var width = tex.width;
         var height = tex.height;
@@ -117,7 +117,7 @@ public class RedrawableSprite : MonoBehaviour {
                 var dist = Mathf.Sqrt(dx * dx + dy * dy);
                 if (dist < rd) {
                     var color = tex.GetPixel(x, y);
-                    color.a = 0;
+					color.a = alpha;
                     tex.SetPixel(x, y, color);
                 }
             }

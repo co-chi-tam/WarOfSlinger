@@ -2,6 +2,7 @@
 	"objectPosition": "(0,0,0)",
 	"objectName": "Residence Building",
 	"objectModel": "Building/Prefabs/Residence 1",
+	"objectFSMPath": "Building/FSM/FSMBuildingGraph",
 	"objectDescription": "Residence for rent.",
 	"objectType": "building",
 	"objectElements": ["rock", "rock", "wood", "wood"],
@@ -10,6 +11,7 @@
 	"maxHealth": 100,
 	"currentResident": 0,
 	"maxResident": 4,
+	"percentConstruction": 100.0,
 	"NPCDatas": [
 		{
 			"objectPosition": "(0,0,0)",

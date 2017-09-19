@@ -2,6 +2,7 @@
 	"objectPosition": "(6.6,0,0)",
 	"objectName": "Clyne",
 	"objectModel": "Character/Prefabs/Character 1",
+	"objectFSMPath": "Character/FSM/FSMCharacterGraph",
 	"objectAvatar": "CharacterAvatar",
 	"objectDescription": "Character data.",
 	"objectType": "character",

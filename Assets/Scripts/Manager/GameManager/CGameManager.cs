@@ -69,9 +69,9 @@ namespace WarOfSlinger {
 		protected override void Awake ()
 		{
 			base.Awake ();
-#if UNITY_EDITOR
-			PlayerPrefs.DeleteAll ();
-#endif
+//#if UNITY_EDITOR
+//			PlayerPrefs.DeleteAll ();
+//#endif
 			this.m_VillageObjects = new Dictionary<string, List<CObjectController>> ();
 			// FSM
 			this.RegisterFSM ();
@@ -171,8 +171,8 @@ namespace WarOfSlinger {
 			var parentRoot = detectedGo.transform.root;
 			var objController = parentRoot.GetComponent<CObjectController> ();
 			if (objController != null && objController.IsObjectWorking && objController.GetActive()) {
-				var objData = objController.GetData ();
-				if (objData != null) {
+				var objJobData = objController.GetJobDatas ();
+				if (objJobData != null) {
 					var uiPos = objController.uiJobPoint;
 					CUIGameManager.Instance.OpenJob (uiPos, (currentJob) => {
 						// EXCUTE
@@ -180,7 +180,7 @@ namespace WarOfSlinger {
 					}, (currentJob) => {
 						// CLEAR
 						objController.ClearJobOwner (currentJob.jobExcute);
-					}, objData.objectJobs);
+					}, objJobData);
 				}
 			}
 		}

@@ -2,6 +2,7 @@
 	"objectPosition": "(0,0,0)",
 	"objectName": "GrassHopper",
 	"objectModel": "Dinosaur/Prefabs/GrassHopper",
+	"objectFSMPath": "Dinosaur/FSM/FSMGrassHopperGraph",
 	"objectDescription": "GrassHopper data.",
 	"objectType": "respawn-object",
 	"objectElements": [],

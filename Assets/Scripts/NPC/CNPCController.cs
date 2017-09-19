@@ -51,6 +51,11 @@ namespace WarOfSlinger {
 			return this.m_ObjectData;
 		}
 
+		public override CJobObjectData[] GetJobDatas ()
+		{
+			return this.m_ObjectData.objectJobs;
+		}
+
 		public override string GetObjectType ()
 		{
 			return m_ObjectData.objectType;
